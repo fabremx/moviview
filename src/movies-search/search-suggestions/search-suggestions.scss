@@ -1,0 +1,34 @@
+.search-suggestion {
+  display: flex;
+  align-items: top;
+  border-top: 1px solid grey;
+  padding: 10px 20px;
+
+  &:hover {
+    background-color: #e5e5ff;
+    cursor: pointer;
+  }
+
+  &__img {
+    width: 55px;
+    height: 80px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+
+    .search-suggestion__title {
+      margin-left: 20px;
+      text-align: left;
+      font-size: 15px;
+      color: black;
+    }
+
+    .search-suggestion__release {
+      margin-left: 20px;
+      font-size: 12px;
+      color: grey;
+    }
+  }
+}
