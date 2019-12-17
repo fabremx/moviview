@@ -1,17 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.scss";
-import MoviesSearch from "./movies-search/movies-search";
+import Home from "./pages/home/home";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <MoviesSearch />
-      </header>
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;

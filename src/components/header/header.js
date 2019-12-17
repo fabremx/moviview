@@ -1,8 +1,8 @@
 import React from "react";
-import SearchSuggestions from "./search-suggestions/search-suggestions";
-import "./movies-search.scss";
+import SearchSuggestions from "../search-suggestions/search-suggestions";
+import "./header.scss";
 
-class MoviesSearch extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = { moviesList: [], searchValue: "" };
@@ -37,7 +37,7 @@ class MoviesSearch extends React.Component {
     ));
 
     return (
-      <div className="movie-search__autocomplete-suggestions">
+      <div className="search-suggestions-container">
         {autocompleteSuggestions}
       </div>
     );
@@ -45,7 +45,9 @@ class MoviesSearch extends React.Component {
 
   render() {
     return (
-      <div className="movie-search-container">
+      <div className="header">
+        <span className="header__title">Moviview</span>
+
         <input
           type="text"
           placeholder="Search a movie..."
@@ -59,4 +61,4 @@ class MoviesSearch extends React.Component {
   }
 }
 
-export default MoviesSearch;
+export default Header;

@@ -1,0 +1,14 @@
+.footer {
+  padding: 10px 0;
+
+  &__img-container {
+    width: 33%;
+    display: inline-block;
+    text-align: center;
+
+    img {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
