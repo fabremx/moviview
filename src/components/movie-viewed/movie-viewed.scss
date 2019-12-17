@@ -1,0 +1,39 @@
+@import "../../shared/style/variables.scss";
+
+.movie-viewed {
+  display: flex;
+  align-items: top;
+  width: 60%;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 10px 25px;
+  background-color: #1e2747;
+
+  img {
+    width: 65px;
+    height: 100px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    color: #4f6b95;
+    font-size: 12px;
+    margin-left: 20px;
+
+    &--title {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 5px 0 0 0;
+    }
+
+    &--bold {
+      font-weight: 800;
+      margin-left: 5px;
+    }
+  }
+}
