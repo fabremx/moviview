@@ -60,8 +60,14 @@ class Home extends React.Component {
     return (
       <div id="home-page">
         <Header onSearchMovie={this.setSearchSuggestions} />
+
         {this.getSearchSuggestionsDiv()}
-        <div id="content">{this.getMoviesViwed()}</div>
+
+        <div id="content">
+          <div className="content__title">Films vus</div>
+          {this.getMoviesViwed()}
+        </div>
+
         <Footer />
       </div>
     );

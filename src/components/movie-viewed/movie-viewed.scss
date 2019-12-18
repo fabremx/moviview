@@ -7,11 +7,12 @@
   min-height: 120px;
   margin: 0 15px 10px 15px;
   padding: 10px;
-  background-color: #1e2747;
+  background-color: $dark-theme-medium-blue;
 
   &__img {
     width: 80px;
     text-align: center;
+    margin: auto;
 
     img {
       width: 65px;
@@ -25,10 +26,10 @@
     padding-left: 10px;
 
     .movie-viewed__text {
-      width: 70%;
+      width: 50%;
       display: flex;
       flex-direction: column;
-      color: #4f6b95;
+      color: $dark-theme-medium-grey;
       font-size: 12px;
 
       &--title {
@@ -48,14 +49,34 @@
     }
 
     .movie-viewed__rating {
-      width: 30%;
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      margin: auto;
+      padding-left: 10px;
+      text-align: center;
+      color: white;
+
+      &--title {
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      img {
+        width: 70px;
+        margin: 0 auto;
+      }
+
+      &--comment {
+        font-size: 11px;
+        color: $dark-theme-medium-grey;
+      }
 
       .movie-viewed__edition {
-        margin-top: 67px;
+        margin-top: 7px;
         color: $dark-theme-orange;
         font-size: 11px;
         font-weight: 600;
-        text-align: right;
 
         &:hover {
           cursor: pointer;

@@ -17,7 +17,14 @@ body {
   #content {
     overflow: auto;
     margin-top: calc(#{$header-height} + 10px);
-    padding: 10px 0;
     margin-bottom: 45px;
+
+    .content__title {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 0 0 0 15px;
+      margin-bottom: 10px;
+    }
   }
 }
