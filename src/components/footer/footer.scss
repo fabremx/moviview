@@ -1,5 +1,12 @@
+@import "../../shared/style/variables.scss";
+
 .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
   padding: 10px 0;
+  background-color: $dark-theme-dark-blue;
 
   &__img-container {
     width: 33%;
@@ -9,6 +16,10 @@
     img {
       width: 25px;
       height: 25px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }

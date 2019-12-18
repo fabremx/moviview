@@ -3,8 +3,35 @@ import "./home.scss";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
 import MovieViewed from "../../components/movie-viewed/movie-viewed";
+import SearchSuggestions from "../../components/search-suggestions/search-suggestions";
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { searchSuggestions: [] };
+    this.setSearchSuggestions = this.setSearchSuggestions.bind(this);
+  }
+
+  setSearchSuggestions(moviesSuggestions) {
+    this.setState({ searchSuggestions: moviesSuggestions });
+  }
+
+  getSearchSuggestionsDiv() {
+    if (!this.state.searchSuggestions.length) {
+      return;
+    }
+
+    const autocompleteSuggestions = this.state.searchSuggestions.map(movie => (
+      <SearchSuggestions movie={movie} key={movie.imdbID} />
+    ));
+
+    return (
+      <div className="search-suggestions-container">
+        {autocompleteSuggestions}
+      </div>
+    );
+  }
+
   getMoviesViwed() {
     const MOVIE_1 =
       '{"Title":"Fight Club","Year":"1999","Rated":"R","Released":"15 Oct 1999","Runtime":"139 min","Genre":"Drama","Director":"David Fincher","Writer":"Chuck Palahniuk (novel), Jim Uhls (screenplay)","Actors":"Edward Norton, Brad Pitt, Meat Loaf, Zach Grenier","Plot":"An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.","Language":"English","Country":"USA, Germany","Awards":"Nominated for 1 Oscar. Another 10 wins & 34 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"8.8/10"},{"Source":"Rotten Tomatoes","Value":"79%"},{"Source":"Metacritic","Value":"66/100"}],"Metascore":"66","imdbRating":"8.8","imdbVotes":"1,729,708","imdbID":"tt0137523","Type":"movie","DVD":"06 Jun 2000","BoxOffice":"N/A","Production":"20th Century Fox","Website":"N/A","Response":"True"}';
@@ -22,7 +49,6 @@ class Home extends React.Component {
       JSON.parse(MOVIE_4)
     ];
 
-    console.log(MOCKED_MOVIES_VIWED);
     const moviesViewed = MOCKED_MOVIES_VIWED.map((movie, index) => (
       <MovieViewed movie={movie} key={index} />
     ));
@@ -33,8 +59,9 @@ class Home extends React.Component {
   render() {
     return (
       <div id="home-page">
-        <Header />
-        {this.getMoviesViwed()}
+        <Header onSearchMovie={this.setSearchSuggestions} />
+        {this.getSearchSuggestionsDiv()}
+        <div id="content">{this.getMoviesViwed()}</div>
         <Footer />
       </div>
     );

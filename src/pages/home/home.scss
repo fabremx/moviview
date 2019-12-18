@@ -1,5 +1,23 @@
 @import "../../shared/style/variables.scss";
 
+body {
+  background-color: $dark-theme-dark-blue;
+}
+
 #home-page {
   background-color: $dark-theme-dark-blue;
+
+  .search-suggestions-container {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    background-color: white;
+  }
+
+  #content {
+    overflow: auto;
+    margin-top: calc(#{$header-height} + 10px);
+    padding: 10px 0;
+    margin-bottom: 45px;
+  }
 }

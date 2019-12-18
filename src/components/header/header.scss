@@ -1,21 +1,42 @@
+@import "../../shared/style/variables.scss";
+
 .header {
-  padding: 10px 20px;
-  margin-bottom: 10px;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  width: calc(100% - 20px);
+  height: $header-height;
+  padding: 10px 20px 0 20px;
+  background-color: $dark-theme-dark-blue;
 
   &__title {
     display: block;
     width: 100%;
     color: white;
-    font-size: 17px;
+    font-size: 23px;
     margin-bottom: 10px;
   }
 
-  input {
-    height: 25px;
-    width: calc(100% - 50px);
-    margin-bottom: 3px;
-    padding: 7px 20px;
-    border: none;
+  &__input {
+    position: relative;
+
+    input {
+      height: 25px;
+      width: calc(100% - 70px);
+      margin-bottom: 3px;
+      padding: 7px 40px 7px 20px;
+      border: none;
+      box-shadow: 3px 3px 5px 5px rgba(10, 10, 10, 0.2);
+      border-radius: 2px;
+    }
+
+    img {
+      position: absolute;
+      top: 9px;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+    }
   }
 
   .search-suggestions-container {

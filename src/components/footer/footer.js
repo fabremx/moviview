@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.scss";
-import homeIcon from "../../shared/images/home.png";
+import homeIcon from "../../shared/images/home-selected.png";
 import eyeIcon from "../../shared/images/eye.png";
 import listIcon from "../../shared/images/list.png";
 

@@ -1,17 +1,16 @@
 import React from "react";
 import SearchSuggestions from "../search-suggestions/search-suggestions";
+import searchIcon from "../../shared/images/search-icon.png";
 import "./header.scss";
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { moviesList: [], searchValue: "" };
+    this.state = { moviesList: [] };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ searchValue: event.target.value });
-
     fetch("http://www.omdbapi.com/?apikey=ded9768&s=" + event.target.value)
       .then(res => res.json())
       .then(
@@ -20,6 +19,7 @@ class Header extends React.Component {
             response.Response === "True" ? response.Search : [];
 
           this.setState({ moviesList });
+          this.props.onSearchMovie(moviesList);
         },
         error => {
           console.log(error);
@@ -48,14 +48,15 @@ class Header extends React.Component {
       <div className="header">
         <span className="header__title">Moviview</span>
 
-        <input
-          type="text"
-          placeholder="Search a movie..."
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
-
-        {this.getSearchAutocompleteBlock()}
+        <div className="header__input">
+          <input
+            type="text"
+            placeholder="Search a movie..."
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+          <img src={searchIcon} alt="search icon" />
+        </div>
       </div>
     );
   }
