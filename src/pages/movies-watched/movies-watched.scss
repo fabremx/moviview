@@ -1,17 +1,21 @@
 @import "../../shared/style/variables.scss";
 
-body {
-  background-color: $dark-theme-dark-blue;
-}
-
 #movie-watched-page {
-  background-color: $dark-theme-dark-blue;
+  background: linear-gradient(
+    to right,
+    $dark-theme-background-gradient-start,
+    $dark-theme-background-gradient-end
+  );
 
   .search-suggestions-container {
     position: absolute;
     width: 100%;
     z-index: 2;
     background-color: white;
+
+    a {
+      text-decoration: none;
+    }
   }
 
   .movies-watched-container {

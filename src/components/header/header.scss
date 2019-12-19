@@ -7,7 +7,11 @@
   width: calc(100% - 20px);
   height: $header-height;
   padding: 10px 20px 0 20px;
-  background-color: $dark-theme-dark-blue;
+  background: linear-gradient(
+    to right,
+    $dark-theme-background-gradient-start,
+    $dark-theme-background-gradient-end
+  );
 
   &__title {
     display: block;

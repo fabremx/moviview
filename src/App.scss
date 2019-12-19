@@ -1,3 +1,13 @@
+@import "./shared/style/variables.scss";
+
+body {
+  background: linear-gradient(
+    to right,
+    $dark-theme-background-gradient-start,
+    $dark-theme-background-gradient-end
+  );
+}
+
 .App {
   text-align: center;
 }

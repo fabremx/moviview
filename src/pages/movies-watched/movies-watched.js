@@ -2,8 +2,10 @@ import React from "react";
 import "./movies-watched.scss";
 import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
-import MovieViewed from "../../components/movie-rating/movie-rating";
+import MovieRating from "../../components/movie-rating/movie-rating";
 import SearchSuggestions from "../../components/search-suggestions/search-suggestions";
+import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
+import { Link } from "react-router-dom";
 
 class MoviesWatchedPage extends React.Component {
   constructor(props) {
@@ -22,7 +24,9 @@ class MoviesWatchedPage extends React.Component {
     }
 
     const autocompleteSuggestions = this.state.searchSuggestions.map(movie => (
-      <SearchSuggestions movie={movie} key={movie.imdbID} />
+      <Link to={MOVIE_DETAILS_ROUTE + "/" + movie.imdbID}>
+        <SearchSuggestions movie={movie} key={movie.imdbID} />
+      </Link>
     ));
 
     return (
@@ -50,7 +54,7 @@ class MoviesWatchedPage extends React.Component {
     ];
 
     const moviesWatched = MOCKED_MOVIES_VIWED.map((movie, index) => (
-      <MovieViewed movie={movie} key={index} />
+      <MovieRating movie={movie} key={index} />
     ));
 
     return (
