@@ -4,7 +4,7 @@ body {
   background-color: $dark-theme-dark-blue;
 }
 
-#home-page {
+#movie-watched-page {
   background-color: $dark-theme-dark-blue;
 
   .search-suggestions-container {
@@ -14,12 +14,12 @@ body {
     background-color: white;
   }
 
-  #content {
+  .movies-watched-container {
     overflow: auto;
     margin-top: calc(#{$header-height} + 10px);
     margin-bottom: 45px;
 
-    .content__title {
+    &__title {
       color: white;
       font-size: 16px;
       font-weight: 600;

@@ -1,0 +1,7 @@
+@import "../../shared/style/variables.scss";
+
+.movies-to-watch {
+  overflow: auto;
+  margin-top: calc(#{$header-height} + 10px);
+  margin-bottom: 45px;
+}

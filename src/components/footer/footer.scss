@@ -5,21 +5,22 @@
   bottom: 0;
   width: 100%;
   z-index: 1;
-  padding: 10px 0;
   background-color: $dark-theme-dark-blue;
 
   &__img-container {
-    width: 33%;
+    width: 50%;
+    padding: 10px 0;
     display: inline-block;
     text-align: center;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $dark-theme-medium-blue;
+    }
 
     img {
       width: 25px;
       height: 25px;
-
-      &:hover {
-        cursor: pointer;
-      }
     }
   }
 }
