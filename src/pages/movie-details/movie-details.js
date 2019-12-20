@@ -1,9 +1,12 @@
 import React from "react";
 import "./movie-details.scss";
 import returnIcon from "../../shared/images/return-icon.png";
-import starIcon from "../../shared/images/star.png";
+import fullStarIcon from "../../shared/images/full-star-icon.png";
+import plusIcon from "../../shared/images/plus-icon.png";
+import rating0Icon from "../../shared/images/rating-0.png";
 import { Link } from "react-router-dom";
 import { HOME_ROUTE } from "../../shared/constants/routes";
+import Button from "../../components/button/button";
 
 class MovieDetailsPage extends React.Component {
   getMovieGenre(movieGenres) {
@@ -21,7 +24,9 @@ class MovieDetailsPage extends React.Component {
       <div id="movie-details-page">
         <div className="movie-details__header">
           <Link to={HOME_ROUTE}>
-            <img src={returnIcon} alt="return icon" />
+            <div>
+              <img src={returnIcon} alt="return icon" />
+            </div>
           </Link>
         </div>
 
@@ -31,10 +36,10 @@ class MovieDetailsPage extends React.Component {
           </div>
 
           <div className="movie-details__text">
-            <h2>{MOVIE.Title}</h2>
+            <div className="movie-details__text--title">{MOVIE.Title}</div>
 
             <div className="movie-details__text__IMDBRating">
-              <img src={starIcon} alt="star icon" />
+              <img src={fullStarIcon} alt="star icon" />
               <span className="movie-details__text--rating">
                 {MOVIE.imdbRating}
               </span>
@@ -66,11 +71,19 @@ class MovieDetailsPage extends React.Component {
           </div>
         </div>
 
-        <div className="movie-details__rating">Rate</div>
+        <div className="movie-details__rating">
+          <h2>Noter le film</h2>
+          <div>Sélectionner une note avant de valider.</div>
+          <img src={rating0Icon} alt="rating movie" />
+        </div>
 
         <div className="movie-details__synopsis">
           <h2>Résumé</h2>
           <p>{MOVIE.Plot}</p>
+        </div>
+
+        <div className="movie-details__button">
+          <Button src={plusIcon} label="AJOUTER A LA LISTE" />
         </div>
       </div>
     );

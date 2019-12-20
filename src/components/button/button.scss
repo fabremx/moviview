@@ -1,0 +1,29 @@
+@import "../../shared/style/variables.scss";
+
+.button {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  padding: 5px 20px;
+  border-radius: 3px;
+  background-color: $dark-theme-button;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  img {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+  }
+
+  &__label {
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+  }
+}
