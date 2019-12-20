@@ -2,15 +2,69 @@ import React from "react";
 import "./movie-details.scss";
 import returnIcon from "../../shared/images/return-icon.png";
 import fullStarIcon from "../../shared/images/full-star-icon.png";
+import emptyStarIcon from "../../shared/images/empty-star-icon.png";
 import plusIcon from "../../shared/images/plus-icon.png";
-import rating0Icon from "../../shared/images/rating-0.png";
+import validationIcon from "../../shared/images/validation-icon.png";
 import { Link } from "react-router-dom";
 import { HOME_ROUTE } from "../../shared/constants/routes";
-import Button from "../../components/button/button";
 
 class MovieDetailsPage extends React.Component {
+  constructor() {
+    super();
+    this.state = { ratingStars: [false, false, false, false, false] };
+    this.handleRatingMovie = this.handleRatingMovie.bind(this);
+  }
+
   getMovieGenre(movieGenres) {
     return movieGenres.map(genre => <div>{genre}</div>);
+  }
+
+  displayMovieRatingStars() {
+    return this.state.ratingStars.map((star, index) =>
+      star ? (
+        <img
+          className="star-rating__star-icon"
+          src={fullStarIcon}
+          alt="star icon"
+          onClick={() => this.handleRatingMovie(index)}
+        />
+      ) : (
+        <img
+          className="star-rating__star-icon"
+          src={emptyStarIcon}
+          alt="star icon"
+          onClick={() => this.handleRatingMovie(index)}
+        />
+      )
+    );
+  }
+
+  handleRatingMovie(starIndex) {
+    const starNumber = starIndex + 1;
+
+    const newRatingStars = [false, false, false, false, false];
+    newRatingStars.fill(true, 0, starNumber);
+
+    this.setState({
+      ratingStars: newRatingStars
+    });
+  }
+
+  doesUserRateMovie() {
+    return this.state.ratingStars.some(star => star);
+  }
+
+  displayRatingValidationButton() {
+    if (!this.doesUserRateMovie()) {
+      return;
+    }
+
+    return (
+      <div className="star-rating__button button">
+        <img src={validationIcon} alt="button icon" />
+        <span className="button__label">VALIDER</span>
+      </div>
+    );
   }
 
   render() {
@@ -43,7 +97,7 @@ class MovieDetailsPage extends React.Component {
               <span className="movie-details__text--rating">
                 {MOVIE.imdbRating}
               </span>
-              / 10
+              / 10 (Imdb)
             </div>
 
             <div className="movie-details__text__genre">
@@ -74,7 +128,11 @@ class MovieDetailsPage extends React.Component {
         <div className="movie-details__rating">
           <h2>Noter le film</h2>
           <div>Sélectionner une note avant de valider.</div>
-          <img src={rating0Icon} alt="rating movie" />
+
+          <div className="star-rating">
+            <div>{this.displayMovieRatingStars()}</div>
+            {this.displayRatingValidationButton()}
+          </div>
         </div>
 
         <div className="movie-details__synopsis">
@@ -82,8 +140,9 @@ class MovieDetailsPage extends React.Component {
           <p>{MOVIE.Plot}</p>
         </div>
 
-        <div className="movie-details__button">
-          <Button src={plusIcon} label="AJOUTER A LA LISTE" />
+        <div className="movie-details__button button">
+          <img src={plusIcon} alt="button icon" />
+          <span className="button__label">AJOUTER A LA LISTE</span>
         </div>
       </div>
     );

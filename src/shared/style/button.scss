@@ -1,13 +1,9 @@
-@import "../../shared/style/variables.scss";
+@import "./variables.scss";
 
 .button {
-  width: 50%;
-  margin: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 25px;
-  padding: 5px 20px;
   border-radius: 3px;
   background-color: $dark-theme-button;
 
