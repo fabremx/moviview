@@ -15,7 +15,7 @@ function App() {
     <div>
       <Route exact path={HOME_ROUTE} component={MoviesWatchedPage} />
       <Route path={MOVIES_TO_WATCH_ROUTE} component={MovieToWatchPage} />
-      <Route path={MOVIE_DETAILS_ROUTE} component={MovieDetailsPage} />
+      <Route path={MOVIE_DETAILS_ROUTE + "/:id"} component={MovieDetailsPage} />
     </div>
   );
 }

@@ -11,18 +11,42 @@ import { HOME_ROUTE } from "../../shared/constants/routes";
 class MovieDetailsPage extends React.Component {
   constructor() {
     super();
-    this.state = { ratingStars: [false, false, false, false, false] };
+
+    this.state = {
+      movie: null,
+      ratingStars: [false, false, false, false, false]
+    };
     this.handleRatingMovie = this.handleRatingMovie.bind(this);
   }
 
+  componentDidMount() {
+    this.getMovieDetails();
+  }
+
+  getMovieDetails() {
+    fetch(
+      "http://www.omdbapi.com/?apikey=ded9768&i=" + this.props.match.params.id
+    )
+      .then(res => res.json())
+      .then(
+        response => {
+          this.setState({ movie: response });
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
   getMovieGenre(movieGenres) {
-    return movieGenres.map(genre => <div>{genre}</div>);
+    return movieGenres.map(genre => <div key={genre}>{genre}</div>);
   }
 
   displayMovieRatingStars() {
     return this.state.ratingStars.map((star, index) =>
       star ? (
         <img
+          key={index}
           className="star-rating__star-icon"
           src={fullStarIcon}
           alt="star icon"
@@ -30,6 +54,7 @@ class MovieDetailsPage extends React.Component {
         />
       ) : (
         <img
+          key={index}
           className="star-rating__star-icon"
           src={emptyStarIcon}
           alt="star icon"
@@ -68,11 +93,11 @@ class MovieDetailsPage extends React.Component {
   }
 
   render() {
-    const MOVIE = JSON.parse(
-      '{"Title":"Raging Bull","Year":"1980","Rated":"R","Released":"19 Dec 1980","Runtime":"129 min","Genre":"Biography, Drama, Sport","Director":"Martin Scorsese","Writer":"Jake LaMotta (based on the book by), Joseph Carter (with), Peter Savage (with), Paul Schrader (screenplay), Mardik Martin (screenplay)","Actors":"Robert De Niro, Cathy Moriarty, Joe Pesci, Frank Vincent","Plot":"The life of boxer Jake LaMotta, whose violence and temper that led him to the top in the ring destroyed his life outside of it.","Language":"English","Country":"USA","Awards":"Won 2 Oscars. Another 22 wins & 26 nominations.","Poster":"https://m.media-amazon.com/images/M/MV5BYjRmODkzNDItMTNhNi00YjJlLTg0ZjAtODlhZTM0YzgzYThlXkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_SX300.jpg","Ratings":[{"Source":"Internet Movie Database","Value":"8.2/10"},{"Source":"Rotten Tomatoes","Value":"94%"},{"Source":"Metacritic","Value":"89/100"}],"Metascore":"89","imdbRating":"8.2","imdbVotes":"296,838","imdbID":"tt0081398","Type":"movie","DVD":"01 Aug 2000","BoxOffice":"N/A","Production":"United Artists","Website":"N/A","Response":"True"}'
-    );
+    if (!this.state.movie) {
+      return <p>Loading...</p>;
+    }
 
-    const movieGenres = MOVIE.Genre.split(",");
+    const movieGenres = this.state.movie.Genre.split(",");
 
     return (
       <div id="movie-details-page">
@@ -86,16 +111,18 @@ class MovieDetailsPage extends React.Component {
 
         <div className="movie-details__info">
           <div className="movie-details__img">
-            <img src={MOVIE.Poster} alt={MOVIE.Title} />
+            <img src={this.state.movie.Poster} alt={this.state.movie.Title} />
           </div>
 
           <div className="movie-details__text">
-            <div className="movie-details__text--title">{MOVIE.Title}</div>
+            <div className="movie-details__text--title">
+              {this.state.movie.Title}
+            </div>
 
             <div className="movie-details__text__IMDBRating">
               <img src={fullStarIcon} alt="star icon" />
               <span className="movie-details__text--rating">
-                {MOVIE.imdbRating}
+                {this.state.movie.imdbRating}
               </span>
               / 10 (Imdb)
             </div>
@@ -106,21 +133,29 @@ class MovieDetailsPage extends React.Component {
 
             <p>
               Année de sortie:
-              <span className="movie-details__text--bold">{MOVIE.Year}</span>
+              <span className="movie-details__text--bold">
+                {this.state.movie.Year}
+              </span>
               <br></br>
               De:
               <span className="movie-details__text--bold">
-                {MOVIE.Director}
+                {this.state.movie.Director}
               </span>
               <br></br>
               Avec:
-              <span className="movie-details__text--bold">{MOVIE.Actors}</span>
+              <span className="movie-details__text--bold">
+                {this.state.movie.Actors}
+              </span>
               <br></br>
               Pays:
-              <span className="movie-details__text--bold">{MOVIE.Country}</span>
+              <span className="movie-details__text--bold">
+                {this.state.movie.Country}
+              </span>
               <br></br>
               Durée:
-              <span className="movie-details__text--bold">{MOVIE.Runtime}</span>
+              <span className="movie-details__text--bold">
+                {this.state.movie.Runtime}
+              </span>
             </p>
           </div>
         </div>
@@ -137,7 +172,7 @@ class MovieDetailsPage extends React.Component {
 
         <div className="movie-details__synopsis">
           <h2>Résumé</h2>
-          <p>{MOVIE.Plot}</p>
+          <p>{this.state.movie.Plot}</p>
         </div>
 
         <div className="movie-details__button button">

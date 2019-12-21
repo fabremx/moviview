@@ -1,5 +1,4 @@
 import React from "react";
-import SearchSuggestions from "../search-suggestions/search-suggestions";
 import searchIcon from "../../shared/images/search-icon.png";
 import "./header.scss";
 
@@ -25,22 +24,6 @@ class Header extends React.Component {
           console.log(error);
         }
       );
-  }
-
-  getSearchAutocompleteBlock() {
-    if (!this.state.moviesList.length) {
-      return;
-    }
-
-    const autocompleteSuggestions = this.state.moviesList.map(movie => (
-      <SearchSuggestions movie={movie} key={movie.imdbID} />
-    ));
-
-    return (
-      <div className="search-suggestions-container">
-        {autocompleteSuggestions}
-      </div>
-    );
   }
 
   render() {
