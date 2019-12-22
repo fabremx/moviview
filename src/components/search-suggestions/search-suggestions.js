@@ -1,23 +1,44 @@
 import React from "react";
 import "./search-suggestions.scss";
+import { TMDB_URL_IMAGE } from "../../shared/api/urls";
 
 class SearchSuggestions extends React.Component {
+  displayOriginalTitle() {
+    if (
+      this.props.movie.original_title.toLowerCase() ===
+      this.props.movie.title.toLowerCase()
+    ) {
+      return;
+    }
+
+    return (
+      <span className="search-suggestion__title--original-title">
+        ({this.props.movie.original_title})
+      </span>
+    );
+  }
+
+  getYearOf(date) {
+    return date ? date.split("-")[0] : null;
+  }
+
   render() {
     return (
       <div className="search-suggestion">
-        <img
-          className="search-suggestion__img"
-          src={this.props.movie.Poster}
-          alt={this.props.movie.title}
-        />
+        <div className="search-suggestion__img">
+          <img
+            src={TMDB_URL_IMAGE + this.props.movie.poster_path}
+            alt={this.props.movie.title}
+          />
+        </div>
 
         <div className="search-suggestion__info">
           <span className="search-suggestion__title">
-            {this.props.movie.Title}
+            {this.props.movie.title} {this.displayOriginalTitle()}
           </span>
 
           <span className="search-suggestion__release">
-            Année de sortie: {this.props.movie.Year}
+            Année de sortie: {this.getYearOf(this.props.movie.release_date)}
           </span>
         </div>
       </div>

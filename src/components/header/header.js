@@ -1,6 +1,7 @@
 import React from "react";
 import searchIcon from "../../shared/images/search-icon.png";
 import "./header.scss";
+import { TMDB_URL_SEARCH } from "../../shared/api/urls";
 
 class Header extends React.Component {
   constructor(props) {
@@ -10,13 +11,12 @@ class Header extends React.Component {
   }
 
   handleChange(event) {
-    fetch("http://www.omdbapi.com/?apikey=ded9768&s=" + event.target.value)
+    fetch(TMDB_URL_SEARCH + "&query=" + event.target.value)
       .then(res => res.json())
       .then(
         response => {
           const moviesList =
-            response.Response === "True" ? response.Search : [];
-
+            response.results && response.results.length ? response.results : [];
           this.setState({ moviesList });
           this.props.onSearchMovie(moviesList);
         },
@@ -34,7 +34,7 @@ class Header extends React.Component {
         <div className="header__input">
           <input
             type="text"
-            placeholder="Search a movie..."
+            placeholder="Rechercher un film..."
             value={this.state.value}
             onChange={this.handleChange}
           />

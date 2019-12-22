@@ -1,35 +1,48 @@
+@import "../../shared/style/variables.scss";
+
 .search-suggestion {
   display: flex;
-  align-items: top;
-  border-top: 1px solid grey;
-  padding: 10px 20px;
-  background-color: white;
+  border-top: 1px solid $dark-theme-light-grey;
+  padding: 4px 20px 4px 20px;
+  min-height: 45px;
 
   &:hover {
-    background-color: #e5e5ff;
+    background-color: $dark-theme-blue-hover-background;
     cursor: pointer;
   }
 
   &__img {
-    width: 55px;
-    height: 80px;
+    width: 32px;
+    height: 40px;
+    margin: auto 0;
+
+    img {
+      width: 32px;
+      height: 40px;
+    }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
+    margin-left: 10px;
 
     .search-suggestion__title {
-      margin-left: 20px;
       text-align: left;
-      font-size: 15px;
-      color: black;
+      color: $dark-theme-dark-blue;
+      font-size: 14px;
+      font-weight: 500;
+
+      &--original-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: $dark-theme-medium-grey;
+      }
     }
 
     .search-suggestion__release {
-      margin-left: 20px;
       font-size: 12px;
-      color: grey;
+      color: $dark-theme-medium-grey;
     }
   }
 }

@@ -29,7 +29,7 @@ class MovieRating extends React.Component {
             <p>
               Année de sortie:
               <span className="movie-watched__text--bold">
-                {this.props.movie.Year}
+                {this.props.movie.release_date}
               </span>
               <br></br>
               De:

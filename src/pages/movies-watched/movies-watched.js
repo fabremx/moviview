@@ -24,8 +24,8 @@ class MoviesWatchedPage extends React.Component {
     }
 
     const autocompleteSuggestions = this.state.searchSuggestions.map(movie => (
-      <Link to={MOVIE_DETAILS_ROUTE + "/" + movie.imdbID} key={movie.imdbID}>
-        <SearchSuggestions movie={movie} key={movie.imdbID} />
+      <Link to={MOVIE_DETAILS_ROUTE + "/" + movie.id} key={movie.id}>
+        <SearchSuggestions movie={movie} key={movie.id} />
       </Link>
     ));
 

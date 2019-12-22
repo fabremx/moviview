@@ -7,6 +7,20 @@ import plusIcon from "../../shared/images/plus-icon.png";
 import validationIcon from "../../shared/images/validation-icon.png";
 import { Link } from "react-router-dom";
 import { HOME_ROUTE } from "../../shared/constants/routes";
+import {
+  RATING_1_COMMENT,
+  RATING_2_COMMENT,
+  RATING_3_COMMENT,
+  RATING_4_COMMENT,
+  RATING_5_COMMENT
+} from "../../shared/constants/rating-comments";
+import {
+  TMDB_URL_MOVIE_DETAILS,
+  TMDB_URL_IMAGE,
+  OMDB_URL
+} from "../../shared/api/urls";
+import { TMDB_KEY } from "../../shared/api/keys";
+import { Movie } from "../../shared/models/movie";
 
 class MovieDetailsPage extends React.Component {
   constructor() {
@@ -14,6 +28,7 @@ class MovieDetailsPage extends React.Component {
 
     this.state = {
       movie: null,
+      selectedStar: 0,
       ratingStars: [false, false, false, false, false]
     };
     this.handleRatingMovie = this.handleRatingMovie.bind(this);
@@ -24,22 +39,43 @@ class MovieDetailsPage extends React.Component {
   }
 
   getMovieDetails() {
-    fetch(
-      "http://www.omdbapi.com/?apikey=ded9768&i=" + this.props.match.params.id
-    )
-      .then(res => res.json())
-      .then(
-        response => {
-          this.setState({ movie: response });
-        },
-        error => {
-          console.log(error);
-        }
-      );
+    const urls = [
+      TMDB_URL_MOVIE_DETAILS +
+        this.props.match.params.id +
+        "?language=fr&api_key=" +
+        TMDB_KEY,
+      OMDB_URL + "?apikey=ded9768&i=tt7649320"
+    ];
+
+    Promise.all(urls.map(url => fetch(url).then(resp => resp.json()))).then(
+      response => {
+        const TMDB_RESPONSE = response[0];
+        const OMDB_RESPONSE = response[1];
+
+        const movie = new Movie(
+          TMDB_RESPONSE.id,
+          TMDB_RESPONSE.imdb_id,
+          TMDB_RESPONSE.title,
+          TMDB_RESPONSE.original_title,
+          OMDB_RESPONSE.imdbRating,
+          TMDB_RESPONSE.genres,
+          TMDB_RESPONSE.backdrop_path,
+          TMDB_RESPONSE.poster_path,
+          OMDB_RESPONSE.Year,
+          OMDB_RESPONSE.Director,
+          OMDB_RESPONSE.Actors,
+          OMDB_RESPONSE.Country,
+          TMDB_RESPONSE.runtime,
+          TMDB_RESPONSE.overview || OMDB_RESPONSE.Plot
+        );
+
+        this.setState({ movie: movie });
+      }
+    );
   }
 
   getMovieGenre(movieGenres) {
-    return movieGenres.map(genre => <div key={genre}>{genre}</div>);
+    return movieGenres.map(genre => <div key={genre.id}>{genre.name}</div>);
   }
 
   displayMovieRatingStars() {
@@ -47,7 +83,6 @@ class MovieDetailsPage extends React.Component {
       star ? (
         <img
           key={index}
-          className="star-rating__star-icon"
           src={fullStarIcon}
           alt="star icon"
           onClick={() => this.handleRatingMovie(index)}
@@ -55,7 +90,6 @@ class MovieDetailsPage extends React.Component {
       ) : (
         <img
           key={index}
-          className="star-rating__star-icon"
           src={emptyStarIcon}
           alt="star icon"
           onClick={() => this.handleRatingMovie(index)}
@@ -67,10 +101,20 @@ class MovieDetailsPage extends React.Component {
   handleRatingMovie(starIndex) {
     const starNumber = starIndex + 1;
 
+    if (this.state.selectedStar === starNumber) {
+      this.setState({
+        selectedStar: 0,
+        ratingStars: [false, false, false, false, false]
+      });
+
+      return;
+    }
+
     const newRatingStars = [false, false, false, false, false];
     newRatingStars.fill(true, 0, starNumber);
 
     this.setState({
+      selectedStar: starNumber,
       ratingStars: newRatingStars
     });
   }
@@ -85,11 +129,28 @@ class MovieDetailsPage extends React.Component {
     }
 
     return (
-      <div className="star-rating__button button">
+      <div className="button">
         <img src={validationIcon} alt="button icon" />
         <span className="button__label">VALIDER</span>
       </div>
     );
+  }
+
+  displayRatingComment() {
+    switch (this.state.selectedStar) {
+      case 1:
+        return <p className="star-rating__comment">"{RATING_1_COMMENT}"</p>;
+      case 2:
+        return <p className="star-rating__comment">"{RATING_2_COMMENT}"</p>;
+      case 3:
+        return <p className="star-rating__comment">"{RATING_3_COMMENT}"</p>;
+      case 4:
+        return <p className="star-rating__comment">"{RATING_4_COMMENT}"</p>;
+      case 5:
+        return <p className="star-rating__comment">"{RATING_5_COMMENT}"</p>;
+      default:
+        return;
+    }
   }
 
   render() {
@@ -97,10 +158,14 @@ class MovieDetailsPage extends React.Component {
       return <p>Loading...</p>;
     }
 
-    const movieGenres = this.state.movie.Genre.split(",");
-
     return (
       <div id="movie-details-page">
+        <img
+          className="movie-details__background"
+          src={TMDB_URL_IMAGE + this.state.movie.backgroundSrc}
+          alt={this.state.movie.title}
+        />
+
         <div className="movie-details__header">
           <Link to={HOME_ROUTE}>
             <div>
@@ -111,12 +176,15 @@ class MovieDetailsPage extends React.Component {
 
         <div className="movie-details__info">
           <div className="movie-details__img">
-            <img src={this.state.movie.Poster} alt={this.state.movie.Title} />
+            <img
+              src={TMDB_URL_IMAGE + this.state.movie.posterSrc}
+              alt={this.state.movie.title}
+            />
           </div>
 
           <div className="movie-details__text">
             <div className="movie-details__text--title">
-              {this.state.movie.Title}
+              {this.state.movie.title}
             </div>
 
             <div className="movie-details__text__IMDBRating">
@@ -128,33 +196,33 @@ class MovieDetailsPage extends React.Component {
             </div>
 
             <div className="movie-details__text__genre">
-              {this.getMovieGenre(movieGenres)}
+              {this.getMovieGenre(this.state.movie.genres)}
             </div>
 
             <p>
               Année de sortie:
               <span className="movie-details__text--bold">
-                {this.state.movie.Year}
+                {this.state.movie.releaseYear}
               </span>
               <br></br>
               De:
               <span className="movie-details__text--bold">
-                {this.state.movie.Director}
+                {this.state.movie.director}
               </span>
               <br></br>
               Avec:
               <span className="movie-details__text--bold">
-                {this.state.movie.Actors}
+                {this.state.movie.actors}
               </span>
               <br></br>
               Pays:
               <span className="movie-details__text--bold">
-                {this.state.movie.Country}
+                {this.state.movie.country}
               </span>
               <br></br>
               Durée:
               <span className="movie-details__text--bold">
-                {this.state.movie.Runtime}
+                {this.state.movie.runtime} min
               </span>
             </p>
           </div>
@@ -162,17 +230,22 @@ class MovieDetailsPage extends React.Component {
 
         <div className="movie-details__rating">
           <h2>Noter le film</h2>
-          <div>Sélectionner une note avant de valider.</div>
 
           <div className="star-rating">
-            <div>{this.displayMovieRatingStars()}</div>
-            {this.displayRatingValidationButton()}
+            <div className="star-rating__rating">
+              {this.displayMovieRatingStars()}
+              {this.displayRatingValidationButton()}
+            </div>
+
+            <div className="star-rating__comment">
+              {this.displayRatingComment()}
+            </div>
           </div>
         </div>
 
         <div className="movie-details__synopsis">
           <h2>Résumé</h2>
-          <p>{this.state.movie.Plot}</p>
+          <p>{this.state.movie.synopsis}</p>
         </div>
 
         <div className="movie-details__button button">
