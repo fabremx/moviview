@@ -38,40 +38,44 @@ class MovieDetailsPage extends React.Component {
     this.getMovieDetails();
   }
 
-  getMovieDetails() {
-    const urls = [
-      TMDB_URL_MOVIE_DETAILS +
-        this.props.match.params.id +
-        "?language=fr&api_key=" +
-        TMDB_KEY,
-      OMDB_URL + "?apikey=ded9768&i=tt7649320"
-    ];
-
-    Promise.all(urls.map(url => fetch(url).then(resp => resp.json()))).then(
-      response => {
-        const TMDB_RESPONSE = response[0];
-        const OMDB_RESPONSE = response[1];
-
-        const movie = new Movie(
-          TMDB_RESPONSE.id,
-          TMDB_RESPONSE.imdb_id,
-          TMDB_RESPONSE.title,
-          TMDB_RESPONSE.original_title,
-          OMDB_RESPONSE.imdbRating,
-          TMDB_RESPONSE.genres,
-          TMDB_RESPONSE.backdrop_path,
-          TMDB_RESPONSE.poster_path,
-          OMDB_RESPONSE.Year,
-          OMDB_RESPONSE.Director,
-          OMDB_RESPONSE.Actors,
-          OMDB_RESPONSE.Country,
-          TMDB_RESPONSE.runtime,
-          TMDB_RESPONSE.overview || OMDB_RESPONSE.Plot
-        );
-
-        this.setState({ movie: movie });
-      }
+  async getMovieDetailsFromTMDB(tmdb_id) {
+    const response = await fetch(
+      TMDB_URL_MOVIE_DETAILS + tmdb_id + "?language=fr&api_key=" + TMDB_KEY
     );
+
+    return response.json();
+  }
+
+  async getMovieDetailsFromOMDB(imdb_id) {
+    const response = await fetch(OMDB_URL + "?apikey=ded9768&i=" + imdb_id);
+
+    return response.json();
+  }
+
+  async getMovieDetails() {
+    const TMDB_movie = await this.getMovieDetailsFromTMDB(
+      this.props.match.params.id
+    );
+    const OMDB_movie = await this.getMovieDetailsFromOMDB(TMDB_movie.imdb_id);
+
+    const movie = new Movie(
+      TMDB_movie.id,
+      TMDB_movie.imdb_id,
+      TMDB_movie.title,
+      TMDB_movie.original_title,
+      OMDB_movie.imdbRating,
+      TMDB_movie.genres,
+      TMDB_movie.backdrop_path,
+      TMDB_movie.poster_path,
+      OMDB_movie.Year,
+      OMDB_movie.Director,
+      OMDB_movie.Actors,
+      OMDB_movie.Country,
+      TMDB_movie.runtime,
+      TMDB_movie.overview || OMDB_movie.Plot
+    );
+
+    this.setState({ movie: movie });
   }
 
   getMovieGenre(movieGenres) {
@@ -153,6 +157,14 @@ class MovieDetailsPage extends React.Component {
     }
   }
 
+  getMinutesToHours(totalMinutes) {
+    const totalHours = totalMinutes / 60;
+    const hours = Math.trunc(totalHours);
+    const minutes = Math.round((totalHours - Math.floor(totalHours)) * 60);
+
+    return hours + "h " + minutes + "min";
+  }
+
   render() {
     if (!this.state.movie) {
       return <p>Loading...</p>;
@@ -222,7 +234,7 @@ class MovieDetailsPage extends React.Component {
               <br></br>
               Durée:
               <span className="movie-details__text--bold">
-                {this.state.movie.runtime} min
+                {this.getMinutesToHours(this.state.movie.runtime)}
               </span>
             </p>
           </div>
