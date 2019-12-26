@@ -167,7 +167,7 @@ class MovieDetailsPage extends React.Component {
 
   render() {
     if (!this.state.movie) {
-      return <p>Loading...</p>;
+      return <p className="movie-details__loading">Loading...</p>;
     }
 
     return (
