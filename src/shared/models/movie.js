@@ -4,6 +4,7 @@ export class Movie {
   title;
   originalTitle;
   imdbRating;
+  userRating;
   genres;
   backgroundSrc;
   posterSrc;
@@ -35,6 +36,8 @@ export class Movie {
     this.title = title;
     this.originalTitle = originalTitle;
     this.imdbRating = imdbRating;
+    this.userRating = null;
+    this.synopsis = synopsis;
     this.genres = genres;
     this.backgroundSrc = backgroundSrc;
     this.posterSrc = posterSrc;

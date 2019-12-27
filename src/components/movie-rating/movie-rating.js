@@ -2,20 +2,22 @@ import React from "react";
 import editIcon from "../../shared/images/edit-icon.png";
 import closeIcon from "../../shared/images/close-icon.png";
 import rating5Icon from "../../shared/images/rating-3.png";
-import imageNotAvailable from "../../shared/images/not-available.png";
 import "./movie-rating.scss";
+import utils from "../../shared/utils";
+import { deleteWatchedMovieAction } from "../../actions/watched-movies-actions";
+import { connect } from "react-redux";
 
 class MovieRating extends React.Component {
-  getMoviePoster(imageSource) {
-    return imageSource === "N/A" ? imageNotAvailable : imageSource;
-  }
+  deleteWatchedMovie = () => {
+    this.props.deleteWatchedMovieAction(this.props.movie.imdbId);
+  };
 
   render() {
     return (
       <div className="movie-watched row">
         <div className="movie-watched__img">
           <img
-            src={this.getMoviePoster(this.props.movie.Poster)}
+            src={utils.getMoviePoster(this.props.movie.posterSrc)}
             alt={this.props.movie.title}
           />
         </div>
@@ -23,28 +25,28 @@ class MovieRating extends React.Component {
         <div className="movie-watched__info">
           <div className="movie-watched__text">
             <span className="movie-watched__text--title">
-              {this.props.movie.Title}
+              {this.props.movie.title}
             </span>
 
             <p>
               Année de sortie:
               <span className="movie-watched__text--bold">
-                {this.props.movie.release_date}
+                {this.props.movie.releaseYear}
               </span>
               <br></br>
               De:
               <span className="movie-watched__text--bold">
-                {this.props.movie.Director}
+                {this.props.movie.director}
               </span>
               <br></br>
               Genre:
               <span className="movie-watched__text--bold">
-                {this.props.movie.Genre}
+                {/* {this.props.movie.genres} */}
               </span>
               <br></br>
               Durée:
               <span className="movie-watched__text--bold">
-                {this.props.movie.Runtime}
+                {utils.getReadableRuntime(this.props.movie.runtime)}
               </span>
             </p>
           </div>
@@ -65,10 +67,20 @@ class MovieRating extends React.Component {
           className="movie-watched__close-img"
           src={closeIcon}
           alt="close icon"
+          onClick={this.deleteWatchedMovie}
         />
       </div>
     );
   }
 }
 
-export default MovieRating;
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  deleteWatchedMovieAction: movieToDeleteId =>
+    dispatch(deleteWatchedMovieAction(movieToDeleteId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieRating);

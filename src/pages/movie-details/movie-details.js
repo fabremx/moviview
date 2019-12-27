@@ -22,6 +22,11 @@ import {
 import { TMDB_KEY } from "../../shared/api/keys";
 import { Movie } from "../../shared/models/movie";
 
+import { connect } from "react-redux";
+import { addMovieToWatchAction } from "../../actions/movies-to-watch-actions";
+import { addWatchedMovieAction } from "../../actions/watched-movies-actions";
+import utils from "../../shared/utils";
+
 class MovieDetailsPage extends React.Component {
   constructor() {
     super();
@@ -31,7 +36,6 @@ class MovieDetailsPage extends React.Component {
       selectedStar: 0,
       ratingStars: [false, false, false, false, false]
     };
-    this.handleRatingMovie = this.handleRatingMovie.bind(this);
   }
 
   componentDidMount() {
@@ -102,7 +106,7 @@ class MovieDetailsPage extends React.Component {
     );
   }
 
-  handleRatingMovie(starIndex) {
+  handleRatingMovie = starIndex => {
     const starNumber = starIndex + 1;
 
     if (this.state.selectedStar === starNumber) {
@@ -121,7 +125,7 @@ class MovieDetailsPage extends React.Component {
       selectedStar: starNumber,
       ratingStars: newRatingStars
     });
-  }
+  };
 
   doesUserRateMovie() {
     return this.state.ratingStars.some(star => star);
@@ -133,7 +137,7 @@ class MovieDetailsPage extends React.Component {
     }
 
     return (
-      <div className="button">
+      <div className="button" onClick={this.submitMovieRating}>
         <img src={validationIcon} alt="button icon" />
         <span className="button__label">VALIDER</span>
       </div>
@@ -157,13 +161,16 @@ class MovieDetailsPage extends React.Component {
     }
   }
 
-  getMinutesToHours(totalMinutes) {
-    const totalHours = totalMinutes / 60;
-    const hours = Math.trunc(totalHours);
-    const minutes = Math.round((totalHours - Math.floor(totalHours)) * 60);
+  addMovieToWatchList = () => {
+    this.props.addMovieToWatchAction(this.state.movie);
+  };
 
-    return hours + "h " + minutes + "min";
-  }
+  submitMovieRating = () => {
+    this.props.addWatchedMovieAction({
+      movie: this.state.movie,
+      rating: this.state.selectedStar
+    });
+  };
 
   render() {
     if (!this.state.movie) {
@@ -234,7 +241,7 @@ class MovieDetailsPage extends React.Component {
               <br></br>
               Durée:
               <span className="movie-details__text--bold">
-                {this.getMinutesToHours(this.state.movie.runtime)}
+                {utils.getReadableRuntime(this.state.movie.runtime)}
               </span>
             </p>
           </div>
@@ -260,7 +267,10 @@ class MovieDetailsPage extends React.Component {
           <p>{this.state.movie.synopsis}</p>
         </div>
 
-        <div className="movie-details__button button">
+        <div
+          className="movie-details__button button"
+          onClick={this.addMovieToWatchList}
+        >
           <img src={plusIcon} alt="button icon" />
           <span className="button__label">AJOUTER A LA LISTE</span>
         </div>
@@ -269,4 +279,15 @@ class MovieDetailsPage extends React.Component {
   }
 }
 
-export default MovieDetailsPage;
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  addMovieToWatchAction: movieToAdd =>
+    dispatch(addMovieToWatchAction(movieToAdd)),
+  addWatchedMovieAction: movieToAdd =>
+    dispatch(addWatchedMovieAction(movieToAdd))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);
