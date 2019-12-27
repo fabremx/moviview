@@ -35,6 +35,17 @@ export default (state = {}, action) => {
         watchedMovies: watchedMovies,
         moviesToWatch: [...state.moviesToWatch]
       };
+    case "SET_ON_GOING_ACTION":
+      return {
+        watchedMovies: [...state.watchedMovies],
+        moviesToWatch: [...state.moviesToWatch],
+        onGoingAction: action.payload
+      };
+    case "RESET_ON_GOING_ACTION":
+      return {
+        watchedMovies: [...state.watchedMovies],
+        moviesToWatch: [...state.moviesToWatch]
+      };
     default:
       return state;
   }

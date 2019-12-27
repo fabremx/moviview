@@ -6,8 +6,9 @@ import SearchSuggestions from "../../components/search-suggestions/search-sugges
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addMovieToWatchAction } from "../../actions/movies-to-watch-actions";
+import { deleteMovieToWatchAction } from "../../actions/movies-to-watch-actions";
 import MovieSuggestion from "../../components/movie-suggestion/movie-suggestion";
+import ModalDelete from "../../components/modal-delete/modal-delete";
 
 class MoviesToWatchPage extends React.Component {
   constructor(props) {
@@ -40,7 +41,11 @@ class MoviesToWatchPage extends React.Component {
 
   getMoviesToWatch() {
     const moviesToWatch = this.props.moviesToWatch.map((movie, index) => (
-      <MovieSuggestion movie={movie} key={index} />
+      <MovieSuggestion
+        movie={movie}
+        key={index}
+        onToggleDeleteModal={this.toggleDeleteModal}
+      />
     ));
 
     return (
@@ -51,6 +56,10 @@ class MoviesToWatchPage extends React.Component {
     );
   }
 
+  toggleDeleteModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
+
   render() {
     return (
       <div id="movie-watched-page">
@@ -58,6 +67,11 @@ class MoviesToWatchPage extends React.Component {
 
         {this.getSearchSuggestionsDiv()}
         {this.getMoviesToWatch()}
+
+        <ModalDelete
+          show={this.state.isModalOpen}
+          onCloseModal={this.toggleDeleteModal}
+        />
 
         <Footer />
       </div>
@@ -70,7 +84,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addMovieToWatchAction: () => dispatch(addMovieToWatchAction())
+  deleteMovieToWatchAction: () => dispatch(deleteMovieToWatchAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesToWatchPage);

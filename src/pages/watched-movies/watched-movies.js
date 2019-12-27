@@ -7,19 +7,19 @@ import SearchSuggestions from "../../components/search-suggestions/search-sugges
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { addMovieToWatchAction } from "../../actions/movies-to-watch-actions";
+import { deleteWatchedMovieAction } from "../../actions/watched-movies-actions";
+import ModalDelete from "../../components/modal-delete/modal-delete";
 
 class WatchedMoviesPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { searchSuggestions: [] };
-    this.setSearchSuggestions = this.setSearchSuggestions.bind(this);
+    this.state = { searchSuggestions: [], isModalOpen: false };
   }
 
-  setSearchSuggestions(moviesSuggestions) {
+  setSearchSuggestions = moviesSuggestions => {
     this.setState({ searchSuggestions: moviesSuggestions });
-  }
+  };
 
   getSearchSuggestionsDiv() {
     if (!this.state.searchSuggestions.length) {
@@ -41,7 +41,11 @@ class WatchedMoviesPage extends React.Component {
 
   getWatchedMovies() {
     const watchedMovies = this.props.watchedMovies.map((movie, index) => (
-      <MovieRating movie={movie} key={index} />
+      <MovieRating
+        movie={movie}
+        key={index}
+        onToggleDeleteModal={this.toggleDeleteModal}
+      />
     ));
 
     return (
@@ -52,6 +56,10 @@ class WatchedMoviesPage extends React.Component {
     );
   }
 
+  toggleDeleteModal = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
+
   render() {
     return (
       <div id="movie-watched-page">
@@ -59,6 +67,11 @@ class WatchedMoviesPage extends React.Component {
 
         {this.getSearchSuggestionsDiv()}
         {this.getWatchedMovies()}
+
+        <ModalDelete
+          show={this.state.isModalOpen}
+          onCloseModal={this.toggleDeleteModal}
+        />
 
         <Footer />
       </div>
@@ -71,7 +84,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addMovieToWatchAction: () => dispatch(addMovieToWatchAction())
+  deleteWatchedMovieAction: () => dispatch(deleteWatchedMovieAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WatchedMoviesPage);

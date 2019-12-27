@@ -7,10 +7,18 @@ import "./movie-rating.scss";
 import utils from "../../shared/utils";
 import { deleteWatchedMovieAction } from "../../actions/watched-movies-actions";
 import { connect } from "react-redux";
+import { setOnGoingAction } from "../../actions/on-going-action-actions";
 
 class MovieRating extends React.Component {
   deleteWatchedMovie = () => {
-    this.props.deleteWatchedMovieAction(this.props.movie.imdbId);
+    this.props.setOnGoingAction({
+      type: "DELETE",
+      list: "watched-movies",
+      movieId: this.props.movie.imdbId,
+      reducer: this.props.deleteWatchedMovieAction
+    });
+
+    this.props.onToggleDeleteModal();
   };
 
   displayMovieRatingStars(userRating) {
@@ -85,7 +93,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteWatchedMovieAction: movieToDeleteId =>
-    dispatch(deleteWatchedMovieAction(movieToDeleteId))
+    dispatch(deleteWatchedMovieAction(movieToDeleteId)),
+  setOnGoingAction: onGoingActionInfo =>
+    dispatch(setOnGoingAction(onGoingActionInfo))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieRating);

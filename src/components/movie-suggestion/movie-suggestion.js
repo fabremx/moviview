@@ -5,6 +5,7 @@ import utils from "../../shared/utils";
 import fullStarIcon from "../../shared/images/full-star-icon.png";
 import { deleteMovieToWatchAction } from "../../actions/movies-to-watch-actions";
 import { connect } from "react-redux";
+import { setOnGoingAction } from "../../actions/on-going-action-actions";
 
 class MovieSuggestion extends React.Component {
   getMovieGenre(movieGenres) {
@@ -12,7 +13,14 @@ class MovieSuggestion extends React.Component {
   }
 
   deleteMovieToWatch = () => {
-    this.props.deleteMovieToWatchAction(this.props.movie.imdbId);
+    this.props.setOnGoingAction({
+      type: "DELETE",
+      list: "movies-to-watch",
+      movieId: this.props.movie.imdbId,
+      reducer: this.props.deleteMovieToWatchAction
+    });
+
+    this.props.onToggleDeleteModal();
   };
 
   render() {
@@ -85,7 +93,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   deleteMovieToWatchAction: movieToDeleteId =>
-    dispatch(deleteMovieToWatchAction(movieToDeleteId))
+    dispatch(deleteMovieToWatchAction(movieToDeleteId)),
+  setOnGoingAction: onGoingActionInfo =>
+    dispatch(setOnGoingAction(onGoingActionInfo))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSuggestion);
