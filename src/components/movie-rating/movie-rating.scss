@@ -3,7 +3,6 @@
 .movie-watched {
   position: relative;
   display: flex;
-  align-items: top;
   min-height: 120px;
   margin: 0 15px 10px 15px;
   padding: 10px;
@@ -15,78 +14,60 @@
     margin: auto;
 
     img {
-      width: 65px;
-      height: 100px;
+      width: 75px;
+      height: 115px;
     }
   }
 
   &__info {
     display: flex;
+    justify-content: center;
+    flex-direction: column;
     width: calc(100% - 90px);
     padding-left: 10px;
 
-    .movie-watched__text {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      color: $dark-theme-medium-grey;
-      font-size: 12px;
+    .details-header {
+      width: calc(100% - 30px);
+      margin-bottom: 10px;
 
-      &--title {
+      &__title {
         color: white;
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
       }
 
-      p {
-        margin: 5px 0 0 0;
-      }
-
-      &--bold {
+      &__title--year {
+        color: $dark-theme-medium-grey;
+        font-size: 12px;
         font-weight: 600;
         margin-left: 5px;
-        color: $dark-theme-light-grey;
+      }
+
+      &__director {
+        color: $dark-theme-medium-grey;
+        font-size: 11px;
+        font-weight: 600;
       }
     }
 
     .movie-watched__rating {
       display: flex;
       flex-direction: column;
-      width: 50%;
       margin: auto;
-      padding-left: 10px;
+      margin-top: 5px;
       text-align: center;
       color: white;
 
-      &--title {
-        font-size: 13px;
-        font-weight: 500;
-      }
-
       img {
-        width: 70px;
-        margin: 0 auto;
+        width: 140px;
+        margin: 0 auto 4px auto;
       }
 
       &--comment {
-        font-size: 11px;
         color: $dark-theme-light-grey;
-      }
-
-      .movie-watched__edition {
-        margin-top: 7px;
-        color: $dark-theme-link;
         font-size: 11px;
-        font-weight: 600;
-
-        &:hover {
-          cursor: pointer;
-        }
-
-        img {
-          width: 12px;
-          height: 12px;
-        }
+        font-weight: 500;
+        font-style: italic;
       }
     }
   }
@@ -100,6 +81,35 @@
 
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  &__edition {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 37px;
+    height: 37px;
+    text-align: center;
+    color: #c45e36;
+    font-size: 11px;
+    font-weight: 600;
+    background-color: #c45e36;
+    border-radius: 50px 0 0 0;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    justify-content: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      margin-left: 11px;
+      margin-top: 5px;
     }
   }
 }

@@ -26,7 +26,7 @@ const INITIAL_STATE = {
     JSON.parse(MOVIE_3),
     JSON.parse(MOVIE_4)
   ],
-  moviesToWatch: []
+  moviesToWatch: [JSON.parse(MOVIE_4)]
 };
 
 ReactDOM.render(

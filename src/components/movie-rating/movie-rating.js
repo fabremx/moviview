@@ -23,43 +23,26 @@ class MovieRating extends React.Component {
         </div>
 
         <div className="movie-watched__info">
-          <div className="movie-watched__text">
-            <span className="movie-watched__text--title">
+          <div className="details-header">
+            <div className="details-header__title">
               {this.props.movie.title}
-            </span>
 
-            <p>
-              Année de sortie:
-              <span className="movie-watched__text--bold">
-                {this.props.movie.releaseYear}
+              <span className="details-header__title--year">
+                ({this.props.movie.releaseYear})
               </span>
-              <br></br>
-              De:
-              <span className="movie-watched__text--bold">
-                {this.props.movie.director}
-              </span>
-              <br></br>
-              Genre:
-              <span className="movie-watched__text--bold">
-                {/* {this.props.movie.genres} */}
-              </span>
-              <br></br>
-              Durée:
-              <span className="movie-watched__text--bold">
-                {utils.getReadableRuntime(this.props.movie.runtime)}
-              </span>
-            </p>
+            </div>
+
+            <div className="details-header__director">
+              De {this.props.movie.director}
+            </div>
           </div>
 
           <div className="movie-watched__rating">
-            <span className="movie-watched__rating--title">Note:</span>
             <img src={rating5Icon} alt="perfect icon" />
+
             <span className="movie-watched__rating--comment">
               Bof, je me suis ennuyé..
             </span>
-            <div className="movie-watched__edition">
-              <img src={editIcon} alt="edit icon" /> Editer la note
-            </div>
           </div>
         </div>
 
@@ -69,6 +52,10 @@ class MovieRating extends React.Component {
           alt="close icon"
           onClick={this.deleteWatchedMovie}
         />
+
+        <div className="movie-watched__edition">
+          <img src={editIcon} alt="edit icon" />
+        </div>
       </div>
     );
   }

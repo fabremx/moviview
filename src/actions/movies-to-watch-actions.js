@@ -4,3 +4,10 @@ export const addMovieToWatchAction = movieToAdd => dispatch => {
     payload: movieToAdd
   });
 };
+
+export const deleteMovieToWatchAction = movieToDeleteId => dispatch => {
+  dispatch({
+    type: "DELETE_MOVIE_TO_WATCH",
+    payload: movieToDeleteId
+  });
+};
