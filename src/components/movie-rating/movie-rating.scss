@@ -53,17 +53,25 @@
     .movie-watched__rating {
       display: flex;
       flex-direction: column;
+      width: calc(100% - 65px);
       margin: auto;
-      margin-top: 5px;
+      margin-top: 0px;
       text-align: center;
       color: white;
 
-      img {
-        width: 140px;
-        margin: 0 auto 4px auto;
+      .movie-watched__stars {
+        display: flex;
+        margin: auto;
+
+        img {
+          width: 27px;
+          height: 25px;
+          padding-right: 5px;
+        }
       }
 
       &--comment {
+        margin-top: 6px;
         color: $dark-theme-light-grey;
         font-size: 11px;
         font-weight: 500;

@@ -26,7 +26,7 @@
     padding-left: 10px;
 
     .movie-suggestion__text {
-      width: 50%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       color: $dark-theme-medium-grey;
@@ -38,14 +38,45 @@
         font-weight: 600;
       }
 
-      p {
-        margin: 5px 0 0 0;
-      }
-
       &--bold {
         font-weight: 600;
         margin-left: 5px;
         color: $dark-theme-light-grey;
+      }
+
+      &--rating {
+        font-weight: 600;
+        margin-left: 5px;
+        color: $dark-theme-yellow;
+      }
+
+      .movie-suggestion__genres {
+        margin-top: 5px;
+        margin-bottom: 7px;
+
+        div {
+          display: inline-block;
+          height: 13px;
+          margin-bottom: 2px;
+          margin-right: 7px;
+          padding: 3px 7px;
+          border-radius: 5px;
+          background-color: #313444;
+          color: #c3c4c9;
+          text-align: center;
+          font-size: 10px;
+          font-weight: 600;
+        }
+      }
+
+      .movie-suggestion__details {
+        margin: 0;
+
+        &--star-img {
+          width: 13px;
+          height: 13px;
+          margin-left: 4px;
+        }
       }
     }
 

@@ -1,7 +1,8 @@
 import React from "react";
 import editIcon from "../../shared/images/edit-icon.png";
 import closeIcon from "../../shared/images/close-icon.png";
-import rating5Icon from "../../shared/images/rating-3.png";
+import fullStarIcon from "../../shared/images/full-star-icon.png";
+import emptyStarIcon from "../../shared/images/empty-star-icon.png";
 import "./movie-rating.scss";
 import utils from "../../shared/utils";
 import { deleteWatchedMovieAction } from "../../actions/watched-movies-actions";
@@ -11,6 +12,21 @@ class MovieRating extends React.Component {
   deleteWatchedMovie = () => {
     this.props.deleteWatchedMovieAction(this.props.movie.imdbId);
   };
+
+  displayMovieRatingStars(userRating) {
+    const fullStarArray = Array(userRating)
+      .fill(null)
+      .map((_, i) => (
+        <img src={fullStarIcon} alt="star icon" key={"full-star-" + i} />
+      ));
+    const emptyStarArray = Array(5 - userRating)
+      .fill(null)
+      .map((_, i) => (
+        <img src={emptyStarIcon} alt="star icon" key={"empty-star-" + i} />
+      ));
+
+    return [...fullStarArray, ...emptyStarArray];
+  }
 
   render() {
     return (
@@ -38,10 +54,12 @@ class MovieRating extends React.Component {
           </div>
 
           <div className="movie-watched__rating">
-            <img src={rating5Icon} alt="perfect icon" />
+            <div className="movie-watched__stars">
+              {this.displayMovieRatingStars(this.props.movie.userRating)}
+            </div>
 
             <span className="movie-watched__rating--comment">
-              Bof, je me suis ennuyé..
+              {utils.displayRatingComment(this.props.movie.userRating)}
             </span>
           </div>
         </div>

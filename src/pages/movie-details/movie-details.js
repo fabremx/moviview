@@ -8,13 +8,6 @@ import validationIcon from "../../shared/images/validation-icon.png";
 import { Link } from "react-router-dom";
 import { HOME_ROUTE } from "../../shared/constants/routes";
 import {
-  RATING_1_COMMENT,
-  RATING_2_COMMENT,
-  RATING_3_COMMENT,
-  RATING_4_COMMENT,
-  RATING_5_COMMENT
-} from "../../shared/constants/rating-comments";
-import {
   TMDB_URL_MOVIE_DETAILS,
   TMDB_URL_IMAGE,
   OMDB_URL
@@ -144,23 +137,6 @@ class MovieDetailsPage extends React.Component {
     );
   }
 
-  displayRatingComment() {
-    switch (this.state.selectedStar) {
-      case 1:
-        return <p className="star-rating__comment">"{RATING_1_COMMENT}"</p>;
-      case 2:
-        return <p className="star-rating__comment">"{RATING_2_COMMENT}"</p>;
-      case 3:
-        return <p className="star-rating__comment">"{RATING_3_COMMENT}"</p>;
-      case 4:
-        return <p className="star-rating__comment">"{RATING_4_COMMENT}"</p>;
-      case 5:
-        return <p className="star-rating__comment">"{RATING_5_COMMENT}"</p>;
-      default:
-        return;
-    }
-  }
-
   addMovieToWatchList = () => {
     this.props.addMovieToWatchAction(this.state.movie);
   };
@@ -257,7 +233,7 @@ class MovieDetailsPage extends React.Component {
             </div>
 
             <div className="star-rating__comment">
-              {this.displayRatingComment()}
+              <p>{utils.displayRatingComment(this.state.selectedStar)}</p>
             </div>
           </div>
         </div>
