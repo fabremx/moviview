@@ -1,4 +1,6 @@
 export default (state = {}, action) => {
+  let movie, rating;
+
   switch (action.type) {
     case "ADD_MOVIE_TO_WATCH":
       state.moviesToWatch.unshift(action.payload);
@@ -17,9 +19,10 @@ export default (state = {}, action) => {
         moviesToWatch: moviesToWatch
       };
     case "ADD_WATCHED_MOVIE":
-      const { movie, rating } = action.payload;
-      movie.userRating = rating;
+      movie = action.payload.movie;
+      rating = action.payload.rating;
 
+      movie.userRating = rating;
       state.watchedMovies.unshift(movie);
 
       return {
@@ -33,6 +36,17 @@ export default (state = {}, action) => {
 
       return {
         watchedMovies: watchedMovies,
+        moviesToWatch: [...state.moviesToWatch]
+      };
+    case "CHANGE_WATCHED_MOVIE_RATING":
+      movie = action.payload.movie;
+      rating = action.payload.rating;
+
+      const index = state.watchedMovies.indexOf(movie);
+      state.watchedMovies[index].userRating = rating;
+
+      return {
+        watchedMovies: [...state.watchedMovies],
         moviesToWatch: [...state.moviesToWatch]
       };
     case "SET_ON_GOING_ACTION":

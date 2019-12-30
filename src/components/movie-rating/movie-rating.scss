@@ -1,5 +1,9 @@
 @import "../../shared/style/variables.scss";
 
+a {
+  text-decoration: none;
+}
+
 .movie-watched {
   position: relative;
   display: flex;
@@ -55,7 +59,7 @@
       flex-direction: column;
       width: calc(100% - 65px);
       margin: auto;
-      margin-top: 0px;
+      margin-top: 5px;
       text-align: center;
       color: white;
 
@@ -89,35 +93,6 @@
 
     &:hover {
       cursor: pointer;
-    }
-  }
-
-  &__edition {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 37px;
-    height: 37px;
-    text-align: center;
-    color: #c45e36;
-    font-size: 11px;
-    font-weight: 600;
-    background-color: #c45e36;
-    border-radius: 50px 0 0 0;
-    display: flex;
-    align-items: center;
-    margin: auto;
-    justify-content: center;
-
-    &:hover {
-      cursor: pointer;
-    }
-
-    img {
-      width: 16px;
-      height: 16px;
-      margin-left: 11px;
-      margin-top: 5px;
     }
   }
 }

@@ -12,6 +12,10 @@
   padding: 20px;
   z-index: 1;
 
+  a {
+    text-decoration: none;
+  }
+
   .movie-details__background {
     position: absolute;
     -webkit-mask-image: -webkit-gradient(

@@ -17,22 +17,36 @@ import { Movie } from "../../shared/models/movie";
 
 import { connect } from "react-redux";
 import { addMovieToWatchAction } from "../../actions/movies-to-watch-actions";
-import { addWatchedMovieAction } from "../../actions/watched-movies-actions";
+import {
+  addWatchedMovieAction,
+  changeMovieRatingAction
+} from "../../actions/watched-movies-actions";
 import utils from "../../shared/utils";
+import { MAX_USER_RATING } from "../../shared/constants/variables";
 
 class MovieDetailsPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       movie: null,
       selectedStar: 0,
-      ratingStars: [false, false, false, false, false]
+      hasUserRated: false,
+      watchedMovie: false
     };
   }
 
   componentDidMount() {
-    this.getMovieDetails();
+    if (!this.props.history.location.movie) {
+      this.getMovieDetails();
+      return;
+    }
+
+    this.setState({
+      movie: this.props.history.location.movie,
+      selectedStar: this.props.history.location.movie.userRating,
+      watchedMovie: true
+    });
   }
 
   async getMovieDetailsFromTMDB(tmdb_id) {
@@ -80,60 +94,47 @@ class MovieDetailsPage extends React.Component {
   }
 
   displayMovieRatingStars() {
-    return this.state.ratingStars.map((star, index) =>
-      star ? (
+    const fullStarArray = Array(this.state.selectedStar)
+      .fill(null)
+      .map((_, index) => (
         <img
-          key={index}
           src={fullStarIcon}
           alt="star icon"
-          onClick={() => this.handleRatingMovie(index)}
+          key={"full-star-" + index}
+          onClick={() => this.setUserRating(index)}
         />
-      ) : (
+      ));
+
+    const emptyStarArray = Array(MAX_USER_RATING - this.state.selectedStar)
+      .fill(null)
+      .map((_, index) => (
         <img
-          key={index}
           src={emptyStarIcon}
           alt="star icon"
-          onClick={() => this.handleRatingMovie(index)}
+          key={"empty-star-" + index}
+          onClick={() => this.setUserRating(fullStarArray.length + index)}
         />
-      )
-    );
+      ));
+
+    return [...fullStarArray, ...emptyStarArray];
   }
 
-  handleRatingMovie = starIndex => {
-    const starNumber = starIndex + 1;
-
-    if (this.state.selectedStar === starNumber) {
-      this.setState({
-        selectedStar: 0,
-        ratingStars: [false, false, false, false, false]
-      });
-
-      return;
-    }
-
-    const newRatingStars = [false, false, false, false, false];
-    newRatingStars.fill(true, 0, starNumber);
-
-    this.setState({
-      selectedStar: starNumber,
-      ratingStars: newRatingStars
-    });
+  setUserRating = starIndex => {
+    this.setState({ selectedStar: starIndex + 1, hasUserRated: true });
   };
 
-  doesUserRateMovie() {
-    return this.state.ratingStars.some(star => star);
-  }
-
   displayRatingValidationButton() {
-    if (!this.doesUserRateMovie()) {
+    if (this.state.selectedStar <= 0 || !this.state.hasUserRated) {
       return;
     }
 
     return (
-      <div className="button" onClick={this.submitMovieRating}>
-        <img src={validationIcon} alt="button icon" />
-        <span className="button__label">VALIDER</span>
-      </div>
+      <Link to={HOME_ROUTE}>
+        <div className="button" onClick={this.submitMovieRating}>
+          <img src={validationIcon} alt="button icon" />
+          <span className="button__label">VALIDER</span>
+        </div>
+      </Link>
     );
   }
 
@@ -142,11 +143,40 @@ class MovieDetailsPage extends React.Component {
   };
 
   submitMovieRating = () => {
-    this.props.addWatchedMovieAction({
-      movie: this.state.movie,
-      rating: this.state.selectedStar
-    });
+    if (this.state.watchedMovie) {
+      this.props.changeMovieRatingAction({
+        movie: this.state.movie,
+        rating: this.state.selectedStar
+      });
+    } else {
+      this.props.addWatchedMovieAction({
+        movie: this.state.movie,
+        rating: this.state.selectedStar
+      });
+    }
   };
+
+  goToPreviousPage = () => {
+    this.props.history.goBack();
+  };
+
+  displayAddMovieToWatchListButton() {
+    if (this.state.watchedMovie) {
+      return;
+    }
+
+    return (
+      <Link to={HOME_ROUTE}>
+        <div
+          className="movie-details__button button"
+          onClick={this.addMovieToWatchList}
+        >
+          <img src={plusIcon} alt="button icon" />
+          <span className="button__label">AJOUTER A LA LISTE</span>
+        </div>
+      </Link>
+    );
+  }
 
   render() {
     if (!this.state.movie) {
@@ -162,11 +192,9 @@ class MovieDetailsPage extends React.Component {
         />
 
         <div className="movie-details__header">
-          <Link to={HOME_ROUTE}>
-            <div>
-              <img src={returnIcon} alt="return icon" />
-            </div>
-          </Link>
+          <div onClick={this.goToPreviousPage}>
+            <img src={returnIcon} alt="return icon" />
+          </div>
         </div>
 
         <div className="movie-details__info">
@@ -224,7 +252,7 @@ class MovieDetailsPage extends React.Component {
         </div>
 
         <div className="movie-details__rating">
-          <h2>Noter le film</h2>
+          <h2>Votre note du film</h2>
 
           <div className="star-rating">
             <div className="star-rating__rating">
@@ -243,13 +271,7 @@ class MovieDetailsPage extends React.Component {
           <p>{this.state.movie.synopsis}</p>
         </div>
 
-        <div
-          className="movie-details__button button"
-          onClick={this.addMovieToWatchList}
-        >
-          <img src={plusIcon} alt="button icon" />
-          <span className="button__label">AJOUTER A LA LISTE</span>
-        </div>
+        {this.displayAddMovieToWatchListButton()}
       </div>
     );
   }
@@ -263,7 +285,9 @@ const mapDispatchToProps = dispatch => ({
   addMovieToWatchAction: movieToAdd =>
     dispatch(addMovieToWatchAction(movieToAdd)),
   addWatchedMovieAction: movieToAdd =>
-    dispatch(addWatchedMovieAction(movieToAdd))
+    dispatch(addWatchedMovieAction(movieToAdd)),
+  changeMovieRatingAction: movieInfo =>
+    dispatch(changeMovieRatingAction(movieInfo))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);

@@ -11,3 +11,10 @@ export const deleteWatchedMovieAction = movieToDeleteId => dispatch => {
     payload: movieToDeleteId
   });
 };
+
+export const changeMovieRatingAction = movieInfo => dispatch => {
+  dispatch({
+    type: "CHANGE_WATCHED_MOVIE_RATING",
+    payload: movieInfo
+  });
+};
