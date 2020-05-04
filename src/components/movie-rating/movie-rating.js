@@ -4,9 +4,9 @@ import fullStarIcon from "../../shared/images/full-star-icon.png";
 import emptyStarIcon from "../../shared/images/empty-star-icon.png";
 import "./movie-rating.scss";
 import utils from "../../shared/utils";
-import { deleteWatchedMovieAction } from "../../actions/watched-movies-actions";
+import { deleteWatchedMovieAction } from "../../redux/actions/watched-movies-actions";
 import { connect } from "react-redux";
-import { setOnGoingAction } from "../../actions/on-going-action-actions";
+import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { MAX_USER_RATING } from "../../shared/constants/variables";
@@ -17,7 +17,7 @@ class MovieRating extends React.Component {
       type: "DELETE",
       list: "watched-movies",
       movieId: this.props.movie.imdbId,
-      reducer: this.props.deleteWatchedMovieAction
+      reducer: this.props.deleteWatchedMovieAction,
     });
 
     this.props.onToggleDeleteModal();
@@ -44,7 +44,7 @@ class MovieRating extends React.Component {
       <Link
         to={{
           pathname: MOVIE_DETAILS_ROUTE + "/" + this.props.movie.imdbId,
-          movie: this.props.movie
+          movie: this.props.movie,
         }}
       >
         <div className="movie-watched row">
@@ -93,15 +93,15 @@ class MovieRating extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
-  deleteWatchedMovieAction: movieToDeleteId =>
+const mapDispatchToProps = (dispatch) => ({
+  deleteWatchedMovieAction: (movieToDeleteId) =>
     dispatch(deleteWatchedMovieAction(movieToDeleteId)),
-  setOnGoingAction: onGoingActionInfo =>
-    dispatch(setOnGoingAction(onGoingActionInfo))
+  setOnGoingAction: (onGoingActionInfo) =>
+    dispatch(setOnGoingAction(onGoingActionInfo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieRating);

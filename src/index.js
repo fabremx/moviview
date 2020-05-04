@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { Provider } from "react-redux";
-import configureStore from "./store";
+import configureStore from "./redux/store";
 
 import "./index.css";
 import App from "./App";
@@ -13,6 +13,7 @@ import data from "./save.json";
 const INITIAL_STATE = {
   watchedMovies: data.watchedMovies,
   moviesToWatch: data.moviesToWatch,
+  onGoingAction: {},
 };
 
 ReactDOM.render(

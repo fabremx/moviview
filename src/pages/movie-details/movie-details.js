@@ -16,11 +16,11 @@ import { TMDB_KEY } from "../../shared/api/keys";
 import { Movie } from "../../shared/models/movie";
 
 import { connect } from "react-redux";
-import { addMovieToWatchAction } from "../../actions/movies-to-watch-actions";
+import { addMovieToWatchAction } from "../../redux/actions/movies-to-watch-actions";
 import {
   addWatchedMovieAction,
   changeMovieRatingAction,
-} from "../../actions/watched-movies-actions";
+} from "../../redux/actions/watched-movies-actions";
 import utils from "../../shared/utils";
 import { MAX_USER_RATING } from "../../shared/constants/variables";
 

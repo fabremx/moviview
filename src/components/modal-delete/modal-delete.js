@@ -1,7 +1,7 @@
 import React from "react";
 import "./modal-delete.scss";
 import { connect } from "react-redux";
-import { resetOnGoingAction } from "../../actions/on-going-action-actions";
+import { resetOnGoingAction } from "../../redux/actions/on-going-action-actions";
 
 class ModalDelete extends React.Component {
   closeModal = () => {
@@ -9,7 +9,7 @@ class ModalDelete extends React.Component {
     this.props.onCloseModal();
   };
 
-  stopPropagation = event => {
+  stopPropagation = (event) => {
     event.stopPropagation();
   };
 
@@ -50,12 +50,12 @@ class ModalDelete extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
-  resetOnGoingAction: () => dispatch(resetOnGoingAction())
+const mapDispatchToProps = (dispatch) => ({
+  resetOnGoingAction: () => dispatch(resetOnGoingAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalDelete);

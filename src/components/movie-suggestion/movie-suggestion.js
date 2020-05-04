@@ -3,15 +3,15 @@ import closeIcon from "../../shared/images/close-icon.png";
 import "./movie-suggestion.scss";
 import utils from "../../shared/utils";
 import fullStarIcon from "../../shared/images/full-star-icon.png";
-import { deleteMovieToWatchAction } from "../../actions/movies-to-watch-actions";
+import { deleteMovieToWatchAction } from "../../redux/actions/movies-to-watch-actions";
 import { connect } from "react-redux";
-import { setOnGoingAction } from "../../actions/on-going-action-actions";
+import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 
 class MovieSuggestion extends React.Component {
   getMovieGenre(movieGenres) {
-    return movieGenres.map(genre => <div key={genre.id}>{genre.name}</div>);
+    return movieGenres.map((genre) => <div key={genre.id}>{genre.name}</div>);
   }
 
   deleteMovieToWatch = () => {
@@ -19,7 +19,7 @@ class MovieSuggestion extends React.Component {
       type: "DELETE",
       list: "movies-to-watch",
       movieId: this.props.movie.imdbId,
-      reducer: this.props.deleteMovieToWatchAction
+      reducer: this.props.deleteMovieToWatchAction,
     });
 
     this.props.onToggleDeleteModal();
@@ -91,15 +91,15 @@ class MovieSuggestion extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
-  deleteMovieToWatchAction: movieToDeleteId =>
+const mapDispatchToProps = (dispatch) => ({
+  deleteMovieToWatchAction: (movieToDeleteId) =>
     dispatch(deleteMovieToWatchAction(movieToDeleteId)),
-  setOnGoingAction: onGoingActionInfo =>
-    dispatch(setOnGoingAction(onGoingActionInfo))
+  setOnGoingAction: (onGoingActionInfo) =>
+    dispatch(setOnGoingAction(onGoingActionInfo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSuggestion);

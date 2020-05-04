@@ -7,7 +7,7 @@ import SearchSuggestions from "../../components/search-suggestions/search-sugges
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteWatchedMovieAction } from "../../actions/watched-movies-actions";
+import { deleteWatchedMovieAction } from "../../redux/actions/watched-movies-actions";
 import ModalDelete from "../../components/modal-delete/modal-delete";
 
 class WatchedMoviesPage extends React.Component {

@@ -6,7 +6,7 @@ import SearchSuggestions from "../../components/search-suggestions/search-sugges
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteMovieToWatchAction } from "../../actions/movies-to-watch-actions";
+import { deleteMovieToWatchAction } from "../../redux/actions/movies-to-watch-actions";
 import MovieSuggestion from "../../components/movie-suggestion/movie-suggestion";
 import ModalDelete from "../../components/modal-delete/modal-delete";
 
