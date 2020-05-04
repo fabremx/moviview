@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/moviview/static/css/main.f8bcec44.chunk.css",
+    "main.js": "/moviview/static/js/main.a9737f7f.chunk.js",
+    "main.js.map": "/moviview/static/js/main.a9737f7f.chunk.js.map",
+    "runtime-main.js": "/moviview/static/js/runtime-main.519bce0b.js",
+    "runtime-main.js.map": "/moviview/static/js/runtime-main.519bce0b.js.map",
+    "static/js/2.2268ac01.chunk.js": "/moviview/static/js/2.2268ac01.chunk.js",
+    "static/js/2.2268ac01.chunk.js.map": "/moviview/static/js/2.2268ac01.chunk.js.map",
+    "index.html": "/moviview/index.html",
+    "precache-manifest.d3d5b8b06e1e83ffc66ae805819e2c18.js": "/moviview/precache-manifest.d3d5b8b06e1e83ffc66ae805819e2c18.js",
+    "service-worker.js": "/moviview/service-worker.js",
+    "static/css/main.f8bcec44.chunk.css.map": "/moviview/static/css/main.f8bcec44.chunk.css.map",
+    "static/js/2.2268ac01.chunk.js.LICENSE.txt": "/moviview/static/js/2.2268ac01.chunk.js.LICENSE.txt",
+    "static/media/list.png": "/moviview/static/media/list.7c4c7b1c.png",
+    "static/media/loader.gif": "/moviview/static/media/loader.5a5875ed.gif",
+    "static/media/not-available.png": "/moviview/static/media/not-available.401a91b3.png",
+    "static/media/search-icon.png": "/moviview/static/media/search-icon.147a304f.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.519bce0b.js",
+    "static/js/2.2268ac01.chunk.js",
+    "static/css/main.f8bcec44.chunk.css",
+    "static/js/main.a9737f7f.chunk.js"
+  ]
+}
