@@ -2,6 +2,7 @@ import {
   ADD_WATCHED_MOVIE,
   DELETE_WATCHED_MOVIE,
   CHANGE_WATCHED_MOVIE_RATING,
+  SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
 } from "../../shared/constants/actions";
 
 export default (state = {}, action) => {
@@ -33,6 +34,9 @@ export default (state = {}, action) => {
       newWatchedMovies[index].userRating = action.payload.rating;
 
       return newWatchedMovies;
+    case SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE:
+      window.localStorage.setItem("watchedMovies", JSON.stringify(state));
+      return state;
     default:
       return state;
   }

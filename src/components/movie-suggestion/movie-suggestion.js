@@ -3,7 +3,10 @@ import closeIcon from "../../shared/images/close-icon.png";
 import "./movie-suggestion.scss";
 import utils from "../../shared/utils";
 import fullStarIcon from "../../shared/images/full-star-icon.png";
-import { deleteMovieToWatchAction } from "../../redux/actions/movies-to-watch-actions";
+import {
+  deleteMovieToWatchAction,
+  saveMoviesToWatchOnLocalStorageAction,
+} from "../../redux/actions/movies-to-watch-actions";
 import { connect } from "react-redux";
 import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
@@ -96,8 +99,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteMovieToWatchAction: (movieToDeleteId) =>
-    dispatch(deleteMovieToWatchAction(movieToDeleteId)),
+  deleteMovieToWatchAction: (movieToDeleteId) => {
+    dispatch(deleteMovieToWatchAction(movieToDeleteId));
+    dispatch(saveMoviesToWatchOnLocalStorageAction());
+  },
   setOnGoingAction: (onGoingActionInfo) =>
     dispatch(setOnGoingAction(onGoingActionInfo)),
 });

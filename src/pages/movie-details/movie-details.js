@@ -16,10 +16,14 @@ import { TMDB_KEY } from "../../shared/api/keys";
 import { Movie } from "../../shared/models/movie";
 
 import { connect } from "react-redux";
-import { addMovieToWatchAction } from "../../redux/actions/movies-to-watch-actions";
+import {
+  addMovieToWatchAction,
+  saveMoviesToWatchOnLocalStorageAction,
+} from "../../redux/actions/movies-to-watch-actions";
 import {
   addWatchedMovieAction,
   changeMovieRatingAction,
+  saveWatchedMoviesOnLocalStorageAction,
 } from "../../redux/actions/watched-movies-actions";
 import utils from "../../shared/utils";
 import { MAX_USER_RATING } from "../../shared/constants/variables";
@@ -268,12 +272,18 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addMovieToWatchAction: (movieToAdd) =>
-    dispatch(addMovieToWatchAction(movieToAdd)),
-  addWatchedMovieAction: (movieToAdd) =>
-    dispatch(addWatchedMovieAction(movieToAdd)),
-  changeMovieRatingAction: (movieInfo) =>
-    dispatch(changeMovieRatingAction(movieInfo)),
+  addMovieToWatchAction: (movieToAdd) => {
+    dispatch(addMovieToWatchAction(movieToAdd));
+    dispatch(saveMoviesToWatchOnLocalStorageAction());
+  },
+  addWatchedMovieAction: (movieToAdd) => {
+    dispatch(addWatchedMovieAction(movieToAdd));
+    dispatch(saveWatchedMoviesOnLocalStorageAction());
+  },
+  changeMovieRatingAction: (movieInfo) => {
+    dispatch(changeMovieRatingAction(movieInfo));
+    dispatch(saveWatchedMoviesOnLocalStorageAction());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);

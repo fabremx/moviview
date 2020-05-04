@@ -1,6 +1,7 @@
 import {
   ADD_MOVIE_TO_WATCH,
   DELETE_MOVIE_TO_WATCH,
+  SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
 } from "../../shared/constants/actions";
 
 export default (state = [], action) => {
@@ -18,6 +19,9 @@ export default (state = [], action) => {
       );
 
       return newMoviesToWatchState;
+    case SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE:
+      window.localStorage.setItem("moviesToWatch", JSON.stringify(state));
+      return state;
     default:
       return state;
   }

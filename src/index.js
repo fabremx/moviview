@@ -8,11 +8,13 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
-import data from "./save.json";
+
+const watchedMovies = window.localStorage.getItem("watchedMovies");
+const moviesToWatch = window.localStorage.getItem("moviesToWatch");
 
 const INITIAL_STATE = {
-  watchedMovies: data.watchedMovies,
-  moviesToWatch: data.moviesToWatch,
+  watchedMovies: watchedMovies ? JSON.parse(watchedMovies) : [],
+  moviesToWatch: moviesToWatch ? JSON.parse(moviesToWatch) : [],
   onGoingAction: {},
 };
 

@@ -4,7 +4,10 @@ import fullStarIcon from "../../shared/images/full-star-icon.png";
 import emptyStarIcon from "../../shared/images/empty-star-icon.png";
 import "./movie-rating.scss";
 import utils from "../../shared/utils";
-import { deleteWatchedMovieAction } from "../../redux/actions/watched-movies-actions";
+import {
+  deleteWatchedMovieAction,
+  saveWatchedMoviesOnLocalStorageAction,
+} from "../../redux/actions/watched-movies-actions";
 import { connect } from "react-redux";
 import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
@@ -98,8 +101,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  deleteWatchedMovieAction: (movieToDeleteId) =>
-    dispatch(deleteWatchedMovieAction(movieToDeleteId)),
+  deleteWatchedMovieAction: (movieToDeleteId) => {
+    dispatch(deleteWatchedMovieAction(movieToDeleteId));
+    dispatch(saveWatchedMoviesOnLocalStorageAction());
+  },
   setOnGoingAction: (onGoingActionInfo) =>
     dispatch(setOnGoingAction(onGoingActionInfo)),
 });

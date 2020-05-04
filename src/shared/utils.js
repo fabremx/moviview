@@ -5,7 +5,7 @@ import {
   RATING_2_COMMENT,
   RATING_3_COMMENT,
   RATING_4_COMMENT,
-  RATING_5_COMMENT
+  RATING_5_COMMENT,
 } from "./constants/rating-comments";
 
 export default {
@@ -36,5 +36,5 @@ export default {
       default:
         return;
     }
-  }
+  },
 };
