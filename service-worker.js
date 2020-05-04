@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/moviview/precache-manifest.d3d5b8b06e1e83ffc66ae805819e2c18.js"
+  "/moviview/precache-manifest.8a2634ac8711bc5eb8d2f1d15d7a74ed.js"
 );
 
 self.addEventListener('message', (event) => {

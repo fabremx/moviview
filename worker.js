@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 var CACHE_NAME = "pwa-task-manager";
 var urlsToCache = ["/", "/completed"];
 
@@ -31,6 +32,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
+        // eslint-disable-next-line array-callback-return
         cacheNames.map((cacheName) => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
             return caches.delete(cacheName);
