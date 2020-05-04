@@ -10,7 +10,7 @@ import { HOME_ROUTE } from "../../shared/constants/routes";
 import {
   TMDB_URL_MOVIE_DETAILS,
   TMDB_URL_IMAGE,
-  OMDB_URL
+  OMDB_URL,
 } from "../../shared/api/urls";
 import { TMDB_KEY } from "../../shared/api/keys";
 import { Movie } from "../../shared/models/movie";
@@ -19,7 +19,7 @@ import { connect } from "react-redux";
 import { addMovieToWatchAction } from "../../actions/movies-to-watch-actions";
 import {
   addWatchedMovieAction,
-  changeMovieRatingAction
+  changeMovieRatingAction,
 } from "../../actions/watched-movies-actions";
 import utils from "../../shared/utils";
 import { MAX_USER_RATING } from "../../shared/constants/variables";
@@ -32,7 +32,7 @@ class MovieDetailsPage extends React.Component {
       movie: null,
       selectedStar: 0,
       hasUserRated: false,
-      watchedMovie: false
+      watchedMovie: false,
     };
   }
 
@@ -45,7 +45,7 @@ class MovieDetailsPage extends React.Component {
     this.setState({
       movie: this.props.history.location.movie,
       selectedStar: this.props.history.location.movie.userRating,
-      watchedMovie: true
+      watchedMovie: true,
     });
   }
 
@@ -90,7 +90,7 @@ class MovieDetailsPage extends React.Component {
   }
 
   getMovieGenre(movieGenres) {
-    return movieGenres.map(genre => <div key={genre.id}>{genre.name}</div>);
+    return movieGenres.map((genre) => <div key={genre.id}>{genre.name}</div>);
   }
 
   displayMovieRatingStars() {
@@ -119,7 +119,7 @@ class MovieDetailsPage extends React.Component {
     return [...fullStarArray, ...emptyStarArray];
   }
 
-  setUserRating = starIndex => {
+  setUserRating = (starIndex) => {
     this.setState({ selectedStar: starIndex + 1, hasUserRated: true });
   };
 
@@ -146,12 +146,12 @@ class MovieDetailsPage extends React.Component {
     if (this.state.watchedMovie) {
       this.props.changeMovieRatingAction({
         movie: this.state.movie,
-        rating: this.state.selectedStar
+        rating: this.state.selectedStar,
       });
     } else {
       this.props.addWatchedMovieAction({
         movie: this.state.movie,
-        rating: this.state.selectedStar
+        rating: this.state.selectedStar,
       });
     }
   };
@@ -277,17 +277,17 @@ class MovieDetailsPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state) => ({
+  ...state,
 });
 
-const mapDispatchToProps = dispatch => ({
-  addMovieToWatchAction: movieToAdd =>
+const mapDispatchToProps = (dispatch) => ({
+  addMovieToWatchAction: (movieToAdd) =>
     dispatch(addMovieToWatchAction(movieToAdd)),
-  addWatchedMovieAction: movieToAdd =>
+  addWatchedMovieAction: (movieToAdd) =>
     dispatch(addWatchedMovieAction(movieToAdd)),
-  changeMovieRatingAction: movieInfo =>
-    dispatch(changeMovieRatingAction(movieInfo))
+  changeMovieRatingAction: (movieInfo) =>
+    dispatch(changeMovieRatingAction(movieInfo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);
