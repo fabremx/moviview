@@ -89,9 +89,31 @@ class MovieDetailsPage extends React.Component {
     this.setState({ movie: movie });
   }
 
-  getMovieGenre(movieGenres) {
-    return movieGenres.map((genre) => <div key={genre.id}>{genre.name}</div>);
-  }
+  setUserRating = (starIndex) => {
+    this.setState({ selectedStar: starIndex + 1, hasUserRated: true });
+  };
+
+  addMovieToWatchList = () => {
+    this.props.addMovieToWatchAction(this.state.movie);
+  };
+
+  submitMovieRating = () => {
+    if (this.state.watchedMovie) {
+      this.props.changeMovieRatingAction({
+        movie: this.state.movie,
+        rating: this.state.selectedStar,
+      });
+    } else {
+      this.props.addWatchedMovieAction({
+        movie: this.state.movie,
+        rating: this.state.selectedStar,
+      });
+    }
+  };
+
+  goToPreviousPage = () => {
+    this.props.history.goBack();
+  };
 
   displayMovieRatingStars() {
     const fullStarArray = Array(this.state.selectedStar)
@@ -117,65 +139,6 @@ class MovieDetailsPage extends React.Component {
       ));
 
     return [...fullStarArray, ...emptyStarArray];
-  }
-
-  setUserRating = (starIndex) => {
-    this.setState({ selectedStar: starIndex + 1, hasUserRated: true });
-  };
-
-  displayRatingValidationButton() {
-    if (this.state.selectedStar <= 0 || !this.state.hasUserRated) {
-      return;
-    }
-
-    return (
-      <Link to={HOME_ROUTE}>
-        <div className="button" onClick={this.submitMovieRating}>
-          <img src={validationIcon} alt="button icon" />
-          <span className="button__label">VALIDER</span>
-        </div>
-      </Link>
-    );
-  }
-
-  addMovieToWatchList = () => {
-    this.props.addMovieToWatchAction(this.state.movie);
-  };
-
-  submitMovieRating = () => {
-    if (this.state.watchedMovie) {
-      this.props.changeMovieRatingAction({
-        movie: this.state.movie,
-        rating: this.state.selectedStar,
-      });
-    } else {
-      this.props.addWatchedMovieAction({
-        movie: this.state.movie,
-        rating: this.state.selectedStar,
-      });
-    }
-  };
-
-  goToPreviousPage = () => {
-    this.props.history.goBack();
-  };
-
-  displayAddMovieToWatchListButton() {
-    if (this.state.watchedMovie) {
-      return;
-    }
-
-    return (
-      <Link to={HOME_ROUTE}>
-        <div
-          className="movie-details__button button"
-          onClick={this.addMovieToWatchList}
-        >
-          <img src={plusIcon} alt="button icon" />
-          <span className="button__label">AJOUTER A LA LISTE</span>
-        </div>
-      </Link>
-    );
   }
 
   render() {
@@ -219,7 +182,9 @@ class MovieDetailsPage extends React.Component {
             </div>
 
             <div className="movie-details__text__genre">
-              {this.getMovieGenre(this.state.movie.genres)}
+              {this.state.movie.genres.map((genre) => (
+                <div key={genre.id}>{genre.name}</div>
+              ))}
             </div>
 
             <p>
@@ -257,7 +222,18 @@ class MovieDetailsPage extends React.Component {
           <div className="star-rating">
             <div className="star-rating__rating">
               {this.displayMovieRatingStars()}
-              {this.displayRatingValidationButton()}
+
+              {
+                // Display rating validation button when user choose a rate
+                this.state.selectedStar > 0 && this.state.hasUserRated && (
+                  <Link to={HOME_ROUTE}>
+                    <div className="button" onClick={this.submitMovieRating}>
+                      <img src={validationIcon} alt="button icon" />
+                      <span className="button__label">VALIDER</span>
+                    </div>
+                  </Link>
+                )
+              }
             </div>
 
             <div className="star-rating__comment">
@@ -271,7 +247,17 @@ class MovieDetailsPage extends React.Component {
           <p>{this.state.movie.synopsis}</p>
         </div>
 
-        {this.displayAddMovieToWatchListButton()}
+        {!this.state.watchedMovie && (
+          <Link to={HOME_ROUTE}>
+            <div
+              className="movie-details__button button"
+              onClick={this.addMovieToWatchList}
+            >
+              <img src={plusIcon} alt="button icon" />
+              <span className="button__label">AJOUTER A LA LISTE A VOIR</span>
+            </div>
+          </Link>
+        )}
       </div>
     );
   }
