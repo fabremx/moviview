@@ -179,11 +179,13 @@ class MovieDetailsPage extends React.Component {
 
     return (
       <div id="movie-details-page">
-        <img
-          className="movie-details__background"
-          src={TMDB_URL_IMAGE + this.state.movie.backgroundSrc}
-          alt={this.state.movie.title}
-        />
+        {this.state.movie.backgroundSrc && (
+          <img
+            className="movie-details__background"
+            src={TMDB_URL_IMAGE + this.state.movie.backgroundSrc}
+            alt={this.state.movie.title}
+          />
+        )}
 
         <div className="movie-details__header">
           <div onClick={this.goToPreviousPage}>
@@ -194,7 +196,7 @@ class MovieDetailsPage extends React.Component {
         <div className="movie-details__info">
           <div className="movie-details__img">
             <img
-              src={TMDB_URL_IMAGE + this.state.movie.posterSrc}
+              src={utils.getMoviePoster(this.state.movie.posterSrc)}
               alt={this.state.movie.title}
             />
           </div>

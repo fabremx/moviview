@@ -1,6 +1,6 @@
 import React from "react";
 import "./search-suggestions.scss";
-import { TMDB_URL_IMAGE } from "../../shared/api/urls";
+import utils from "../../shared/utils";
 
 class SearchSuggestions extends React.Component {
   displayOriginalTitle() {
@@ -27,7 +27,7 @@ class SearchSuggestions extends React.Component {
       <div className="search-suggestion">
         <div className="search-suggestion__img">
           <img
-            src={TMDB_URL_IMAGE + this.props.movie.poster_path}
+            src={utils.getMoviePoster(this.props.movie.poster_path)}
             alt={this.props.movie.title}
           />
         </div>
