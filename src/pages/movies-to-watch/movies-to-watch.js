@@ -41,6 +41,12 @@ class MoviesToWatchPage extends React.Component {
 
         <div className="movies-to-watch-container">
           <div className="movies-to-watch-container__title">Films à voir</div>
+          {!this.props.moviesToWatch.length && (
+            <p className="movies-to-watch--no-movies">
+              Aucun film(s) à voir présent dans la liste
+            </p>
+          )}
+
           {this.props.moviesToWatch.map((movie, index) => (
             <MovieSuggestion
               movie={movie}

@@ -5,6 +5,7 @@ import fullStarIcon from "../../shared/images/full-star-icon.png";
 import emptyStarIcon from "../../shared/images/empty-star-icon.png";
 import plusIcon from "../../shared/images/plus-icon.png";
 import validationIcon from "../../shared/images/validation-icon.png";
+import loader from "../../shared/images/loader.gif";
 import { Link } from "react-router-dom";
 import { HOME_ROUTE } from "../../shared/constants/routes";
 import {
@@ -18,6 +19,7 @@ import { Movie } from "../../shared/models/movie";
 import { connect } from "react-redux";
 import {
   addMovieToWatchAction,
+  deleteMovieToWatchAction,
   saveMoviesToWatchOnLocalStorageAction,
 } from "../../redux/actions/movies-to-watch-actions";
 import {
@@ -93,12 +95,27 @@ class MovieDetailsPage extends React.Component {
     this.setState({ movie: movie });
   }
 
+  isMovieAlreadyInAList() {
+    const isPresentOnWatchedMoviesList =
+      this.props.watchedMovies.findIndex(
+        (movie) => movie.imdbId === this.state.movie.imdbId
+      ) >= 0;
+
+    const isPresentOnMoviesToWatchList =
+      this.props.moviesToWatch.findIndex(
+        (movie) => movie.imdbId === this.state.movie.imdbId
+      ) >= 0;
+
+    return !!(isPresentOnWatchedMoviesList || isPresentOnMoviesToWatchList);
+  }
+
   setUserRating = (starIndex) => {
     this.setState({ selectedStar: starIndex + 1, hasUserRated: true });
   };
 
   addMovieToWatchList = () => {
     this.props.addMovieToWatchAction(this.state.movie);
+    this.props.saveMoviesToWatchOnLocalStorageAction();
   };
 
   submitMovieRating = () => {
@@ -112,7 +129,12 @@ class MovieDetailsPage extends React.Component {
         movie: this.state.movie,
         rating: this.state.selectedStar,
       });
+
+      this.props.deleteMovieToWatch(this.state.movie.imdbId);
+      this.props.saveMoviesToWatchOnLocalStorageAction();
     }
+
+    this.props.saveWatchedMoviesOnLocalStorageAction();
   };
 
   goToPreviousPage = () => {
@@ -147,7 +169,12 @@ class MovieDetailsPage extends React.Component {
 
   render() {
     if (!this.state.movie) {
-      return <p className="movie-details__loading">Loading...</p>;
+      return (
+        <div className="movie-details__loading">
+          <img src={loader} alt="loading" />
+          <p>Loading ...</p>
+        </div>
+      );
     }
 
     return (
@@ -251,7 +278,7 @@ class MovieDetailsPage extends React.Component {
           <p>{this.state.movie.synopsis}</p>
         </div>
 
-        {!this.state.watchedMovie && (
+        {!this.isMovieAlreadyInAList() && (
           <Link to={HOME_ROUTE}>
             <div
               className="movie-details__button button"
@@ -272,18 +299,18 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addMovieToWatchAction: (movieToAdd) => {
-    dispatch(addMovieToWatchAction(movieToAdd));
-    dispatch(saveMoviesToWatchOnLocalStorageAction());
-  },
-  addWatchedMovieAction: (movieToAdd) => {
-    dispatch(addWatchedMovieAction(movieToAdd));
-    dispatch(saveWatchedMoviesOnLocalStorageAction());
-  },
-  changeMovieRatingAction: (movieInfo) => {
-    dispatch(changeMovieRatingAction(movieInfo));
-    dispatch(saveWatchedMoviesOnLocalStorageAction());
-  },
+  addMovieToWatchAction: (movieToAdd) =>
+    dispatch(addMovieToWatchAction(movieToAdd)),
+  deleteMovieToWatch: (movieToDeleteId) =>
+    dispatch(deleteMovieToWatchAction(movieToDeleteId)),
+  addWatchedMovieAction: (movieToAdd) =>
+    dispatch(addWatchedMovieAction(movieToAdd)),
+  changeMovieRatingAction: (movieInfo) =>
+    dispatch(changeMovieRatingAction(movieInfo)),
+  saveWatchedMoviesOnLocalStorageAction: () =>
+    dispatch(saveWatchedMoviesOnLocalStorageAction()),
+  saveMoviesToWatchOnLocalStorageAction: () =>
+    dispatch(saveMoviesToWatchOnLocalStorageAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);

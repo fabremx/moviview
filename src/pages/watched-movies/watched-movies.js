@@ -41,6 +41,11 @@ class WatchedMoviesPage extends React.Component {
 
         <div className="watched-movies-container">
           <div className="watched-movies-container__title">Films vus</div>
+          {!this.props.watchedMovies.length && (
+            <p className="watched-movies--no-movies">
+              Aucun film(s) vu(s) présent dans la liste
+            </p>
+          )}
           {this.props.watchedMovies.map((movie, index) => (
             <MovieRating
               movie={movie}
