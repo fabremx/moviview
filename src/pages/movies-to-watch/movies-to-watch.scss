@@ -1,7 +1,34 @@
 @import "../../shared/style/variables.scss";
 
-.movies-to-watch {
-  overflow: auto;
-  margin-top: calc(#{$header-height} + 10px);
-  margin-bottom: 45px;
+#movies-to-watch-page {
+  background: linear-gradient(
+    to right,
+    $dark-theme-background-gradient-start,
+    $dark-theme-background-gradient-end
+  );
+
+  .search-suggestions-container {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    background-color: white;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .movies-to-watch-container {
+    overflow: auto;
+    margin-top: calc(#{$header-height} + 10px);
+    margin-bottom: 45px;
+
+    &__title {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 0 0 0 15px;
+      margin-bottom: 10px;
+    }
+  }
 }

@@ -17,7 +17,10 @@ class MovieSuggestion extends React.Component {
     return movieGenres.map((genre) => <div key={genre.id}>{genre.name}</div>);
   }
 
-  deleteMovieToWatch = () => {
+  deleteMovieToWatch = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+
     this.props.setOnGoingAction({
       type: "DELETE",
       list: "movies-to-watch",
@@ -82,12 +85,12 @@ class MovieSuggestion extends React.Component {
             </div>
           </div>
 
-          <img
-            className="movie-suggestion__close-img"
-            src={closeIcon}
-            alt="close icon"
+          <div
+            className="movie-suggestion__close"
             onClick={this.deleteMovieToWatch}
-          />
+          >
+            <img src={closeIcon} alt="close icon" />
+          </div>
         </div>
       </Link>
     );

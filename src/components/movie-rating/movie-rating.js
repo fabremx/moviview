@@ -15,7 +15,10 @@ import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { MAX_USER_RATING } from "../../shared/constants/variables";
 
 class MovieRating extends React.Component {
-  deleteWatchedMovie = () => {
+  deleteWatchedMovie = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+
     this.props.setOnGoingAction({
       type: "DELETE",
       list: "watched-movies",
@@ -84,12 +87,12 @@ class MovieRating extends React.Component {
             </div>
           </div>
 
-          <img
-            className="movie-watched__close-img"
-            src={closeIcon}
-            alt="close icon"
+          <div
+            className="movie-watched__close"
             onClick={this.deleteWatchedMovie}
-          />
+          >
+            <img src={closeIcon} alt="close icon" />
+          </div>
         </div>
       </Link>
     );

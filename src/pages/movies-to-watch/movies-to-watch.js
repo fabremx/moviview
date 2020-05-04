@@ -30,7 +30,7 @@ class MoviesToWatchPage extends React.Component {
 
   render() {
     return (
-      <div id="movie-watched-page">
+      <div id="movies-to-watch-page">
         <Header onSearchMovie={this.setSearchSuggestions} />
 
         {this.state.searchSuggestions.length && (
@@ -43,8 +43,8 @@ class MoviesToWatchPage extends React.Component {
           </div>
         )}
 
-        <div className="watched-movies-container">
-          <div className="watched-movies-container__title">Films à voir</div>
+        <div className="movies-to-watch-container">
+          <div className="movies-to-watch-container__title">Films à voir</div>
           {this.props.moviesToWatch.map((movie, index) => (
             <MovieSuggestion
               movie={movie}

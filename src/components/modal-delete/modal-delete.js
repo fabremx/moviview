@@ -38,9 +38,6 @@ class ModalDelete extends React.Component {
             </p>
           </div>
 
-          <div className="button button__cancel" onClick={this.closeModal}>
-            ANNULER
-          </div>
           <div className="button button__delete" onClick={this.deleteMovie}>
             SUPPRIMER
           </div>
