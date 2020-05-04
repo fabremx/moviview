@@ -7,10 +7,6 @@ import SearchSuggestions from "../../components/search-suggestions/search-sugges
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  deleteWatchedMovieAction,
-  saveWatchedMoviesOnLocalStorageAction,
-} from "../../redux/actions/watched-movies-actions";
 import ModalDelete from "../../components/modal-delete/modal-delete";
 
 class WatchedMoviesPage extends React.Component {
@@ -69,11 +65,4 @@ const mapStateToProps = (state) => ({
   ...state,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  deleteWatchedMovieAction: () => {
-    dispatch(deleteWatchedMovieAction());
-    dispatch(saveWatchedMoviesOnLocalStorageAction());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WatchedMoviesPage);
+export default connect(mapStateToProps, null)(WatchedMoviesPage);

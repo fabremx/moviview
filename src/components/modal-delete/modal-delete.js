@@ -14,7 +14,7 @@ class ModalDelete extends React.Component {
   };
 
   deleteMovie = () => {
-    this.props.onGoingAction.reducer(this.props.onGoingAction.movieId);
+    this.props.onGoingAction.callback(this.props.onGoingAction.movieId);
     this.closeModal();
   };
 

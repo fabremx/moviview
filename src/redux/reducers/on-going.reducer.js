@@ -6,13 +6,9 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case SET_ON_GOING_ACTION:
-      return {
-        onGoingAction: action.payload,
-      };
+      return action.payload;
     case RESET_ON_GOING_ACTION:
-      return {
-        onGoingAction: {},
-      };
+      return {};
     default:
       return state;
   }

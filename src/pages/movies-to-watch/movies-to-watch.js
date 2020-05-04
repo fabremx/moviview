@@ -6,10 +6,6 @@ import SearchSuggestions from "../../components/search-suggestions/search-sugges
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  deleteMovieToWatchAction,
-  saveMoviesToWatchOnLocalStorageAction,
-} from "../../redux/actions/movies-to-watch-actions";
 import MovieSuggestion from "../../components/movie-suggestion/movie-suggestion";
 import ModalDelete from "../../components/modal-delete/modal-delete";
 
@@ -69,11 +65,4 @@ const mapStateToProps = (state) => ({
   ...state,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  deleteMovieToWatchAction: () => {
-    dispatch(deleteMovieToWatchAction());
-    dispatch(saveMoviesToWatchOnLocalStorageAction());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MoviesToWatchPage);
+export default connect(mapStateToProps)(MoviesToWatchPage);

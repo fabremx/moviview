@@ -25,7 +25,7 @@ class MovieSuggestion extends React.Component {
       type: "DELETE",
       list: "movies-to-watch",
       movieId: this.props.movie.imdbId,
-      reducer: this.props.deleteMovieToWatchAction,
+      callback: this.props.deleteMovieToWatchAction,
     });
 
     this.props.onToggleDeleteModal();

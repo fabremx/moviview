@@ -23,7 +23,7 @@ class MovieRating extends React.Component {
       type: "DELETE",
       list: "watched-movies",
       movieId: this.props.movie.imdbId,
-      reducer: this.props.deleteWatchedMovieAction,
+      callback: this.props.deleteWatchedMovieAction,
     });
 
     this.props.onToggleDeleteModal();
