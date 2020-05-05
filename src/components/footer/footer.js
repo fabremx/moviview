@@ -7,7 +7,7 @@ import listIcon from "../../shared/images/list.png";
 import listIconSelected from "../../shared/images/list-selected.png";
 import {
   HOME_ROUTE,
-  MOVIES_TO_WATCH_ROUTE
+  MOVIES_TO_WATCH_ROUTE,
 } from "../../shared/constants/routes";
 
 class Footer extends React.Component {

@@ -12,15 +12,15 @@ class Header extends React.Component {
 
   handleChange(event) {
     fetch(TMDB_URL_SEARCH + "&query=" + event.target.value)
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
-        response => {
+        (response) => {
           const moviesList =
             response.results && response.results.length ? response.results : [];
           this.setState({ moviesList });
           this.props.onSearchMovie(moviesList);
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
