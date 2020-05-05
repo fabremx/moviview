@@ -46,3 +46,37 @@ body {
     transform: rotate(360deg);
   }
 }
+
+#snackbar {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  background-color: #6aa651;
+  padding: 0 20px;
+
+  .snackbar__valid-icon {
+    margin-right: 8px;
+    width: 15px;
+  }
+
+  .snackbar__close-icon {
+    position: absolute;
+    top: 4px;
+    right: 5px;
+    width: 14px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  p {
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

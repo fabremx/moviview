@@ -27,6 +27,7 @@ import {
   changeMovieRatingAction,
   saveWatchedMoviesOnLocalStorageAction,
 } from "../../redux/actions/watched-movies-actions";
+import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import utils from "../../shared/utils";
 import { MAX_USER_RATING } from "../../shared/constants/variables";
 
@@ -116,6 +117,10 @@ class MovieDetailsPage extends React.Component {
   addMovieToWatchList = () => {
     this.props.addMovieToWatchAction(this.state.movie);
     this.props.saveMoviesToWatchOnLocalStorageAction();
+    this.props.displaySnackbar({
+      message: "Film ajouté à la liste 'A voir' avec succès.",
+      type: "success",
+    });
   };
 
   submitMovieRating = () => {
@@ -123,6 +128,11 @@ class MovieDetailsPage extends React.Component {
       this.props.changeMovieRatingAction({
         movie: this.state.movie,
         rating: this.state.selectedStar,
+      });
+
+      this.props.displaySnackbar({
+        message: "La note du film à bien été changé.",
+        type: "success",
       });
     } else {
       this.props.addWatchedMovieAction({
@@ -132,6 +142,10 @@ class MovieDetailsPage extends React.Component {
 
       this.props.deleteMovieToWatch(this.state.movie.imdbId);
       this.props.saveMoviesToWatchOnLocalStorageAction();
+      this.props.displaySnackbar({
+        message: "Film ajouté à la liste 'Vu' avec succès.",
+        type: "success",
+      });
     }
 
     this.props.saveWatchedMoviesOnLocalStorageAction();
@@ -313,6 +327,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(saveWatchedMoviesOnLocalStorageAction()),
   saveMoviesToWatchOnLocalStorageAction: () =>
     dispatch(saveMoviesToWatchOnLocalStorageAction()),
+  displaySnackbar: (payload) => dispatch(displaySnackbarAction(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);

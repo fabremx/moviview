@@ -8,6 +8,7 @@ import {
   deleteWatchedMovieAction,
   saveWatchedMoviesOnLocalStorageAction,
 } from "../../redux/actions/watched-movies-actions";
+import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import { connect } from "react-redux";
 import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
@@ -107,6 +108,12 @@ const mapDispatchToProps = (dispatch) => ({
   deleteWatchedMovieAction: (movieToDeleteId) => {
     dispatch(deleteWatchedMovieAction(movieToDeleteId));
     dispatch(saveWatchedMoviesOnLocalStorageAction());
+    dispatch(
+      displaySnackbarAction({
+        message: "Film supprimé avec succès.",
+        type: "success",
+      })
+    );
   },
   setOnGoingAction: (onGoingActionInfo) =>
     dispatch(setOnGoingAction(onGoingActionInfo)),
