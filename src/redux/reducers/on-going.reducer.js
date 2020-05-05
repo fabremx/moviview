@@ -1,7 +1,7 @@
 import {
   SET_ON_GOING_ACTION,
   RESET_ON_GOING_ACTION,
-} from "../../shared/constants/actions";
+} from "../../redux/actions";
 
 export default (state = {}, action) => {
   switch (action.type) {

@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import searchIcon from "../../shared/images/search-icon.png";
 import "./header.scss";
 import { TMDB_URL_SEARCH } from "../../shared/api/urls";
 import { SNACKBAR_ERROR_TYPE } from "../../shared/constants/variables";
+import { DISPLAY_SNACKBAR } from "../../redux/actions";
 
 class Header extends React.Component {
   constructor(props) {
@@ -53,7 +53,11 @@ class Header extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  displaySnackbar: (payload) => dispatch(displaySnackbarAction(payload)),
+  displaySnackbar: (payload) =>
+    dispatch({
+      type: DISPLAY_SNACKBAR,
+      payload,
+    }),
 });
 
 export default connect(null, mapDispatchToProps)(Header);

@@ -7,7 +7,6 @@ import MovieToWatchPage from "./pages/movies-to-watch/movies-to-watch";
 import MovieDetailsPage from "./pages/movie-details/movie-details";
 import validIcon from "./shared/images/valid-snackbar-icon.png";
 import closeIcon from "./shared/images/close-snackbar-icon.png";
-import { closeSnackbarAction } from "./redux/actions/global-actions";
 import {
   HOME_ROUTE,
   MOVIES_TO_WATCH_ROUTE,
@@ -17,6 +16,7 @@ import {
   SNACKBAR_SUCCESS_TYPE,
   SNACKBAR_ERROR_TYPE,
 } from "./shared/constants/variables";
+import { CLOSE_SNACKBAR } from "./redux/actions";
 
 function getSnackbarIcon(type) {
   switch (type) {
@@ -80,7 +80,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  closeSnackbar: () => dispatch(closeSnackbarAction()),
+  closeSnackbar: () =>
+    dispatch({
+      type: CLOSE_SNACKBAR,
+      payload: null,
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -2,7 +2,7 @@ import {
   ADD_MOVIE_TO_WATCH,
   DELETE_MOVIE_TO_WATCH,
   SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
-} from "../../shared/constants/actions";
+} from "../../redux/actions";
 
 export default (state = [], action) => {
   let newMoviesToWatchState;

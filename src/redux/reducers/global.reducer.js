@@ -1,7 +1,4 @@
-import {
-  DISPLAY_SNACKBAR,
-  CLOSE_SNACKBAR,
-} from "../../shared/constants/actions";
+import { DISPLAY_SNACKBAR, CLOSE_SNACKBAR } from "../../redux/actions";
 
 export default (state = [], action) => {
   switch (action.type) {

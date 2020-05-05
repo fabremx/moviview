@@ -1,7 +1,4 @@
-import {
-  DISPLAY_SNACKBAR,
-  CLOSE_SNACKBAR,
-} from "../../shared/constants/actions";
+import { DISPLAY_SNACKBAR, CLOSE_SNACKBAR } from "../../redux/actions";
 
 import globalReducer from "./global.reducer";
 

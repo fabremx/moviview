@@ -1,7 +1,4 @@
-import {
-  ADD_MOVIE_TO_WATCH,
-  DELETE_MOVIE_TO_WATCH,
-} from "../../shared/constants/actions";
+import { ADD_MOVIE_TO_WATCH, DELETE_MOVIE_TO_WATCH } from "../../redux/actions";
 
 import moviesToWatchReducer from "./movies-to-watch.reducer";
 

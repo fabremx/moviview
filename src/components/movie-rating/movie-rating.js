@@ -4,19 +4,19 @@ import fullStarIcon from "../../shared/images/full-star-icon.png";
 import emptyStarIcon from "../../shared/images/empty-star-icon.png";
 import "./movie-rating.scss";
 import utils from "../../shared/utils";
-import {
-  deleteWatchedMovieAction,
-  saveWatchedMoviesOnLocalStorageAction,
-} from "../../redux/actions/watched-movies-actions";
-import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import { connect } from "react-redux";
-import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import {
   MAX_USER_RATING,
   SNACKBAR_SUCCESS_TYPE,
 } from "../../shared/constants/variables";
+import {
+  DISPLAY_SNACKBAR,
+  SET_ON_GOING_ACTION,
+  DELETE_WATCHED_MOVIE,
+  SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
+} from "../../redux/actions";
 
 class MovieRating extends React.Component {
   deleteWatchedMovie = (event) => {
@@ -109,17 +109,27 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteWatchedMovieAction: (movieToDeleteId) => {
-    dispatch(deleteWatchedMovieAction(movieToDeleteId));
-    dispatch(saveWatchedMoviesOnLocalStorageAction());
-    dispatch(
-      displaySnackbarAction({
+    dispatch({
+      type: DELETE_WATCHED_MOVIE,
+      payload: movieToDeleteId,
+    });
+    dispatch({
+      type: SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
+      payload: null,
+    });
+    dispatch({
+      type: DISPLAY_SNACKBAR,
+      payload: {
         message: "Film supprimé avec succès.",
         type: SNACKBAR_SUCCESS_TYPE,
-      })
-    );
+      },
+    });
   },
   setOnGoingAction: (onGoingActionInfo) =>
-    dispatch(setOnGoingAction(onGoingActionInfo)),
+    dispatch({
+      type: SET_ON_GOING_ACTION,
+      payload: onGoingActionInfo,
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieRating);

@@ -1,9 +1,9 @@
 import React from "react";
 import "./modal-delete.scss";
 import { connect } from "react-redux";
-import { resetOnGoingAction } from "../../redux/actions/on-going-action-actions";
+import { RESET_ON_GOING_ACTION } from "../../redux/actions";
 
-class ModalDelete extends React.Component {
+export class ModalDelete extends React.Component {
   closeModal = () => {
     this.props.resetOnGoingAction();
     this.props.onCloseModal();
@@ -48,11 +48,15 @@ class ModalDelete extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state,
+  onGoingAction: state.onGoingAction,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  resetOnGoingAction: () => dispatch(resetOnGoingAction()),
+  resetOnGoingAction: () =>
+    dispatch({
+      type: RESET_ON_GOING_ACTION,
+      payload: null,
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalDelete);

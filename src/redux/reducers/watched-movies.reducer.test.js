@@ -2,7 +2,7 @@ import {
   ADD_WATCHED_MOVIE,
   DELETE_WATCHED_MOVIE,
   CHANGE_WATCHED_MOVIE_RATING,
-} from "../../shared/constants/actions";
+} from "../../redux/actions";
 
 import watchedMoviesReducer from "./watched-movies.reducer";
 

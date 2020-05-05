@@ -3,16 +3,16 @@ import closeIcon from "../../shared/images/close-icon.png";
 import "./movie-suggestion.scss";
 import utils from "../../shared/utils";
 import fullStarIcon from "../../shared/images/full-star-icon.png";
-import {
-  deleteMovieToWatchAction,
-  saveMoviesToWatchOnLocalStorageAction,
-} from "../../redux/actions/movies-to-watch-actions";
-import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import { connect } from "react-redux";
-import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
 import { SNACKBAR_SUCCESS_TYPE } from "../../shared/constants/variables";
+import {
+  DISPLAY_SNACKBAR,
+  DELETE_MOVIE_TO_WATCH,
+  SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
+  SET_ON_GOING_ACTION,
+} from "../../redux/actions";
 
 class MovieSuggestion extends React.Component {
   getMovieGenre(movieGenres) {
@@ -105,17 +105,29 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deleteMovieToWatchAction: (movieToDeleteId) => {
-    dispatch(deleteMovieToWatchAction(movieToDeleteId));
-    dispatch(saveMoviesToWatchOnLocalStorageAction());
-    dispatch(
-      displaySnackbarAction({
+    dispatch({
+      type: DELETE_MOVIE_TO_WATCH,
+      payload: movieToDeleteId,
+    });
+
+    dispatch({
+      type: SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
+      payload: null,
+    });
+
+    dispatch({
+      type: DISPLAY_SNACKBAR,
+      payload: {
         message: "Film supprimé avec succès.",
         type: SNACKBAR_SUCCESS_TYPE,
-      })
-    );
+      },
+    });
   },
   setOnGoingAction: (onGoingActionInfo) =>
-    dispatch(setOnGoingAction(onGoingActionInfo)),
+    dispatch({
+      type: SET_ON_GOING_ACTION,
+      payload: onGoingActionInfo,
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSuggestion);

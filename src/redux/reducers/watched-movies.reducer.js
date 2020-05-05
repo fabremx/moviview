@@ -3,7 +3,7 @@ import {
   DELETE_WATCHED_MOVIE,
   CHANGE_WATCHED_MOVIE_RATING,
   SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
-} from "../../shared/constants/actions";
+} from "../../redux/actions";
 
 export default (state = {}, action) => {
   let newWatchedMovies, movie, rating;

@@ -1,7 +1,7 @@
 import {
   SET_ON_GOING_ACTION,
   RESET_ON_GOING_ACTION,
-} from "../../shared/constants/actions";
+} from "../../redux/actions";
 
 import onGoingReducer from "./on-going.reducer";
 

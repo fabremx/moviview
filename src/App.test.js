@@ -4,22 +4,32 @@ import closeIcon from "./shared/images/close-snackbar-icon.png";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import App from "./App";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import {
   SNACKBAR_SUCCESS_TYPE,
   SNACKBAR_ERROR_TYPE,
 } from "./shared/constants/variables";
 import { BrowserRouter } from "react-router-dom";
+import { CLOSE_SNACKBAR } from "./redux/actions";
 
 const mockStore = configureStore([]);
+const STORE = {
+  watchedMovies: [],
+  moviesToWatch: [],
+  global: {
+    snackbar: {
+      isSnackbarActive: true,
+      message: "Success message",
+      type: SNACKBAR_SUCCESS_TYPE,
+    },
+  },
+};
 
 describe("App", () => {
   it("should hide snackbar when property 'isSnackbarActive' in state is equal to false", () => {
     // Given
     const store = mockStore({
-      watchedMovies: [],
-      moviesToWatch: [],
-
+      ...STORE,
       global: {
         snackbar: {
           isSnackbarActive: false,
@@ -28,9 +38,11 @@ describe("App", () => {
     });
 
     // When
-    const component = shallow(
+    const component = mount(
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     );
 
@@ -38,13 +50,28 @@ describe("App", () => {
     expect(component.find("#snackbar").length).toEqual(0);
   });
 
-  it.skip("should set a automatic closure of snackbar after 3 seconds when snack is displayed", () => {});
+  it("should set a automatic closure of snackbar after 3 seconds when snack is displayed", () => {
+    // Given
+    const store = mockStore(STORE);
+    jest.useFakeTimers();
+
+    // When
+    mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    // Then
+    expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 3000);
+  });
 
   it("should display success snackbar when property 'isSnackbarActive' in state is equal to true and type is equal to 'success'", () => {
     // Given
     const store = mockStore({
-      watchedMovies: [],
-      moviesToWatch: [],
+      ...STORE,
       global: {
         snackbar: {
           isSnackbarActive: true,
@@ -77,12 +104,11 @@ describe("App", () => {
   it("should display error snackbar when property 'isSnackbarActive' in state is equal to true and type is equal to 'error'", () => {
     // Given
     const store = mockStore({
-      watchedMovies: [],
-      moviesToWatch: [],
+      ...STORE,
       global: {
         snackbar: {
           isSnackbarActive: true,
-          message: "Success message",
+          message: "Error message",
           type: SNACKBAR_ERROR_TYPE,
         },
       },
@@ -108,5 +134,29 @@ describe("App", () => {
     );
   });
 
-  it.skip("should close snack when user click on close button", () => {});
+  it("should close snack when user click on close button", () => {
+    // Given
+    const store = mockStore(STORE);
+
+    // When
+    const component = mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    component.find(".snackbar__close-icon").simulate("click");
+
+    // Then
+    const actionsCalled = store.getActions();
+    const expectedActionCalled = [
+      {
+        type: CLOSE_SNACKBAR,
+        payload: null,
+      },
+    ];
+    expect(actionsCalled).toEqual(expect.arrayContaining(expectedActionCalled));
+  });
 });

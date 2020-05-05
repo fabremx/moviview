@@ -15,24 +15,21 @@ import {
 } from "../../shared/api/urls";
 import { TMDB_KEY } from "../../shared/api/keys";
 import { Movie } from "../../shared/models/movie";
-
 import { connect } from "react-redux";
-import {
-  addMovieToWatchAction,
-  deleteMovieToWatchAction,
-  saveMoviesToWatchOnLocalStorageAction,
-} from "../../redux/actions/movies-to-watch-actions";
-import {
-  addWatchedMovieAction,
-  changeMovieRatingAction,
-  saveWatchedMoviesOnLocalStorageAction,
-} from "../../redux/actions/watched-movies-actions";
-import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import utils from "../../shared/utils";
 import {
   MAX_USER_RATING,
   SNACKBAR_SUCCESS_TYPE,
 } from "../../shared/constants/variables";
+import {
+  DISPLAY_SNACKBAR,
+  ADD_MOVIE_TO_WATCH,
+  DELETE_MOVIE_TO_WATCH,
+  SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
+  ADD_WATCHED_MOVIE,
+  CHANGE_WATCHED_MOVIE_RATING,
+  SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
+} from "../../redux/actions";
 
 class MovieDetailsPage extends React.Component {
   constructor(props) {
@@ -319,18 +316,40 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addMovieToWatchAction: (movieToAdd) =>
-    dispatch(addMovieToWatchAction(movieToAdd)),
+    dispatch({
+      type: ADD_MOVIE_TO_WATCH,
+      payload: movieToAdd,
+    }),
   deleteMovieToWatch: (movieToDeleteId) =>
-    dispatch(deleteMovieToWatchAction(movieToDeleteId)),
+    dispatch({
+      type: DELETE_MOVIE_TO_WATCH,
+      payload: movieToDeleteId,
+    }),
   addWatchedMovieAction: (movieToAdd) =>
-    dispatch(addWatchedMovieAction(movieToAdd)),
+    dispatch({
+      type: ADD_WATCHED_MOVIE,
+      payload: movieToAdd,
+    }),
   changeMovieRatingAction: (movieInfo) =>
-    dispatch(changeMovieRatingAction(movieInfo)),
+    dispatch({
+      type: CHANGE_WATCHED_MOVIE_RATING,
+      payload: movieInfo,
+    }),
   saveWatchedMoviesOnLocalStorageAction: () =>
-    dispatch(saveWatchedMoviesOnLocalStorageAction()),
+    dispatch({
+      type: SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
+      payload: null,
+    }),
   saveMoviesToWatchOnLocalStorageAction: () =>
-    dispatch(saveMoviesToWatchOnLocalStorageAction()),
-  displaySnackbar: (payload) => dispatch(displaySnackbarAction(payload)),
+    dispatch({
+      type: SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
+      payload: null,
+    }),
+  displaySnackbar: (payload) =>
+    dispatch({
+      type: DISPLAY_SNACKBAR,
+      payload,
+    }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);
