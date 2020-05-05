@@ -1,13 +1,18 @@
 import React from "react";
 import { TMDB_URL_SEARCH } from "../../shared/api/urls";
 import Header from "./header";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
+import { Provider } from "react-redux";
+import configureStore from "redux-mock-store";
 
 const PROPS = {
   onSearchMovie: jest.fn(),
 };
 
 const MOCKED_FETCH_RESULT = [{ id: "movie1" }, { id: "movie2" }];
+
+const mockStore = configureStore([]);
+const STORE = mockStore({});
 
 describe("Header", () => {
   afterEach(() => {
@@ -30,7 +35,12 @@ describe("Header", () => {
       .mockImplementation(() => Promise.resolve(mockFetchResponse));
 
     // When
-    const component = shallow(<Header {...PROPS} />);
+    const component = mount(
+      <Provider store={STORE}>
+        <Header {...PROPS} />
+      </Provider>
+    );
+
     component
       .find("input")
       .simulate("change", { target: { value: searchInput } });
@@ -53,7 +63,12 @@ describe("Header", () => {
       .mockImplementation(() => Promise.resolve(mockFetchResponse));
 
     // When
-    const component = shallow(<Header {...PROPS} />);
+    const component = mount(
+      <Provider store={STORE}>
+        <Header {...PROPS} />
+      </Provider>
+    );
+
     component
       .find("input")
       .simulate("change", { target: { value: "something" } });
@@ -62,4 +77,8 @@ describe("Header", () => {
     const expectedParam = MOCKED_FETCH_RESULT;
     expect(PROPS.onSearchMovie).toHaveBeenCalledWith(expectedParam);
   });
+
+  it.skip("should set call 'onSearchMovie' method with empty array when the search result is empty, null or undefined", () => {});
+
+  it.skip("should call error snackbar when fetch retrieves an error", () => {});
 });

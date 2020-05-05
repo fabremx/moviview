@@ -1,7 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import searchIcon from "../../shared/images/search-icon.png";
 import "./header.scss";
 import { TMDB_URL_SEARCH } from "../../shared/api/urls";
+import { SNACKBAR_ERROR_TYPE } from "../../shared/constants/variables";
 
 class Header extends React.Component {
   constructor(props) {
@@ -22,6 +25,10 @@ class Header extends React.Component {
         },
         (error) => {
           console.log(error);
+          this.props.displaySnackbar({
+            message: "Erreur. Impossible de joindre l'API.",
+            type: SNACKBAR_ERROR_TYPE,
+          });
         }
       );
   }
@@ -45,4 +52,8 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapDispatchToProps = (dispatch) => ({
+  displaySnackbar: (payload) => dispatch(displaySnackbarAction(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Header);

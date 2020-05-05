@@ -29,7 +29,10 @@ import {
 } from "../../redux/actions/watched-movies-actions";
 import { displaySnackbarAction } from "../../redux/actions/global-actions";
 import utils from "../../shared/utils";
-import { MAX_USER_RATING } from "../../shared/constants/variables";
+import {
+  MAX_USER_RATING,
+  SNACKBAR_SUCCESS_TYPE,
+} from "../../shared/constants/variables";
 
 class MovieDetailsPage extends React.Component {
   constructor(props) {
@@ -119,7 +122,7 @@ class MovieDetailsPage extends React.Component {
     this.props.saveMoviesToWatchOnLocalStorageAction();
     this.props.displaySnackbar({
       message: "Film ajouté à la liste 'A voir' avec succès.",
-      type: "success",
+      type: SNACKBAR_SUCCESS_TYPE,
     });
   };
 
@@ -132,7 +135,7 @@ class MovieDetailsPage extends React.Component {
 
       this.props.displaySnackbar({
         message: "La note du film à bien été changé.",
-        type: "success",
+        type: SNACKBAR_SUCCESS_TYPE,
       });
     } else {
       this.props.addWatchedMovieAction({
@@ -144,7 +147,7 @@ class MovieDetailsPage extends React.Component {
       this.props.saveMoviesToWatchOnLocalStorageAction();
       this.props.displaySnackbar({
         message: "Film ajouté à la liste 'Vu' avec succès.",
-        type: "success",
+        type: SNACKBAR_SUCCESS_TYPE,
       });
     }
 

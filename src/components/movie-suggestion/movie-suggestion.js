@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
+import { SNACKBAR_SUCCESS_TYPE } from "../../shared/constants/variables";
 
 class MovieSuggestion extends React.Component {
   getMovieGenre(movieGenres) {
@@ -109,7 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(
       displaySnackbarAction({
         message: "Film supprimé avec succès.",
-        type: "success",
+        type: SNACKBAR_SUCCESS_TYPE,
       })
     );
   },

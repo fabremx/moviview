@@ -13,7 +13,10 @@ import { connect } from "react-redux";
 import { setOnGoingAction } from "../../redux/actions/on-going-action-actions";
 import { Link } from "react-router-dom";
 import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
-import { MAX_USER_RATING } from "../../shared/constants/variables";
+import {
+  MAX_USER_RATING,
+  SNACKBAR_SUCCESS_TYPE,
+} from "../../shared/constants/variables";
 
 class MovieRating extends React.Component {
   deleteWatchedMovie = (event) => {
@@ -111,7 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(
       displaySnackbarAction({
         message: "Film supprimé avec succès.",
-        type: "success",
+        type: SNACKBAR_SUCCESS_TYPE,
       })
     );
   },

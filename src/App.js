@@ -13,35 +13,66 @@ import {
   MOVIES_TO_WATCH_ROUTE,
   MOVIE_DETAILS_ROUTE,
 } from "./shared/constants/routes";
+import {
+  SNACKBAR_SUCCESS_TYPE,
+  SNACKBAR_ERROR_TYPE,
+} from "./shared/constants/variables";
 
-function App(props) {
-  if (props.snackbar.isSnackbarActive) {
-    setTimeout(props.closeSnackbar, 3000);
+function getSnackbarIcon(type) {
+  switch (type) {
+    case SNACKBAR_SUCCESS_TYPE:
+      return validIcon;
+    case SNACKBAR_ERROR_TYPE:
+      return closeIcon;
+    default:
+      return validIcon;
   }
+}
 
-  return (
-    <div>
-      {props.snackbar.isSnackbarActive && (
-        <div id="snackbar">
-          <img
-            src={validIcon}
-            alt="valid icon"
-            className="snackbar__valid-icon"
-          />
-          <p>{props.snackbar.message}</p>
-          <img
-            src={closeIcon}
-            alt="close icon"
-            onClick={props.closeSnackbar}
-            className="snackbar__close-icon"
-          />
-        </div>
-      )}
-      <Route exact path={HOME_ROUTE} component={WatchedMoviesPage} />
-      <Route path={MOVIES_TO_WATCH_ROUTE} component={MovieToWatchPage} />
-      <Route path={MOVIE_DETAILS_ROUTE + "/:id"} component={MovieDetailsPage} />
-    </div>
-  );
+function getSnackbarIconClassName(type) {
+  switch (type) {
+    case SNACKBAR_SUCCESS_TYPE:
+      return "snackbar__icon snackbar__icon--success";
+    case SNACKBAR_ERROR_TYPE:
+      return "snackbar__icon snackbar__icon--error";
+    default:
+      return "snackbar__icon";
+  }
+}
+
+class App extends React.Component {
+  render() {
+    if (this.props.snackbar.isSnackbarActive) {
+      setTimeout(this.props.closeSnackbar, 3000);
+    }
+
+    return (
+      <div>
+        {this.props.snackbar.isSnackbarActive && (
+          <div id="snackbar">
+            <img
+              src={getSnackbarIcon(this.props.snackbar.type)}
+              alt="valid icon"
+              className={getSnackbarIconClassName(this.props.snackbar.type)}
+            />
+            <p>{this.props.snackbar.message}</p>
+            <img
+              src={closeIcon}
+              alt="close icon"
+              onClick={this.props.closeSnackbar}
+              className="snackbar__close-icon"
+            />
+          </div>
+        )}
+        <Route exact path={HOME_ROUTE} component={WatchedMoviesPage} />
+        <Route path={MOVIES_TO_WATCH_ROUTE} component={MovieToWatchPage} />
+        <Route
+          path={MOVIE_DETAILS_ROUTE + "/:id"}
+          component={MovieDetailsPage}
+        />
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
