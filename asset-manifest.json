@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.f8bcec44.chunk.css",
-    "main.js": "/static/js/main.62a36ff5.chunk.js",
-    "main.js.map": "/static/js/main.62a36ff5.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.66c3c7d8.js",
-    "runtime-main.js.map": "/static/js/runtime-main.66c3c7d8.js.map",
-    "static/js/2.2268ac01.chunk.js": "/static/js/2.2268ac01.chunk.js",
-    "static/js/2.2268ac01.chunk.js.map": "/static/js/2.2268ac01.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.8a9821118df3e3a2d2f9fb9a4e21a1c2.js": "/precache-manifest.8a9821118df3e3a2d2f9fb9a4e21a1c2.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.f8bcec44.chunk.css.map": "/static/css/main.f8bcec44.chunk.css.map",
-    "static/js/2.2268ac01.chunk.js.LICENSE.txt": "/static/js/2.2268ac01.chunk.js.LICENSE.txt",
-    "static/media/list.png": "/static/media/list.7c4c7b1c.png",
-    "static/media/loader.gif": "/static/media/loader.5a5875ed.gif",
-    "static/media/not-available.png": "/static/media/not-available.401a91b3.png",
-    "static/media/search-icon.png": "/static/media/search-icon.147a304f.png"
+    "main.css": "/moviview/static/css/main.f8bcec44.chunk.css",
+    "main.js": "/moviview/static/js/main.a9737f7f.chunk.js",
+    "main.js.map": "/moviview/static/js/main.a9737f7f.chunk.js.map",
+    "runtime-main.js": "/moviview/static/js/runtime-main.519bce0b.js",
+    "runtime-main.js.map": "/moviview/static/js/runtime-main.519bce0b.js.map",
+    "static/js/2.2268ac01.chunk.js": "/moviview/static/js/2.2268ac01.chunk.js",
+    "static/js/2.2268ac01.chunk.js.map": "/moviview/static/js/2.2268ac01.chunk.js.map",
+    "index.html": "/moviview/index.html",
+    "precache-manifest.cca0740443c0aebfaa3b5bb4b83559ac.js": "/moviview/precache-manifest.cca0740443c0aebfaa3b5bb4b83559ac.js",
+    "service-worker.js": "/moviview/service-worker.js",
+    "static/css/main.f8bcec44.chunk.css.map": "/moviview/static/css/main.f8bcec44.chunk.css.map",
+    "static/js/2.2268ac01.chunk.js.LICENSE.txt": "/moviview/static/js/2.2268ac01.chunk.js.LICENSE.txt",
+    "static/media/list.png": "/moviview/static/media/list.7c4c7b1c.png",
+    "static/media/loader.gif": "/moviview/static/media/loader.5a5875ed.gif",
+    "static/media/not-available.png": "/moviview/static/media/not-available.401a91b3.png",
+    "static/media/search-icon.png": "/moviview/static/media/search-icon.147a304f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.66c3c7d8.js",
+    "static/js/runtime-main.519bce0b.js",
     "static/js/2.2268ac01.chunk.js",
     "static/css/main.f8bcec44.chunk.css",
-    "static/js/main.62a36ff5.chunk.js"
+    "static/js/main.a9737f7f.chunk.js"
   ]
 }
