@@ -38,7 +38,7 @@
       "density": "4.0"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./moviview/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
