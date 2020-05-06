@@ -163,6 +163,7 @@ class MovieDetailsPage extends React.Component {
           src={fullStarIcon}
           alt="star icon"
           key={"full-star-" + index}
+          className="full-star-icon"
           onClick={() => this.setUserRating(index)}
         />
       ));
@@ -174,6 +175,7 @@ class MovieDetailsPage extends React.Component {
           src={emptyStarIcon}
           alt="star icon"
           key={"empty-star-" + index}
+          className="empty-star-icon"
           onClick={() => this.setUserRating(fullStarArray.length + index)}
         />
       ));
@@ -274,7 +276,10 @@ class MovieDetailsPage extends React.Component {
                 // Display rating validation button when user choose a rate
                 this.state.selectedStar > 0 && this.state.hasUserRated && (
                   <Link to={HOME_ROUTE}>
-                    <div className="button" onClick={this.submitMovieRating}>
+                    <div
+                      className="validation-rate-button button"
+                      onClick={this.submitMovieRating}
+                    >
                       <img src={validationIcon} alt="button icon" />
                       <span className="button__label">VALIDER</span>
                     </div>
