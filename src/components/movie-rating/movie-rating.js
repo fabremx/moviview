@@ -37,13 +37,23 @@ class MovieRating extends React.Component {
     const fullStarArray = Array(userRating)
       .fill(null)
       .map((_, i) => (
-        <img src={fullStarIcon} alt="star icon" key={"full-star-" + i} />
+        <img
+          src={fullStarIcon}
+          alt="star icon"
+          key={"full-star-" + i}
+          className="full-star-icon"
+        />
       ));
 
     const emptyStarArray = Array(MAX_USER_RATING - userRating)
       .fill(null)
       .map((_, i) => (
-        <img src={emptyStarIcon} alt="star icon" key={"empty-star-" + i} />
+        <img
+          src={emptyStarIcon}
+          alt="star icon"
+          key={"empty-star-" + i}
+          className="empty-star-icon"
+        />
       ));
 
     return [...fullStarArray, ...emptyStarArray];
