@@ -7,9 +7,14 @@ Moviview is a PWA which allow you to search movies in order to have information 
 - Movies to watch : Useful to keep in mind some movies that you've heard of.
 - Watched Movies : Allow you to etablish a list of movies you've ever seen with your own rate.
 
+this project use two apis :
+
+- [themoviedb](https://www.themoviedb.org/documentation/api)
+- [OMDb API](http://www.omdbapi.com/)
+
 ## Objectives
 
-The purpose goals of the project was to learn the basic of React and create my first PWA at the same time.
+The purpose goals of the project was to learn the basic of React, Redux, Enzyme and create my first PWA at the same time.
 
 ## Preview
 
