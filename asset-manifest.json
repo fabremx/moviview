@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.171a24c0.chunk.css",
-    "main.js": "/static/js/main.f9ef89bb.chunk.js",
-    "main.js.map": "/static/js/main.f9ef89bb.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.66c3c7d8.js",
-    "runtime-main.js.map": "/static/js/runtime-main.66c3c7d8.js.map",
-    "static/js/2.b459f263.chunk.js": "/static/js/2.b459f263.chunk.js",
-    "static/js/2.b459f263.chunk.js.map": "/static/js/2.b459f263.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.f4a25976f4e750ce409843b318f7e36a.js": "/precache-manifest.f4a25976f4e750ce409843b318f7e36a.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.171a24c0.chunk.css.map": "/static/css/main.171a24c0.chunk.css.map",
-    "static/js/2.b459f263.chunk.js.LICENSE.txt": "/static/js/2.b459f263.chunk.js.LICENSE.txt",
-    "static/media/list.png": "/static/media/list.7c4c7b1c.png",
-    "static/media/loader.gif": "/static/media/loader.5a5875ed.gif",
-    "static/media/not-available.png": "/static/media/not-available.401a91b3.png",
-    "static/media/search-icon.png": "/static/media/search-icon.147a304f.png"
+    "main.css": "/movivew/static/css/main.171a24c0.chunk.css",
+    "main.js": "/movivew/static/js/main.3b74d140.chunk.js",
+    "main.js.map": "/movivew/static/js/main.3b74d140.chunk.js.map",
+    "runtime-main.js": "/movivew/static/js/runtime-main.91433628.js",
+    "runtime-main.js.map": "/movivew/static/js/runtime-main.91433628.js.map",
+    "static/js/2.b459f263.chunk.js": "/movivew/static/js/2.b459f263.chunk.js",
+    "static/js/2.b459f263.chunk.js.map": "/movivew/static/js/2.b459f263.chunk.js.map",
+    "index.html": "/movivew/index.html",
+    "precache-manifest.6112958bccc90813692e1be798cdcd31.js": "/movivew/precache-manifest.6112958bccc90813692e1be798cdcd31.js",
+    "service-worker.js": "/movivew/service-worker.js",
+    "static/css/main.171a24c0.chunk.css.map": "/movivew/static/css/main.171a24c0.chunk.css.map",
+    "static/js/2.b459f263.chunk.js.LICENSE.txt": "/movivew/static/js/2.b459f263.chunk.js.LICENSE.txt",
+    "static/media/list.png": "/movivew/static/media/list.7c4c7b1c.png",
+    "static/media/loader.gif": "/movivew/static/media/loader.5a5875ed.gif",
+    "static/media/not-available.png": "/movivew/static/media/not-available.401a91b3.png",
+    "static/media/search-icon.png": "/movivew/static/media/search-icon.147a304f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.66c3c7d8.js",
+    "static/js/runtime-main.91433628.js",
     "static/js/2.b459f263.chunk.js",
     "static/css/main.171a24c0.chunk.css",
-    "static/js/main.f9ef89bb.chunk.js"
+    "static/js/main.3b74d140.chunk.js"
   ]
 }
