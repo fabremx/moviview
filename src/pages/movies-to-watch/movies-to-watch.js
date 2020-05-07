@@ -13,7 +13,7 @@ class MoviesToWatchPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { searchSuggestions: [] };
+    this.state = { searchSuggestions: [], isModalOpen: false };
   }
 
   setSearchSuggestions = (moviesSuggestions) => {
@@ -68,7 +68,7 @@ class MoviesToWatchPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state,
+  moviesToWatch: state.moviesToWatch,
 });
 
 export default connect(mapStateToProps)(MoviesToWatchPage);

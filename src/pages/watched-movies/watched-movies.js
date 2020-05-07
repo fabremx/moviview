@@ -67,7 +67,7 @@ class WatchedMoviesPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  ...state,
+  watchedMovies: state.watchedMovies,
 });
 
 export default connect(mapStateToProps, null)(WatchedMoviesPage);
