@@ -16,7 +16,11 @@ import {
   SNACKBAR_SUCCESS_TYPE,
   SNACKBAR_ERROR_TYPE,
 } from "./shared/constants/variables";
-import { CLOSE_SNACKBAR } from "./redux/actions";
+import {
+  LOAD_WATCHED_MOVIES,
+  LOAD_MOVIES_TO_WATCH,
+  CLOSE_SNACKBAR,
+} from "./redux/actions";
 
 function getSnackbarIcon(type) {
   switch (type) {
@@ -41,6 +45,10 @@ function getSnackbarIconClassName(type) {
 }
 
 class App extends React.Component {
+  componentDidMount() {
+    this.props.loadUserMoviesLists();
+  }
+
   render() {
     if (this.props.snackbar.isSnackbarActive) {
       setTimeout(this.props.closeSnackbar, 3000);
@@ -80,6 +88,17 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  loadUserMoviesLists: () => {
+    dispatch({
+      type: LOAD_WATCHED_MOVIES,
+      payload: null,
+    });
+
+    dispatch({
+      type: LOAD_MOVIES_TO_WATCH,
+      payload: null,
+    });
+  },
   closeSnackbar: () =>
     dispatch({
       type: CLOSE_SNACKBAR,

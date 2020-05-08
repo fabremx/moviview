@@ -10,7 +10,11 @@ import {
   SNACKBAR_ERROR_TYPE,
 } from "./shared/constants/variables";
 import { BrowserRouter } from "react-router-dom";
-import { CLOSE_SNACKBAR } from "./redux/actions";
+import {
+  LOAD_WATCHED_MOVIES,
+  LOAD_MOVIES_TO_WATCH,
+  CLOSE_SNACKBAR,
+} from "./redux/actions";
 
 const mockStore = configureStore([]);
 const STORE = {
@@ -26,6 +30,41 @@ const STORE = {
 };
 
 describe("App", () => {
+  it("should load the user movies list save when component is rendered", () => {
+    // Given
+    const store = mockStore({
+      ...STORE,
+      global: {
+        snackbar: {
+          isSnackbarActive: false,
+        },
+      },
+    });
+
+    // When
+    mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    // Then
+    const actionsCalled = store.getActions();
+    const expectedActionCalled = [
+      {
+        type: LOAD_WATCHED_MOVIES,
+        payload: null,
+      },
+      {
+        type: LOAD_MOVIES_TO_WATCH,
+        payload: null,
+      },
+    ];
+    expect(actionsCalled).toEqual(expect.arrayContaining(expectedActionCalled));
+  });
+
   it("should hide snackbar when property 'isSnackbarActive' in state is equal to false", () => {
     // Given
     const store = mockStore({

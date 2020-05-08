@@ -1,4 +1,5 @@
 import {
+  LOAD_WATCHED_MOVIES,
   ADD_WATCHED_MOVIE,
   DELETE_WATCHED_MOVIE,
   CHANGE_WATCHED_MOVIE_RATING,
@@ -9,6 +10,10 @@ export default (state = {}, action) => {
   let newWatchedMovies, movie, rating;
 
   switch (action.type) {
+    case LOAD_WATCHED_MOVIES:
+      const watchedMovies = window.localStorage.getItem("watchedMovies");
+
+      return watchedMovies ? JSON.parse(watchedMovies) : [];
     case ADD_WATCHED_MOVIE:
       movie = action.payload.movie;
       rating = action.payload.rating;

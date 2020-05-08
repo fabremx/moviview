@@ -1,4 +1,5 @@
 import {
+  LOAD_WATCHED_MOVIES,
   ADD_WATCHED_MOVIE,
   DELETE_WATCHED_MOVIE,
   CHANGE_WATCHED_MOVIE_RATING,
@@ -142,6 +143,57 @@ describe("Watched movies Reducer", () => {
         userRating: 4,
       },
     ];
+    expect(newState).toEqual(expectedState);
+  });
+
+  it("should set state with the content of localSotrage when there are data", () => {
+    // Given
+    const currentState = [];
+    const mockLocalStorage = JSON.stringify([
+      {
+        id: "id1",
+        title: "title1",
+        imdbId: "imdbId1",
+      },
+    ]);
+
+    window.localStorage.setItem("watchedMovies", mockLocalStorage);
+
+    const action = {
+      type: LOAD_WATCHED_MOVIES,
+      payload: null,
+    };
+
+    // When
+    const newState = watchedMoviesReducer(currentState, action);
+
+    // Then
+    const expectedState = [
+      {
+        id: "id1",
+        title: "title1",
+        imdbId: "imdbId1",
+      },
+    ];
+
+    expect(newState).toEqual(expectedState);
+    window.localStorage.removeItem("watchedMovies");
+  });
+
+  it("should set an empty array to the state when localStorage have no data", () => {
+    // Given
+    const currentState = [];
+
+    const action = {
+      type: LOAD_WATCHED_MOVIES,
+      payload: null,
+    };
+
+    // When
+    const newState = watchedMoviesReducer(currentState, action);
+
+    // Then
+    const expectedState = [];
     expect(newState).toEqual(expectedState);
   });
 });

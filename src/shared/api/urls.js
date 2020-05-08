@@ -6,4 +6,4 @@ export const TMDB_URL_SEARCH =
   "&language=fr";
 export const TMDB_URL_MOVIE_DETAILS = "https://api.themoviedb.org/3/movie/";
 export const TMDB_URL_IMAGE = "https://image.tmdb.org/t/p/original/";
-export const OMDB_URL = "http://www.omdbapi.com/";
+export const OMDB_URL = "https://www.omdbapi.com/";

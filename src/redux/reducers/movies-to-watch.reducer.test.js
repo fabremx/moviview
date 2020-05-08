@@ -1,4 +1,8 @@
-import { ADD_MOVIE_TO_WATCH, DELETE_MOVIE_TO_WATCH } from "../../redux/actions";
+import {
+  LOAD_MOVIES_TO_WATCH,
+  ADD_MOVIE_TO_WATCH,
+  DELETE_MOVIE_TO_WATCH,
+} from "../../redux/actions";
 
 import moviesToWatchReducer from "./movies-to-watch.reducer";
 
@@ -85,6 +89,57 @@ describe("Movies to watch Reducer", () => {
         imdbId: "imdbId2",
       },
     ];
+    expect(newState).toEqual(expectedState);
+  });
+
+  it("should set state with the content of localSotrage when there are data", () => {
+    // Given
+    const currentState = [];
+    const mockLocalStorage = JSON.stringify([
+      {
+        id: "id1",
+        title: "title1",
+        imdbId: "imdbId1",
+      },
+    ]);
+
+    window.localStorage.setItem("moviesToWatch", mockLocalStorage);
+
+    const action = {
+      type: LOAD_MOVIES_TO_WATCH,
+      payload: null,
+    };
+
+    // When
+    const newState = moviesToWatchReducer(currentState, action);
+
+    // Then
+    const expectedState = [
+      {
+        id: "id1",
+        title: "title1",
+        imdbId: "imdbId1",
+      },
+    ];
+
+    expect(newState).toEqual(expectedState);
+    window.localStorage.removeItem("moviesToWatch");
+  });
+
+  it("should set an empty array to the state when localStorage have no data", () => {
+    // Given
+    const currentState = [];
+
+    const action = {
+      type: LOAD_MOVIES_TO_WATCH,
+      payload: null,
+    };
+
+    // When
+    const newState = moviesToWatchReducer(currentState, action);
+
+    // Then
+    const expectedState = [];
     expect(newState).toEqual(expectedState);
   });
 });
