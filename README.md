@@ -14,7 +14,7 @@ this project use two apis :
 
 ## Objectives
 
-The purpose goals of the project was to learn the basic of React, Redux, Enzyme and create my first PWA at the same time.
+The main goals of the project was to learn the basic of React, Redux, Enzyme and create my first PWA at the same time.
 
 ## Preview
 
