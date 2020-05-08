@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, combineReducers, compose } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import moviesToWatchReducer from "./reducers/movies-to-watch.reducer";
 import watchedMoviesReducer from "./reducers/watched-movies.reducer";

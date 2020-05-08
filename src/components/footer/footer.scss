@@ -18,6 +18,10 @@
       background-color: $dark-theme-medium-blue;
     }
 
+    &:focus {
+      outline: none;
+    }
+
     img {
       width: 25px;
       height: 25px;
