@@ -1,7 +1,7 @@
 import React from "react";
 import { TMDB_URL_SEARCH } from "../../shared/api/urls";
 import Header from "./header";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 import configureStore from "redux-mock-store";
 
 const PROPS = {
@@ -34,7 +34,7 @@ describe("Header", () => {
       .mockImplementation(() => Promise.resolve(mockFetchResponse));
 
     // When
-    const component = mount(<Header {...PROPS} store={STORE} />);
+    const component = shallow(<Header {...PROPS} store={STORE} />).dive();
 
     component
       .find("input")
@@ -58,7 +58,7 @@ describe("Header", () => {
       .mockImplementation(() => Promise.resolve(mockFetchResponse));
 
     // When
-    const component = mount(<Header {...PROPS} store={STORE} />);
+    const component = shallow(<Header {...PROPS} store={STORE} />).dive();
 
     component
       .find("input")

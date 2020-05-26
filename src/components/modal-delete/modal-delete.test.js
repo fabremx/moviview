@@ -1,5 +1,5 @@
 import React from "react";
-import { mount } from "enzyme";
+import { mount, shallow } from "enzyme";
 import configureStore from "redux-mock-store";
 import ModalDelete from "./modal-delete";
 import { RESET_ON_GOING_ACTION } from "../../redux/actions";
@@ -26,7 +26,7 @@ describe("Modal Delete", () => {
     };
 
     // When
-    const component = mount(<ModalDelete {...props} store={STORE} />);
+    const component = shallow(<ModalDelete {...props} store={STORE} />).dive();
 
     // Then
     expect(component.find(".modal-delete").length).toEqual(0);
@@ -34,8 +34,9 @@ describe("Modal Delete", () => {
 
   it("should close delete modal when user click outise of the modal", () => {
     // When
-    const component = mount(<ModalDelete {...PROPS} store={STORE} />);
-
+    const component = shallow(<ModalDelete {...PROPS} store={STORE} />)
+      .dive()
+      .dive();
     component.find(".modal-delete").simulate("click");
 
     // Then
@@ -53,7 +54,9 @@ describe("Modal Delete", () => {
 
   it("should close delete modal when user click on the close button", () => {
     // When
-    const component = mount(<ModalDelete {...PROPS} store={STORE} />);
+    const component = shallow(<ModalDelete {...PROPS} store={STORE} />)
+      .dive()
+      .dive();
     component.find(".close").simulate("click");
 
     // Then
