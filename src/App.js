@@ -8,7 +8,7 @@ import MovieDetailsPage from "./pages/movie-details/movie-details";
 import validIcon from "./shared/images/valid-snackbar-icon.png";
 import closeIcon from "./shared/images/close-snackbar-icon.png";
 import {
-  HOME_ROUTE,
+  WATCHED_MOVIES_ROUTE,
   MOVIES_TO_WATCH_ROUTE,
   MOVIE_DETAILS_ROUTE,
 } from "./shared/constants/routes";
@@ -72,8 +72,8 @@ class App extends React.Component {
             />
           </div>
         )}
-        <Route exact path={HOME_ROUTE} component={WatchedMoviesPage} />
-        <Route path={MOVIES_TO_WATCH_ROUTE} component={MovieToWatchPage} />
+        <Route exact path={MOVIES_TO_WATCH_ROUTE} component={MovieToWatchPage} />
+        <Route path={WATCHED_MOVIES_ROUTE} component={WatchedMoviesPage} />
         <Route
           path={MOVIE_DETAILS_ROUTE + "/:id"}
           component={MovieDetailsPage}

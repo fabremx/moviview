@@ -1,22 +1,20 @@
 import React from "react";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import { BrowserRouter } from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import MovieDetailsPage from "./movie-details";
-import { mount } from "enzyme";
-import { TMDB_URL_MOVIE_DETAILS, OMDB_URL } from "../../shared/api/urls";
-import { TMDB_KEY } from "../../shared/api/keys";
-import { HOME_ROUTE } from "../../shared/constants/routes";
+import {mount} from "enzyme";
+import {WATCHED_MOVIES_ROUTE} from "../../shared/constants/routes";
 import {
-  DISPLAY_SNACKBAR,
-  ADD_MOVIE_TO_WATCH,
-  DELETE_MOVIE_TO_WATCH,
-  SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
-  ADD_WATCHED_MOVIE,
-  CHANGE_WATCHED_MOVIE_RATING,
-  SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
+    ADD_MOVIE_TO_WATCH,
+    ADD_WATCHED_MOVIE,
+    CHANGE_WATCHED_MOVIE_RATING,
+    DELETE_MOVIE_TO_WATCH,
+    DISPLAY_SNACKBAR,
+    SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
+    SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
 } from "../../redux/actions";
-import { SNACKBAR_SUCCESS_TYPE } from "../../shared/constants/variables";
+import {SNACKBAR_SUCCESS_TYPE} from "../../shared/constants/variables";
 
 const MOCK_MOVIE = {
   actors: "Ashley Tisdale, Simon Rex, Gracie Whitton, Ava Kolker",
@@ -194,7 +192,7 @@ describe("Movie details page", () => {
       // Then
       expect(
         component.find(".movie-details__button").parent().props().href
-      ).toEqual(HOME_ROUTE);
+      ).toEqual(WATCHED_MOVIES_ROUTE);
     });
 
     it("should add movie, save in localStorage and call snackbar when user add the movie to the movies-to-watch list", () => {
@@ -407,7 +405,7 @@ describe("Movie details page", () => {
       // Then
       expect(
         component.find(".validation-rate-button").parent().props().href
-      ).toEqual(HOME_ROUTE);
+      ).toEqual(WATCHED_MOVIES_ROUTE);
     });
 
     it.skip("should call correct actions when user rates for the first time the movie", () => {

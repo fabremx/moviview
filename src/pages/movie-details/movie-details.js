@@ -7,7 +7,7 @@ import plusIcon from "../../shared/images/plus-icon.png";
 import validationIcon from "../../shared/images/validation-icon.png";
 import loader from "../../shared/images/loader.gif";
 import {Link} from "react-router-dom";
-import {HOME_ROUTE} from "../../shared/constants/routes";
+import {WATCHED_MOVIES_ROUTE} from "../../shared/constants/routes";
 import {
     TMDB_URL_MOVIE_DETAILS,
     TMDB_URL_IMAGE,
@@ -283,7 +283,7 @@ class MovieDetailsPage extends React.Component {
                             {
                                 // Display rating validation button when user choose a rate
                                 this.state.selectedStar > 0 && this.state.hasUserRated && (
-                                    <Link to={HOME_ROUTE}>
+                                    <Link to={WATCHED_MOVIES_ROUTE}>
                                         <div
                                             className="validation-rate-button button"
                                             onClick={this.submitMovieRating}
@@ -308,7 +308,7 @@ class MovieDetailsPage extends React.Component {
                 </div>
 
                 {!this.isMovieAlreadyInAList() && (
-                    <Link to={HOME_ROUTE}>
+                    <Link to={WATCHED_MOVIES_ROUTE}>
                         <div
                             className="movie-details__button button"
                             onClick={this.addMovieToWatchList}
