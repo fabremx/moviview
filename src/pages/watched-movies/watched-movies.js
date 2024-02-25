@@ -4,70 +4,73 @@ import Header from "../../components/header/header";
 import Footer from "../../components/footer/footer";
 import MovieRating from "../../components/movie-rating/movie-rating";
 import SearchSuggestions from "../../components/search-suggestions/search-suggestions";
-import { MOVIE_DETAILS_ROUTE } from "../../shared/constants/routes";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import {MOVIE_DETAILS_ROUTE} from "../../shared/constants/routes";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import ModalDelete from "../../components/modal-delete/modal-delete";
+import {SearchSuggestion} from "../../shared/models/searchSuggestion";
 
 class WatchedMoviesPage extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = { searchSuggestions: [], isModalOpen: false };
-  }
+        this.state = {searchSuggestions: [], isModalOpen: false};
+    }
 
-  setSearchSuggestions = (moviesSuggestions) => {
-    this.setState({ searchSuggestions: moviesSuggestions });
-  };
+    setSearchSuggestions = (moviesSuggestions) => {
+        this.setState({
+            searchSuggestions: moviesSuggestions.map((suggestion) => new SearchSuggestion(suggestion))
+        });
+    };
 
-  toggleDeleteModal = () => {
-    this.setState({ isModalOpen: !this.state.isModalOpen });
-  };
+    toggleDeleteModal = () => {
+        this.setState({isModalOpen: !this.state.isModalOpen});
+    };
 
-  render() {
-    return (
-      <div id="movie-watched-page">
-        <Header onSearchMovie={this.setSearchSuggestions} />
+    render() {
+        return (
+            <div id="movie-watched-page">
+                <Header onSearchMovie={this.setSearchSuggestions}/>
 
-        {this.state.searchSuggestions.length && (
-          <div className="search-suggestions-container">
-            {this.state.searchSuggestions.map((movie) => (
-              <Link to={MOVIE_DETAILS_ROUTE + "/" + movie.id} key={movie.id}>
-                <SearchSuggestions movie={movie} key={movie.id} />
-              </Link>
-            ))}
-          </div>
-        )}
+                {this.state.searchSuggestions.length && (
+                    <div className="search-suggestions-container">
+                        {this.state.searchSuggestions.map((movie) => (
+                            <Link to={MOVIE_DETAILS_ROUTE + "/" + movie.id} key={movie.id}>
+                                <SearchSuggestions movie={movie} key={movie.id}/>
+                            </Link>
+                        ))}
+                    </div>
+                )}
 
-        <div className="watched-movies-container">
-          <div className="watched-movies-container__title">Films vus</div>
-          {!this.props.watchedMovies.length && (
-            <p className="watched-movies--no-movies">
-              Aucun film(s) vu(s) présent dans la liste
-            </p>
-          )}
-          {this.props.watchedMovies.map((movie, index) => (
-            <MovieRating
-              movie={movie}
-              key={index}
-              onToggleDeleteModal={this.toggleDeleteModal}
-            />
-          ))}
-        </div>
+                <div className="watched-movies-container">
+                    <div className="watched-movies-container__title">Films vus</div>
+                    {!this.props.watchedMovies.length && (
+                        <p className="watched-movies--no-movies">
+                            Aucun film(s) vu(s) présent dans la liste
+                        </p>
+                    )}
+                    {this.props.watchedMovies.map((movie, index) => (
+                        <MovieRating
+                            movie={movie}
+                            key={index}
+                            onToggleDeleteModal={this.toggleDeleteModal}
+                        />
+                    ))}
+                </div>
 
-        <ModalDelete
-          show={this.state.isModalOpen}
-          onCloseModal={this.toggleDeleteModal}
-        />
+                <ModalDelete
+                    show={this.state.isModalOpen}
+                    onCloseModal={this.toggleDeleteModal}
+                />
 
-        <Footer />
-      </div>
-    );
-  }
+                <Footer/>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => ({
-  watchedMovies: state.watchedMovies,
+    watchedMovies: state.watchedMovies,
 });
 
 export default connect(mapStateToProps, null)(WatchedMoviesPage);
