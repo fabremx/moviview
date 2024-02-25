@@ -82,13 +82,11 @@ class MovieDetailsPage extends React.Component {
         const TMDB_movie = await this.getMovieDetailsFromTMDB(
             this.props.match.params.id
         );
-        console.log('*********************', TMDB_movie)
         const OMDB_movie = await this.getMovieDetailsFromOMDB(TMDB_movie?.imdb_id);
 
-        console.log('****************', OMDB_movie?.first_air_date.split('-')[0])
         const movie = new Movie(
             TMDB_movie.id,
-            TMDB_movie?.imdb_id || 'N/A',
+            TMDB_movie?.imdb_id || TMDB_movie.id,
             TMDB_movie?.title || TMDB_movie?.name,
             TMDB_movie?.original_title || TMDB_movie?.original_name,
             OMDB_movie?.imdbRating || TMDB_movie?.vote_average,
