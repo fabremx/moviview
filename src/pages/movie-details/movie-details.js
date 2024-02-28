@@ -8,28 +8,20 @@ import validationIcon from "../../shared/images/validation-icon.png";
 import loader from "../../shared/images/loader.gif";
 import {Link} from "react-router-dom";
 import {WATCHED_MOVIES_ROUTE} from "../../shared/constants/routes";
-import {
-    TMDB_URL_MOVIE_DETAILS,
-    TMDB_URL_IMAGE,
-    OMDB_URL, TMDB_URL_SERIES_DETAILS,
-} from "../../shared/api/urls";
-import {OMDB_KEY, TMDB_KEY} from "../../shared/api/keys";
-import {Movie} from "../../shared/models/movie";
+import {TMDB_URL_IMAGE} from "../../shared/api/urls";
 import {connect} from "react-redux";
 import utils from "../../shared/utils";
+import {MAX_USER_RATING, SNACKBAR_SUCCESS_TYPE,} from "../../shared/constants/variables";
 import {
-    MAX_USER_RATING,
-    SNACKBAR_SUCCESS_TYPE,
-} from "../../shared/constants/variables";
-import {
-    DISPLAY_SNACKBAR,
     ADD_MOVIE_TO_WATCH,
-    DELETE_MOVIE_TO_WATCH,
-    SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
     ADD_WATCHED_MOVIE,
     CHANGE_WATCHED_MOVIE_RATING,
+    DELETE_MOVIE_TO_WATCH,
+    DISPLAY_SNACKBAR,
+    SAVE_MOVIES_TO_WATCH_ON_LOCAL_STORAGE,
     SAVE_WATCHED_MOVIES_ON_LOCAL_STORAGE,
 } from "../../redux/actions";
+import {repository} from "../../shared/repository";
 
 class MovieDetailsPage extends React.Component {
     constructor(props) {
@@ -45,7 +37,7 @@ class MovieDetailsPage extends React.Component {
 
     componentDidMount() {
         if (!this.props.history.location.movie) {
-            this.getMovieDetails();
+            this.getMovieOrSerieDetails();
             return;
         }
 
@@ -56,52 +48,15 @@ class MovieDetailsPage extends React.Component {
         });
     }
 
-    async getMovieDetailsFromTMDB(tmdb_id) {
-        const responseMovies = await fetch(
-            TMDB_URL_MOVIE_DETAILS + tmdb_id + "?language=fr&api_key=" + TMDB_KEY
-        );
+    async getMovieOrSerieDetails() {
+        const id = this.props.match.params.id
+        const isAMovie = await repository.isAMovie(id)
 
-        if (responseMovies.ok) {
-            return responseMovies.json();
-        }
+        const data = isAMovie
+            ? await repository.getMovieDetails(id)
+            : await repository.getSerieDetails(id)
 
-        const responseSeries = await fetch(
-            TMDB_URL_SERIES_DETAILS + tmdb_id + "?language=fr&api_key=" + TMDB_KEY
-        );
-        return responseSeries.json();
-    }
-
-    async getMovieDetailsFromOMDB(imdb_id) {
-        if (!imdb_id) return
-        const response = await fetch(`${OMDB_URL}?apikey=${OMDB_KEY}&i=${imdb_id}`);
-
-        return response.json();
-    }
-
-    async getMovieDetails() {
-        const TMDB_movie = await this.getMovieDetailsFromTMDB(
-            this.props.match.params.id
-        );
-        const OMDB_movie = await this.getMovieDetailsFromOMDB(TMDB_movie?.imdb_id);
-
-        const movie = new Movie(
-            TMDB_movie.id,
-            TMDB_movie?.imdb_id || TMDB_movie.id,
-            TMDB_movie?.title || TMDB_movie?.name,
-            TMDB_movie?.original_title || TMDB_movie?.original_name,
-            OMDB_movie?.imdbRating || TMDB_movie?.vote_average,
-            TMDB_movie.genres,
-            TMDB_movie.backdrop_path,
-            TMDB_movie.poster_path,
-            OMDB_movie?.Year || TMDB_movie?.first_air_date.split('-')[0],
-            OMDB_movie?.Director || TMDB_movie?.created_by[0].name,
-            OMDB_movie?.Actors || 'N/A',
-            OMDB_movie?.Country || TMDB_movie?.origin_country[0],
-            TMDB_movie?.runtime || null,
-            TMDB_movie.overview || OMDB_movie.Plot
-        );
-
-        this.setState({movie: movie});
+        this.setState({movie: data});
     }
 
     isMovieAlreadyInAList() {
@@ -233,7 +188,7 @@ class MovieDetailsPage extends React.Component {
                         <div className="movie-details__text__IMDBRating">
                             <img src={fullStarIcon} alt="star icon"/>
                             <span className="movie-details__text--rating">
-                {this.state.movie.imdbRating}
+                {this.state.movie.rating}
               </span>
                             / 10 (Imdb)
                         </div>

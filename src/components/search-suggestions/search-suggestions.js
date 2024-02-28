@@ -38,7 +38,7 @@ class SearchSuggestions extends React.Component {
           </span>
 
           <span className="search-suggestion__release">
-            Année de sortie: {this.getYearOf(this.props.movie.first_air_date)}
+            Année de sortie: {this.getYearOf(this.props.movie.releaasYear)}
           </span>
         </div>
       </div>

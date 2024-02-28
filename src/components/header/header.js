@@ -5,6 +5,7 @@ import "./header.scss";
 import { TMDB_URL_SEARCH } from "../../shared/api/urls";
 import { SNACKBAR_ERROR_TYPE } from "../../shared/constants/variables";
 import { DISPLAY_SNACKBAR } from "../../redux/actions";
+import {SearchSuggestion} from "../../shared/models/searchSuggestion";
 
 class Header extends React.Component {
   constructor(props) {
@@ -18,13 +19,14 @@ class Header extends React.Component {
       .then((res) => res.json())
       .then(
         (response) => {
-          const moviesList =
-            response.results && response.results.length ? response.results : [];
+          const moviesList = response.results && response.results.length
+              ? response.results.map((suggestion) => new SearchSuggestion(suggestion))
+              : [];
+
           this.setState({ moviesList });
           this.props.onSearchMovie(moviesList);
         },
         (error) => {
-          console.log(error);
           this.props.displaySnackbar({
             message: "Erreur. Impossible de joindre l'API.",
             type: SNACKBAR_ERROR_TYPE,
@@ -41,7 +43,7 @@ class Header extends React.Component {
         <div className="header__input">
           <input
             type="text"
-            placeholder="Rechercher un film..."
+            placeholder="Rechercher un film, une série ..."
             value={this.state.value}
             onChange={this.handleChange}
           />

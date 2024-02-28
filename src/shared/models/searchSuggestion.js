@@ -10,7 +10,7 @@ export class SearchSuggestion {
     media_type
     genre_ids
     popularity
-    first_air_date
+    releaasYear
     vote_average
     vote_count
     origin_country
@@ -27,7 +27,7 @@ export class SearchSuggestion {
         this.media_type = suggestion.media_type;
         this.genre_ids = suggestion.genre_ids;
         this.popularity = suggestion.popularity;
-        this.first_air_date = suggestion.first_air_date;
+        this.releaasYear = suggestion?.first_air_date?.split('-')[0] || suggestion?.release_date?.split('-')[0];
         this.vote_average = suggestion.vote_average;
         this.vote_count = suggestion.vote_count;
         this.origin_country = suggestion.origin_country;

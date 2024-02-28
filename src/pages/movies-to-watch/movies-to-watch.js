@@ -8,7 +8,6 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import MovieSuggestion from "../../components/movie-suggestion/movie-suggestion";
 import ModalDelete from "../../components/modal-delete/modal-delete";
-import {SearchSuggestion} from "../../shared/models/searchSuggestion";
 import {SLIDE_DIRECTION, useSlider} from "../../hooks/handleSlide";
 
 const MoviesToWatchPage = ({moviesToWatch}) => {
@@ -23,7 +22,7 @@ const MoviesToWatchPage = ({moviesToWatch}) => {
     }, [slideDirection]);
 
     const handleSearchSuggestion = (moviesSuggestions) => {
-        setSearchSuggestions(moviesSuggestions.map((suggestion) => new SearchSuggestion(suggestion)))
+        setSearchSuggestions(moviesSuggestions)
     };
 
     const toggleDeleteModal = () => {

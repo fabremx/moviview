@@ -11,14 +11,14 @@ export const useSlider = () => {
     const [slideDirection, setSlideDirection] = useState(null)
 
     useEffect(() => {
-        window.addEventListener("mousedown", handleMouseDown);
-        window.addEventListener("mouseup", handleMouseUp);
-        window.addEventListener("mousemove", getSlideDirection);
+        window.addEventListener("touchhstart", handleMouseDown);
+        window.addEventListener("touchend", handleMouseUp);
+        window.addEventListener("touchmove", getSlideDirection);
 
         return () => {
-            window.removeEventListener("mousedown", null)
-            window.removeEventListener("mouseup", null)
-            window.removeEventListener("mouseup", null)
+            window.removeEventListener("touchhstart", null)
+            window.removeEventListener("touchend", null)
+            window.removeEventListener("touchmove", null)
         }
     }, []);
 
@@ -28,11 +28,9 @@ export const useSlider = () => {
     }
 
     const handleMouseUp = (event) => {
-        console.log('mouse UP')
         startCoord.current = { x: 0, y: 0 }
         isMouseDown.current = false
     }
-
 
     const getSlideDirection = (event) => {
         if (!isMouseDown.current) return;

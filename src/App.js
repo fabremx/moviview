@@ -70,6 +70,7 @@ class App extends React.Component {
               onClick={this.props.closeSnackbar}
               className="snackbar__close-icon"
             />
+
           </div>
         )}
         <Route exact path={MOVIES_TO_WATCH_ROUTE} component={MovieToWatchPage} />
