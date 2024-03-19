@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {ROUTES} from "../../shared/constants/routes";
 import {repository} from "../../shared/repository";
 import {useSnackbar} from "../../hooks/useSnackbar";
+import {VERSION} from '../../version'
 
 export const Header = () => {
     const {displaySnackbar} = useSnackbar()
@@ -23,7 +24,8 @@ export const Header = () => {
 
     return (
         <div className="header">
-            <span className="header__title">Moviview</span>
+            <span className="header__title">Moviview <span className="header__version">{VERSION}</span></span>
+
 
             <div className="header__input">
                 <input
