@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.scss";
 import {Route} from "react-router-dom";
 import {WatchedMediaPage} from "./pages/watched-media/watched-media";
@@ -7,8 +7,17 @@ import {MediaDetailsPage} from "./pages/media-details/media-details";
 import {ROUTES} from "./shared/constants/routes";
 import {Snackbar} from "./components/snackbar/snackbar";
 import {ModalDelete} from "./components/modal-delete/modal-delete";
+import {VERSION} from "./version";
 
 export const App = () => {
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search);
+
+        if (!searchParams.has('v')) {
+            window.location.href = `${window.location.href}?v=${VERSION}`
+        }
+    }, []);
+
     return (
         <div>
             <Snackbar />

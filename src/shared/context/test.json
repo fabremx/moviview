@@ -1,0 +1,66 @@
+{
+  actors: "Romain Duris, Paul Kircher, Adèle Exarchopoulos"
+  backgroundSrc: "/H41DJiw7Q8xn6bWC75eyaavp9L.jpg"
+  country: "France, Belgium"
+  director: "Thomas Cailley"
+  genres: [
+    {
+      id: 878,
+      name: "Science-Fiction"
+    },
+    {
+      id: 12,
+      name: "Aventure"
+    },
+    {
+      id: 18,
+      name: "Drame"
+    }
+
+  ]
+  id: 943134
+  imdbId: "tt16606592"
+  imdbRating: "7.1"
+  originalTitle: "Le Règne animal"
+  posterSrc: "/1gO4SWCdMW0ptIRLQ455Ia5emC.jpg"
+  releaseYear: "2023"
+  runtime: 130
+  synopsis: "Un mal étrange frappe l'humanité : des mutations transforment les humains en animaux. Considérés comme dangereux car incontrôlables, ces humains mi-homme mi-animal sont placés dans des centres spécialisés. C'est le cas pour la mère d'Émile. Alors que Lana est transférée dans un centre, son bateau fait naufrage et elle disparaît. François la recherche et, à son tour, Émile se transforme."
+  title: "Le Règne animal"
+  userRating: null
+}
+
+
+{
+  "type": "MOVIE",
+  "id": 1100795,
+  "title": "Monk, le retour",
+  "rating": "7.1",
+  "userRating": null,
+  "synopsis": "Après la pandémie de COVID qui a aggravé ses phobies et lui a fait perdre son contrat d’édition, les seules choses auxquelles l’ancien inspecteur Adrien Monk aspire sont le mariage de sa belle-fille Molly et la possibilité de retrouver dans l’au-delà son épouse défunte, Trudy.",
+  "genres": [
+    {
+      "id": 35,
+      "name": "Comédie"
+    },
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 9648,
+      "name": "Mystère"
+    }
+  ],
+  "backgroundSrc": "/ul2TKwO6Y8zqJlWWDgLTCQYTGmX.jpg",
+  "posterSrc": "/yvsP5ejP6lvxxfnhW9UEcm0XnEv.jpg",
+  "releaseYear": "2023",
+  "runtime": 97,
+  "actors": [
+    "Tony Shalhoub",
+    "Traylor Howard",
+    "Jason Gray-Stanford"
+  ],
+  "country": "United States",
+  "director": "Randy Zisk"
+}
