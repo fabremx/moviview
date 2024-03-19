@@ -7,5 +7,5 @@ export const getSerieDetails = async (id) => {
     const externalIDs = await TmdbAPI.fetchSerieExternalIDs(id)
     const omdbDetails = await OmdbAPI.fetchDetails(externalIDs.imdb_id)
 
-    return new Serie({ ...tmdbDetails, ...omdbDetails, imdbId: externalIDs.imdb_id })
+    return new Serie({ ...omdbDetails, ...tmdbDetails, imdbId: externalIDs.imdb_id })
 }

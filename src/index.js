@@ -1,30 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import configureStore from "./redux/store";
 import "./index.css";
-import App from "./App";
+import {App} from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter } from "react-router-dom";
-
-const INITIAL_STATE = {
-  watchedMovies: [],
-  moviesToWatch: [],
-  onGoingAction: {},
-  global: {
-    snackbar: {
-      isSnackbarActive: false,
-    },
-  },
-};
+import {BrowserRouter} from "react-router-dom";
+import {StoreContextProvider} from "./shared/context/storeContext";
 
 ReactDOM.render(
-  <Provider store={configureStore(INITIAL_STATE)}>
     <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById("root")
+        <StoreContextProvider>
+            <App/>
+        </StoreContextProvider>
+    </BrowserRouter>,
+    document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

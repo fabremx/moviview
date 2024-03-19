@@ -1,110 +1,25 @@
 import React from "react";
 import "./App.scss";
-import { Route } from "react-router-dom";
-import { connect } from "react-redux";
-import WatchedMoviesPage from "./pages/watched-movies/watched-movies";
-import MovieToWatchPage from "./pages/movies-to-watch/movies-to-watch";
-import MovieDetailsPage from "./pages/movie-details/movie-details";
-import validIcon from "./shared/images/valid-snackbar-icon.png";
-import closeIcon from "./shared/images/close-snackbar-icon.png";
-import {
-  WATCHED_MOVIES_ROUTE,
-  MOVIES_TO_WATCH_ROUTE,
-  MOVIE_DETAILS_ROUTE,
-} from "./shared/constants/routes";
-import {
-  SNACKBAR_SUCCESS_TYPE,
-  SNACKBAR_ERROR_TYPE,
-} from "./shared/constants/variables";
-import {
-  LOAD_WATCHED_MOVIES,
-  LOAD_MOVIES_TO_WATCH,
-  CLOSE_SNACKBAR,
-} from "./redux/actions";
+import {Route} from "react-router-dom";
+import {WatchedMediaPage} from "./pages/watched-media/watched-media";
+import {MediaToWatchPage} from "./pages/media-to-watch/media-to-watch";
+import {MediaDetailsPage} from "./pages/media-details/media-details";
+import {ROUTES} from "./shared/constants/routes";
+import {Snackbar} from "./components/snackbar/snackbar";
+import {ModalDelete} from "./components/modal-delete/modal-delete";
 
-function getSnackbarIcon(type) {
-  switch (type) {
-    case SNACKBAR_SUCCESS_TYPE:
-      return validIcon;
-    case SNACKBAR_ERROR_TYPE:
-      return closeIcon;
-    default:
-      return validIcon;
-  }
-}
-
-function getSnackbarIconClassName(type) {
-  switch (type) {
-    case SNACKBAR_SUCCESS_TYPE:
-      return "snackbar__icon snackbar__icon--success";
-    case SNACKBAR_ERROR_TYPE:
-      return "snackbar__icon snackbar__icon--error";
-    default:
-      return "snackbar__icon";
-  }
-}
-
-class App extends React.Component {
-  componentDidMount() {
-    this.props.loadUserMoviesLists();
-  }
-
-  render() {
-    if (this.props.snackbar.isSnackbarActive) {
-      setTimeout(this.props.closeSnackbar, 3000);
-    }
-
+export const App = () => {
     return (
-      <div>
-        {this.props.snackbar.isSnackbarActive && (
-          <div id="snackbar">
-            <img
-              src={getSnackbarIcon(this.props.snackbar.type)}
-              alt="valid icon"
-              className={getSnackbarIconClassName(this.props.snackbar.type)}
-            />
-            <p>{this.props.snackbar.message}</p>
-            <img
-              src={closeIcon}
-              alt="close icon"
-              onClick={this.props.closeSnackbar}
-              className="snackbar__close-icon"
-            />
+        <div>
+            <Snackbar />
+            <ModalDelete />
 
-          </div>
-        )}
-        <Route exact path={MOVIES_TO_WATCH_ROUTE} component={MovieToWatchPage} />
-        <Route path={WATCHED_MOVIES_ROUTE} component={WatchedMoviesPage} />
-        <Route
-          path={MOVIE_DETAILS_ROUTE + "/:id"}
-          component={MovieDetailsPage}
-        />
-      </div>
-    );
-  }
+            <Route exact path={ROUTES.MEDIA_TO_WATCH} component={MediaToWatchPage}/>
+            <Route path={ROUTES.WATCHED_MEDIA} component={WatchedMediaPage}/>
+            <Route
+                path={ROUTES.MEDIA_DETAILS + "/:id"}
+                component={MediaDetailsPage}
+            />
+        </div>
+    )
 }
-
-const mapStateToProps = (state) => ({
-  snackbar: state.global.snackbar,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  loadUserMoviesLists: () => {
-    dispatch({
-      type: LOAD_WATCHED_MOVIES,
-      payload: null,
-    });
-
-    dispatch({
-      type: LOAD_MOVIES_TO_WATCH,
-      payload: null,
-    });
-  },
-  closeSnackbar: () =>
-    dispatch({
-      type: CLOSE_SNACKBAR,
-      payload: null,
-    }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

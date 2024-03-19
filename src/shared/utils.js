@@ -9,7 +9,7 @@ import {
 } from "./constants/rating-comments";
 
 export default {
-    getMoviePoster(imageSource) {
+    getMediaPoster(imageSource) {
         return imageSource ? TMDB_URL_IMAGE + imageSource : imageNotAvailable;
     },
 

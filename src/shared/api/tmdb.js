@@ -20,7 +20,7 @@ const fetchMovieDetails = async (movieId) => {
 
 const search = async (searchInput) => {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/search/multi?language=fr&api_key=${TMDB_KEY}"&query=${searchInput}`)
+        const response = await fetch(`https://api.themoviedb.org/3/search/multi?language=fr&api_key=${TMDB_KEY}&query=${searchInput}`)
         return await response.json()
     } catch (error) {
         console.error('Unable to search movies or series from TMDB')

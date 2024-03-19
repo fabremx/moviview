@@ -16,7 +16,7 @@ describe("getMoviePoster", () => {
         const imageSource = "imageSource";
 
         // When
-        const result = utils.getMoviePoster(imageSource);
+        const result = utils.getMediaPoster(imageSource);
 
         // Then
         const expectedResult = TMDB_URL_IMAGE + imageSource;
@@ -28,7 +28,7 @@ describe("getMoviePoster", () => {
         const imageSource = undefined;
 
         // When
-        const result = utils.getMoviePoster(imageSource);
+        const result = utils.getMediaPoster(imageSource);
 
         // Then
         const expectedResult = imageNotAvailable;

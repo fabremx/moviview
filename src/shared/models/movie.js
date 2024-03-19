@@ -16,23 +16,23 @@ export class Movie {
     country;
     director;
 
-    constructor(movieDetail) {
+    constructor(movie) {
         this.type = 'MOVIE'
-        this.id = movieDetail.id;
-        this.imdbId = movieDetail.imdbId;
-        this.title = movieDetail.title;
-        this.originalTitle = movieDetail.originalTitle;
-        this.rating = movieDetail.vote_average;
+        this.id = movie.id;
+        this.imdbId = movie.imdbId;
+        this.title = movie.title;
+        this.originalTitle = movie.originalTitle;
+        this.rating = movie.vote_average?.toFixed(1);
         this.userRating = null;
-        this.synopsis =  movieDetail.overview;
-        this.genres =  movieDetail.genres;
-        this.backgroundSrc = movieDetail.backdrop_path;
-        this.posterSrc = movieDetail.poster_path;
-        this.releaseYear = movieDetail.release_date.split('-')[0];
-        this.runtime = movieDetail.runtime;
+        this.synopsis =  movie.overview;
+        this.genres =  movie.genres;
+        this.backgroundSrc = movie.backdrop_path;
+        this.posterSrc = movie.poster_path;
+        this.releaseYear = movie.release_date?.split('-')[0];
+        this.runtime = movie.runtime;
 
-        this.actors = movieDetail.Actors.split(', ')
-        this.country = movieDetail.Country
-        this.director = movieDetail.Director
+        this.actors = movie.Actors?.split(', ')
+        this.country = movie.Country
+        this.director = movie.Director
     }
 }

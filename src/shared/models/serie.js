@@ -16,24 +16,24 @@ export class Serie {
     country;
     director;
 
-    constructor(serieDetail) {
+    constructor(serie) {
         this.type = 'SERIE'
-        this.id = serieDetail.id;
-        this.imdbId = serieDetail.imdbId;
-        this.title = serieDetail.name;
-        this.originalTitle = serieDetail.original_name;
-        this.rating = serieDetail.vote_average;
+        this.id = serie.id;
+        this.imdbId = serie.imdbId;
+        this.title = serie.name;
+        this.originalTitle = serie.original_name;
+        this.rating = serie.vote_average?.toFixed(1);
         this.userRating = null;
-        this.synopsis =  serieDetail.overview;
-        this.genres =  serieDetail.genres;
-        this.backgroundSrc = serieDetail.backdrop_path;
-        this.posterSrc = serieDetail.poster_path;
-        this.releaseYear = serieDetail.first_air_date.split('-')[0];
-        this.seasonsNumber = serieDetail.number_of_episodes
-        this.episodesNumber = serieDetail.number_of_seasons
+        this.synopsis =  serie.overview;
+        this.genres =  serie.genres;
+        this.backgroundSrc = serie.backdrop_path;
+        this.posterSrc = serie.poster_path;
+        this.releaseYear = serie.first_air_date?.split('-')[0];
+        this.seasonsNumber = serie.number_of_episodes
+        this.episodesNumber = serie.number_of_seasons
 
-        this.actors = serieDetail.Actors.split(', ')
-        this.country = serieDetail.Country
-        this.director = serieDetail.Director
+        this.actors = serie.Actors?.split(', ')
+        this.country = serie.Country
+        this.director = serie.Director
     }
 }

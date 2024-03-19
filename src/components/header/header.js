@@ -1,65 +1,49 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, {useState} from "react";
 import searchIcon from "../../shared/images/search-icon.png";
 import "./header.scss";
-import { TMDB_URL_SEARCH } from "../../shared/api/urls";
-import { SNACKBAR_ERROR_TYPE } from "../../shared/constants/variables";
-import { DISPLAY_SNACKBAR } from "../../redux/actions";
-import {SearchSuggestion} from "../../shared/models/searchSuggestion";
+import {SNACKBAR_TYPE} from "../../shared/constants/variables";
+import {SearchSuggestions} from "../search-suggestions/search-suggestions";
+import {Link} from "react-router-dom";
+import {ROUTES} from "../../shared/constants/routes";
+import {repository} from "../../shared/repository";
+import {useSnackbar} from "../../hooks/useSnackbar";
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { moviesList: [] };
-    this.handleChange = this.handleChange.bind(this);
-  }
+export const Header = () => {
+    const {displaySnackbar} = useSnackbar()
+    const [searchSuggestions, setSearchSuggestions] = useState([])
 
-  handleChange(event) {
-    fetch(TMDB_URL_SEARCH + "&query=" + event.target.value)
-      .then((res) => res.json())
-      .then(
-        (response) => {
-          const moviesList = response.results && response.results.length
-              ? response.results.map((suggestion) => new SearchSuggestion(suggestion))
-              : [];
-
-          this.setState({ moviesList });
-          this.props.onSearchMovie(moviesList);
-        },
-        (error) => {
-          this.props.displaySnackbar({
-            message: "Erreur. Impossible de joindre l'API.",
-            type: SNACKBAR_ERROR_TYPE,
-          });
+    const onSearch = async (event) => {
+        try {
+            const suggestions = await repository.searchMedia(event.target.value)
+            setSearchSuggestions(suggestions)
+        } catch (error) {
+            displaySnackbar(SNACKBAR_TYPE.ERROR, "Erreur. Impossible de joindre l'API.")
         }
-      );
-  }
+    }
 
-  render() {
     return (
-      <div className="header">
-        <span className="header__title">Moviview</span>
+        <div className="header">
+            <span className="header__title">Moviview</span>
 
-        <div className="header__input">
-          <input
-            type="text"
-            placeholder="Rechercher un film, une série ..."
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <img src={searchIcon} alt="search icon" />
+            <div className="header__input">
+                <input
+                    type="text"
+                    placeholder="Rechercher un film, une série ..."
+                    onChange={onSearch}
+                />
+
+                <img src={searchIcon} alt="search icon"/>
+            </div>
+
+            {searchSuggestions.length && (
+                <div className="search-suggestions-container">
+                    {searchSuggestions.map((suggestion) => (
+                        <Link to={{ pathname: `${ROUTES.MEDIA_DETAILS}/${suggestion.id}`, state: { type: suggestion.media_type }}} key={suggestion.id}>
+                            <SearchSuggestions suggestion={suggestion} key={suggestion.id}/>
+                        </Link>
+                    ))}
+                </div>
+            )}
         </div>
-      </div>
     );
-  }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  displaySnackbar: (payload) =>
-    dispatch({
-      type: DISPLAY_SNACKBAR,
-      payload,
-    }),
-});
-
-export default connect(null, mapDispatchToProps)(Header);

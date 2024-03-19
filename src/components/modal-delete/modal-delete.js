@@ -1,62 +1,37 @@
 import React from "react";
 import "./modal-delete.scss";
-import { connect } from "react-redux";
-import { RESET_ON_GOING_ACTION } from "../../redux/actions";
+import {useModal} from "../../hooks/useModal";
 
-export class ModalDelete extends React.Component {
-  closeModal = () => {
-    this.props.resetOnGoingAction();
-    this.props.onCloseModal();
-  };
+export const ModalDelete = () => {
+    const {modal, closeModal} = useModal()
 
-  stopPropagation = (event) => {
-    event.stopPropagation();
-  };
-
-  deleteMovie = () => {
-    this.props.onGoingAction.callback(this.props.onGoingAction.movieId);
-    this.closeModal();
-  };
-
-  render() {
-    if (!this.props.show) {
-      return null;
+    const onClick = () => {
+        modal.callback()
+        closeModal()
     }
 
+    if (!modal.isActive) return null
+
     return (
-      <div className="modal-delete" onClick={this.closeModal}>
-        <div className="modal-delete__content" onClick={this.stopPropagation}>
-          <span className="close" onClick={this.closeModal}>
-            &times;
-          </span>
+        <div className="modal-delete" onClick={closeModal}>
+            <div className="modal-delete__content" onClick={(event) => event.stopPropagation()}>
+                <span className="close" onClick={closeModal}>
+                    &times;
+                </span>
 
-          <div className="modal-text">
-            <h2>Supprimer ce film ?</h2>
-            <p>
-              Êtes-vous sûr de vouloir supprimer définitivement ce film de la
-              liste ?
-            </p>
-          </div>
+                <div className="modal-text">
+                    <h2>Supprimer ce film ?</h2>
 
-          <div className="button button__delete" onClick={this.deleteMovie}>
-            SUPPRIMER
-          </div>
+                    <p>
+                        Êtes-vous sûr de vouloir supprimer définitivement ce film de la
+                        liste ?
+                    </p>
+                </div>
+
+                <div className="button button__delete" onClick={onClick}>
+                    SUPPRIMER
+                </div>
+            </div>
         </div>
-      </div>
-    );
-  }
+    )
 }
-
-const mapStateToProps = (state) => ({
-  onGoingAction: state.onGoingAction,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  resetOnGoingAction: () =>
-    dispatch({
-      type: RESET_ON_GOING_ACTION,
-      payload: null,
-    }),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalDelete);

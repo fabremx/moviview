@@ -1,3 +1,5 @@
-export const MOVIES_TO_WATCH_ROUTE = "/";
-export const WATCHED_MOVIES_ROUTE = "/watched-movies";
-export const MOVIE_DETAILS_ROUTE = "/movie";
+export const ROUTES = {
+    MEDIA_TO_WATCH: "/",
+    WATCHED_MEDIA: "/watched-media",
+    MEDIA_DETAILS: "/media-details"
+}

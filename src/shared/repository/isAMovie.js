@@ -1,9 +1,14 @@
-import {TMDB_KEY} from "../api/keys";
+import {TmdbAPI} from "../api/tmdb";
 
 export const isAMovie = async (id) => {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?language=fr&api_key=${TMDB_KEY}`)
-        return response.ok
+        const response = await TmdbAPI.fetchMovieDetails(id)
+
+        if (response.hasOwnProperty('success')) {
+            return response.success
+        }
+
+        return true
     } catch (error) {
         return false
     }

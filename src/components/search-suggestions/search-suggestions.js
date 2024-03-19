@@ -2,48 +2,44 @@ import React from "react";
 import "./search-suggestions.scss";
 import utils from "../../shared/utils";
 
-class SearchSuggestions extends React.Component {
-  displayOriginalTitle() {
-    if (
-      this.props.movie.original_name.toLowerCase() ===
-      this.props.movie.name.toLowerCase()
-    ) {
-      return;
+export const SearchSuggestions = ({suggestion}) => {
+    const displayOriginalTitle = () => {
+        if (
+            suggestion.original_name.toLowerCase() ===
+            suggestion.name.toLowerCase()
+        ) {
+            return;
+        }
+
+        return (
+            <span className="search-suggestion__title--original-title">
+        ({suggestion.original_name})
+      </span>
+        );
+    }
+
+    const getYearOf = (date) => {
+        return date ? date.split("-")[0] : null;
     }
 
     return (
-      <span className="search-suggestion__title--original-title">
-        ({this.props.movie.original_name})
-      </span>
-    );
-  }
+        <div className="search-suggestion">
+            <div className="search-suggestion__img">
+                <img
+                    src={utils.getMediaPoster(suggestion.poster_path)}
+                    alt={suggestion.name}
+                />
+            </div>
 
-  getYearOf(date) {
-    return date ? date.split("-")[0] : null;
-  }
+            <div className="search-suggestion__info">
+                <span className="search-suggestion__title">
+                    {suggestion.name} {displayOriginalTitle()}
+                </span>
 
-  render() {
-    return (
-      <div className="search-suggestion">
-        <div className="search-suggestion__img">
-          <img
-            src={utils.getMoviePoster(this.props.movie.poster_path)}
-            alt={this.props.movie.name}
-          />
+                <span className="search-suggestion__release">
+                    Année de sortie: {getYearOf(suggestion.releaasYear)}
+                </span>
+            </div>
         </div>
-
-        <div className="search-suggestion__info">
-          <span className="search-suggestion__title">
-            {this.props.movie.name} {this.displayOriginalTitle()}
-          </span>
-
-          <span className="search-suggestion__release">
-            Année de sortie: {this.getYearOf(this.props.movie.releaasYear)}
-          </span>
-        </div>
-      </div>
-    );
-  }
+    )
 }
-
-export default SearchSuggestions;

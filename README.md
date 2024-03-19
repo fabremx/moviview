@@ -4,8 +4,8 @@
 
 Moviview is a PWA which allow you to search movies in order to have information about them, rate them and classify them in two list:
 
-- Movies to watch : Useful to keep in mind some movies that you've heard of.
-- Watched Movies : Allow you to etablish a list of movies you've ever seen with your own rate.
+- Media to watch : Useful to keep in mind some movies that you've heard of.
+- Watched Media : Allow you to etablish a list of movies you've ever seen with your own rate.
 
 this project use two apis :
 
