@@ -12,8 +12,8 @@ export const useSlider = () => {
 
     useEffect(() => {
         document.body.addEventListener("touchstart", handleTouchStart);
-         document.body.addEventListener("touchend", handleTouchEnd);
-         document.body.addEventListener("touchmove", getSlideDirection);
+        document.body.addEventListener("touchend", handleTouchEnd);
+        document.body.addEventListener("touchmove", getSlideDirection);
 
         return () => {
              document.body.removeEventListener("touchstart", null)
@@ -23,11 +23,11 @@ export const useSlider = () => {
     }, []);
 
     const handleTouchStart = (event) => {
-        startCoord.current = { x: event.offsetX, y: event.offsetY }
+        startCoord.current = { x: event.touches[0].screenX, y: event.touches[0].screenY }
         isMouseDown.current = true
     }
 
-    const handleTouchEnd = (event) => {
+    const handleTouchEnd = () => {
         startCoord.current = { x: 0, y: 0 }
         isMouseDown.current = false
     }
@@ -35,8 +35,8 @@ export const useSlider = () => {
     const getSlideDirection = (event) => {
         if (!isMouseDown.current) return;
 
-        const currentX = event.offsetX
-        const currentY = event.offsetY
+        const currentX = event.touches[0].screenX
+        const currentY = event.touches[0].screenY
 
         const sliding = startCoord.current.x - currentX < 0
             ? SLIDE_DIRECTION.RIGHT
